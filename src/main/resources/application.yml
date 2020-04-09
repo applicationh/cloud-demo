@@ -18,12 +18,12 @@ spring:
 
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.wsh.demo.entity
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.shineon.pro.entity
 
 logging:
   level:
     com:
       shineon:
         pro:
-          mapper : debug
+          dao : debug

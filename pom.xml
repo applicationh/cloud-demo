@@ -9,9 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.shineon</groupId>
-    <artifactId>pro</artifactId>
+    <artifactId>userapi</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>shineOn</name>
+    <packaging>jar</packaging>
+    <name>userapi</name>
 
     <properties>
         <java.version>1.8</java.version>

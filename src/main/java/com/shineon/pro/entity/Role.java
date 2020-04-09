@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (Role)实体类
  *
  * @author makejava
- * @since 2020-04-03 11:17:30
+ * @since 2020-04-09 15:34:55
  */
 public class Role implements Serializable {
-    private static final long serialVersionUID = 616361742832032988L;
+    private static final long serialVersionUID = -67619087262368090L;
     /**
     * 角色ID
     */

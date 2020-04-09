@@ -1,4 +1,4 @@
-package com.shineon.pro.mapper;
+package com.shineon.pro.dao;
 
 import com.shineon.pro.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
