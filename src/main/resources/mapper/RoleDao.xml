@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shineon.pro.mapper.RoleDao">
+
+    <resultMap type="com.shineon.pro.entity.Role" id="RoleMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="descr" column="descr" jdbcType="VARCHAR"/>
+        <result property="admin" column="admin" jdbcType="INTEGER"/>
+        <result property="system" column="system" jdbcType="INTEGER"/>
+        <result property="privileges" column="privileges" jdbcType="VARCHAR"/>
+        <result property="timecreated" column="timeCreated" jdbcType="TIMESTAMP"/>
+        <result property="timemodified" column="timeModified" jdbcType="TIMESTAMP"/>
+        <result property="flagdeleted" column="flagDeleted" jdbcType="INTEGER"/>
+        <result property="timedeleted" column="timeDeleted" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RoleMap">
+        select
+          id, title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted
+        from role
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RoleMap">
+        select
+          id, title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted
+        from role
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RoleMap">
+        select
+          id, title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted
+        from role
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="descr != null and descr != ''">
+                and descr = #{descr}
+            </if>
+            <if test="admin != null">
+                and admin = #{admin}
+            </if>
+            <if test="system != null">
+                and system = #{system}
+            </if>
+            <if test="privileges != null and privileges != ''">
+                and privileges = #{privileges}
+            </if>
+            <if test="timecreated != null">
+                and timeCreated = #{timecreated}
+            </if>
+            <if test="timemodified != null">
+                and timeModified = #{timemodified}
+            </if>
+            <if test="flagdeleted != null">
+                and flagDeleted = #{flagdeleted}
+            </if>
+            <if test="timedeleted != null">
+                and timeDeleted = #{timedeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into role(title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted)
+        values (#{title}, #{descr}, #{admin}, #{system}, #{privileges}, #{timecreated}, #{timemodified}, #{flagdeleted}, #{timedeleted})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update role
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="descr != null and descr != ''">
+                descr = #{descr},
+            </if>
+            <if test="admin != null">
+                admin = #{admin},
+            </if>
+            <if test="system != null">
+                system = #{system},
+            </if>
+            <if test="privileges != null and privileges != ''">
+                privileges = #{privileges},
+            </if>
+            <if test="timecreated != null">
+                timeCreated = #{timecreated},
+            </if>
+            <if test="timemodified != null">
+                timeModified = #{timemodified},
+            </if>
+            <if test="flagdeleted != null">
+                flagDeleted = #{flagdeleted},
+            </if>
+            <if test="timedeleted != null">
+                timeDeleted = #{timedeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from role where id = #{id}
+    </delete>
+
+</mapper>
