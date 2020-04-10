@@ -1,7 +1,6 @@
 package com.shineon.pro.controller;
 
 import com.shineon.pro.entity.Role;
-import com.shineon.pro.aspect.DataSource;
 import com.shineon.pro.dao.RoleDao;
 import com.shineon.pro.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,12 @@ public class TestController {
     @Autowired
     RoleDao roleDao;
 
-    @DataSource(value="master")
     @GetMapping("master")
     public Result master( ) {
         List<Role> roles = roleDao.queryAll(null);
         return Result.success(roles);
     }
 
-    @DataSource(value="slave")
     @GetMapping("slave")
     public Result slave( ) {
         List<Role> roles = roleDao.queryAll(null);

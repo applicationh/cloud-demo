@@ -1,24 +1,14 @@
 
 
-dynDatasource:
-  Address: localhost:3306
-  dataBase:
-    - "shineon_vms"
-    - "shineon_eqm"
 spring:
   application:
     name: userapi
   datasource:
-    master:
-      username: root
-      password: shineon@1234
-      jdbc-url: jdbc:mysql://${dynDatasource.Address}/${dynDatasource.dataBase[0]}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-      driver-class-name: com.mysql.cj.jdbc.Driver
-    slave:
-      username: root
-      password: shineon@1234
-      jdbc-url: jdbc:mysql://${dynDatasource.Address}/${dynDatasource.dataBase[1]}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-      driver-class-name: com.mysql.cj.jdbc.Driver
+    password: shineon@1234
+    username: root
+    url: jdbc:mysql://localhost:3306/shineon_vms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
 
 
 mybatis:
