@@ -11,7 +11,7 @@
 
     <modules>
         <module>userapi</module>
-        <module>eurake</module>
+        <module>eureka</module>
     </modules>
 
 
