@@ -1,7 +1,7 @@
-package com.shineon.userserver.entity;
+package com.shineon.usercom.entity;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (Role)实体类

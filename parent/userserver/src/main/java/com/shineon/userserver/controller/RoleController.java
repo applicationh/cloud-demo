@@ -1,6 +1,6 @@
 package com.shineon.userserver.controller;
 
-import com.shineon.userserver.entity.Role;
+import com.shineon.usercom.entity.Role;
 import com.shineon.userserver.service.RoleService;
 import org.springframework.web.bind.annotation.*;
 

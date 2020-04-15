@@ -1,6 +1,6 @@
 package com.shineon.userserver.service.impl;
 
-import com.shineon.userserver.entity.Role;
+import com.shineon.usercom.entity.Role;
 import com.shineon.userserver.dao.RoleDao;
 import com.shineon.userserver.service.RoleService;
 import org.springframework.stereotype.Service;

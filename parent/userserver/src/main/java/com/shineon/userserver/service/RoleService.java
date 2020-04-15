@@ -1,6 +1,6 @@
 package com.shineon.userserver.service;
 
-import com.shineon.userserver.entity.Role;
+import com.shineon.usercom.entity.Role;
 import java.util.List;
 
 /**

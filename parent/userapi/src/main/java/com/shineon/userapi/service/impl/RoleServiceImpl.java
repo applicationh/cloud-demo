@@ -1,11 +1,9 @@
 package com.shineon.userapi.service.impl;
 
-import com.shineon.userapi.entity.Role;
-import com.shineon.userapi.dao.RoleDao;
+import com.shineon.usercom.entity.Role;
 import com.shineon.userapi.service.RoleService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,10 +12,8 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-09 15:35:03
  */
-@Service("roleService")
 public class RoleServiceImpl implements RoleService {
-    @Resource
-    private RoleDao roleDao;
+
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +23,9 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role queryById(String id) {
-        return this.roleDao.queryById(id);
+
+        System.out.println("调用了本地的");
+        return null;
     }
 
     /**
@@ -39,7 +37,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> queryAllByLimit(int offset, int limit) {
-        return this.roleDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
@@ -50,8 +48,8 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role insert(Role role) {
-        this.roleDao.insert(role);
-        return role;
+
+        return null;
     }
 
     /**
@@ -62,8 +60,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role update(Role role) {
-        this.roleDao.update(role);
-        return this.queryById(role.getId());
+        return null;
     }
 
     /**
@@ -74,6 +71,6 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public boolean deleteById(String id) {
-        return this.roleDao.deleteById(id) > 0;
+        return false;
     }
 }

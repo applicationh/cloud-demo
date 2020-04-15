@@ -1,7 +1,9 @@
 package com.shineon.userapi.controller;
 
-import com.shineon.userapi.entity.Role;
+import com.shineon.usercom.CopyUtil;
+import com.shineon.usercom.entity.Role;
 import com.shineon.userapi.service.RoleService;
+import com.shineon.usercom.vo.RoleVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,8 +30,11 @@ public class RoleController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public Role selectOne(String id) {
-        return this.roleService.queryById(id);
+    public RoleVo selectOne(String id) {
+        Role role = this.roleService.queryById(id);
+        RoleVo roleVo = new RoleVo();
+        CopyUtil.copyPojo(role, roleVo);
+        return roleVo;
     }
 
 }

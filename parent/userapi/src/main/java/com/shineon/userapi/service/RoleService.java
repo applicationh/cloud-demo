@@ -1,6 +1,13 @@
 package com.shineon.userapi.service;
 
-import com.shineon.userapi.entity.Role;
+import com.shineon.usercom.entity.Role;
+import com.shineon.userapi.service.impl.RoleServiceImpl;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 /**
@@ -9,6 +16,9 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-09 15:35:01
  */
+@FeignClient(name = "USERSERVER",fallback = RoleServiceImpl.class)
+@Service
+@RequestMapping("/role")
 public interface RoleService {
 
     /**
@@ -17,6 +27,7 @@ public interface RoleService {
      * @param id 主键
      * @return 实例对象
      */
+    @RequestMapping("/role/selectOne")
     Role queryById(String id);
 
     /**
@@ -26,7 +37,8 @@ public interface RoleService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Role> queryAllByLimit(int offset, int limit);
+    @RequestMapping("/queryAllByLimit")
+    List<Role> queryAllByLimit(@RequestParam("offset") int offset,@RequestParam("limit")  int limit);
 
     /**
      * 新增数据
@@ -34,6 +46,7 @@ public interface RoleService {
      * @param role 实例对象
      * @return 实例对象
      */
+    @RequestMapping("/insert")
     Role insert(Role role);
 
     /**
@@ -42,6 +55,7 @@ public interface RoleService {
      * @param role 实例对象
      * @return 实例对象
      */
+    @RequestMapping("/update")
     Role update(Role role);
 
     /**
@@ -50,6 +64,7 @@ public interface RoleService {
      * @param id 主键
      * @return 是否成功
      */
+    @RequestMapping("/deleteById")
     boolean deleteById(String id);
 
 }

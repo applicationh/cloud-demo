@@ -1,6 +1,6 @@
 package com.shineon.userserver.dao;
 
-import com.shineon.userserver.entity.Role;
+import com.shineon.usercom.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
