@@ -7,13 +7,13 @@ package com.shineon.pro.utils;
 public class Result<T> {
     private  Boolean success;
     private  Integer code;
-    private  String  messagg;
+    private  String message;
     private  T  data;
 
     private  Result(T data) {
         this.success=true;
         this.code=0;
-        this.messagg="成功";
+        this.message ="成功";
         this.data = data;
     }
     private Result(CodeMsg cm) {
@@ -22,7 +22,7 @@ public class Result<T> {
         }
         this.success = false;
         this.code = cm.getCode();
-        this.messagg = cm.getMessage();
+        this.message = cm.getMessage();
     }
     /**
      * 成功
@@ -74,12 +74,12 @@ public class Result<T> {
         this.code = code;
     }
 
-    public String getMessagg() {
-        return messagg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessagg(String messagg) {
-        this.messagg = messagg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public T getData() {
