@@ -1,10 +1,11 @@
 server:
   port: 8761
 eureka:
-  instance:
-    hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    # 启用主动失效，并且每次主动失效检测间隔为10s
+    eviction-interval-timer-in-ms: 10000
+    #刷新readCacheMap的时间
+    response-cache-update-interval-ms: 10000

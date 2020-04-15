@@ -10,8 +10,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>userapi</module>
         <module>eureka</module>
+        <module>userapi</module>
+        <module>user-com</module>
+        <module>userserver</module>
     </modules>
 
 

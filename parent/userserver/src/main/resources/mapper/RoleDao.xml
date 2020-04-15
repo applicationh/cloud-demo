@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shineon.userapi.dao.RoleDao">
+<mapper namespace="com.shineon.userserver.dao.RoleDao">
 
-    <resultMap type="com.shineon.userapi.entity.Role" id="RoleMap">
+    <resultMap type="com.shineon.userserver.entity.Role" id="RoleMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="descr" column="descr" jdbcType="VARCHAR"/>
@@ -19,7 +19,7 @@
     <select id="queryById" resultMap="RoleMap">
         select
           id, title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted
-        from role
+        from shineon_vms.role
         where id = #{id}
     </select>
 
@@ -27,7 +27,7 @@
     <select id="queryAllByLimit" resultMap="RoleMap">
         select
           id, title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted
-        from role
+        from shineon_vms.role
         limit #{offset}, #{limit}
     </select>
 
@@ -35,7 +35,7 @@
     <select id="queryAll" resultMap="RoleMap">
         select
           id, title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted
-        from role
+        from shineon_vms.role
         <where>
             <if test="id != null and id != ''">
                 and id = #{id}
@@ -72,13 +72,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into role(title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted)
+        insert into shineon_vms.role(title, descr, admin, system, privileges, timeCreated, timeModified, flagDeleted, timeDeleted)
         values (#{title}, #{descr}, #{admin}, #{system}, #{privileges}, #{timecreated}, #{timemodified}, #{flagdeleted}, #{timedeleted})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update role
+        update shineon_vms.role
         <set>
             <if test="title != null and title != ''">
                 title = #{title},
@@ -113,7 +113,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from role where id = #{id}
+        delete from shineon_vms.role where id = #{id}
     </delete>
 
 </mapper>

@@ -1,4 +1,4 @@
-package com.shineon.pro.entity;
+package com.shineon.userserver.entity;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (Role)实体类
  *
  * @author makejava
- * @since 2020-04-09 15:34:55
+ * @since 2020-04-15 13:27:38
  */
 public class Role implements Serializable {
-    private static final long serialVersionUID = -67619087262368090L;
+    private static final long serialVersionUID = -14956947994887004L;
     /**
     * 角色ID
     */

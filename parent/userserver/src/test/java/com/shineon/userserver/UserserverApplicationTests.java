@@ -1,10 +1,10 @@
-package com.shineon.pro;
+package com.shineon.userserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class shineOnApplicationTests {
+class UserserverApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,8 +1,8 @@
-package com.shineon.pro.service.impl;
+package com.shineon.userserver.service.impl;
 
-import com.shineon.pro.entity.Role;
-import com.shineon.pro.dao.RoleDao;
-import com.shineon.pro.service.RoleService;
+import com.shineon.userserver.entity.Role;
+import com.shineon.userserver.dao.RoleDao;
+import com.shineon.userserver.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import java.util.List;
  * (Role)表服务实现类
  *
  * @author makejava
- * @since 2020-04-09 15:35:03
+ * @since 2020-04-15 13:27:40
  */
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {

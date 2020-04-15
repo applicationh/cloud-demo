@@ -1,13 +1,13 @@
-package com.shineon.pro.service;
+package com.shineon.userserver.service;
 
-import com.shineon.pro.entity.Role;
+import com.shineon.userserver.entity.Role;
 import java.util.List;
 
 /**
  * (Role)表服务接口
  *
  * @author makejava
- * @since 2020-04-09 15:35:01
+ * @since 2020-04-15 13:27:39
  */
 public interface RoleService {
 

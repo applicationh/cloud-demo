@@ -1,4 +1,4 @@
-package com.shineon.pro.utils;
+package com.shineon.userapi.utils;
 
 /**
  * @Author: wsh

@@ -1,7 +1,7 @@
-package com.shineon.pro.controller;
+package com.shineon.userserver.controller;
 
-import com.shineon.pro.entity.Role;
-import com.shineon.pro.service.RoleService;
+import com.shineon.userserver.entity.Role;
+import com.shineon.userserver.service.RoleService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Role)表控制层
  *
  * @author makejava
- * @since 2020-04-09 15:35:04
+ * @since 2020-04-15 13:27:40
  */
 @RestController
 @RequestMapping("role")
