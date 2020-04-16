@@ -2,6 +2,7 @@ package com.shineon.userapi.service.impl;
 
 import com.shineon.usercom.entity.Role;
 import com.shineon.userapi.service.RoleService;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-09 15:35:03
  */
+@Component
 public class RoleServiceImpl implements RoleService {
 
 
@@ -23,8 +25,6 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role queryById(String id) {
-
-        System.out.println("调用了本地的");
         return null;
     }
 
