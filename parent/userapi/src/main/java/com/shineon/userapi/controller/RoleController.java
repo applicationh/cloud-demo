@@ -1,5 +1,6 @@
 package com.shineon.userapi.controller;
 
+import com.shineon.userapi.utils.Result;
 import com.shineon.usercom.CopyUtil;
 import com.shineon.usercom.entity.Role;
 import com.shineon.userapi.service.RoleService;
@@ -30,11 +31,11 @@ public class RoleController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public RoleVo selectOne(String id) {
+    public Result selectOne(String id) {
         Role role = this.roleService.queryById(id);
         RoleVo roleVo = new RoleVo();
         CopyUtil.copyPojo(role, roleVo);
-        return roleVo;
+        return Result.success(roleVo);
     }
 
 }

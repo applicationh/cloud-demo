@@ -18,7 +18,9 @@ eureka:
     # 心跳间隔
     lease-renewal-interval-in-seconds: 5
     # 服务失效时间： 如果多久没有收到请求，则可以删除服务
-    lease-expiration-duration-in-seconds: 6
+    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
   client:
     # 关闭eureka client
     # enabled: false

@@ -1,27 +1,23 @@
 eureka:
   instance:
     hostname: userserver
-    # ĞÄÌø¼ä¸ô
+    # å¿ƒè·³é—´éš”
     lease-renewal-interval-in-seconds: 5
-    # ·şÎñÊ§Ğ§Ê±¼ä£º Èç¹û¶à¾ÃÃ»ÓĞÊÕµ½ÇëÇó£¬Ôò¿ÉÒÔÉ¾³ı·şÎñ
-    lease-expiration-duration-in-seconds: 6
+    # æœåŠ¡å¤±æ•ˆæ—¶é—´ï¼š å¦‚æœå¤šä¹…æ²¡æœ‰æ”¶åˆ°è¯·æ±‚ï¼Œåˆ™å¯ä»¥åˆ é™¤æœåŠ¡
+    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
   client:
-    # ×¢²á×ÔÉíµ½eureka·şÎñÆ÷
     register-with-eureka: true
-    # ±íÊ¾ÊÇ·ñ´Óeureka·şÎñÆ÷»ñÈ¡×¢²áĞÅÏ¢
     fetch-registry: false
-    # ¿Í»§¶Ë´ÓEureka Server¼¯ÈºÀï¸üĞÂEureka ServerĞÅÏ¢µÄÆµÂÊ
     eureka-service-url-poll-interval-seconds: 60
-    # ¶¨Òå´Ó×¢²áÖĞĞÄ»ñÈ¡×¢²á·şÎñµÄĞÅÏ¢
-    # registry-fetch-interval-seconds: 5
-    # ÉèÖÃeureka·şÎñÆ÷ËùÔÚµÄµØÖ·£¬²éÑ¯·şÎñºÍ×¢²á·şÎñ¶¼ĞèÒªÒÀÀµÕâ¸öµØÖ·
     service-url:
       defaultZone: http://localhost:8761/eureka/
 server:
-  port: 8082  #·şÎñ¶Ë¿ÚºÅ
+  port: 8082
 spring:
   application:
-    name: userserver #·şÎñÃû³Æ--µ÷ÓÃµÄÊ±ºò¸ù¾İÃû³ÆÀ´µ÷ÓÃ¸Ã·şÎñµÄ·½·¨
+    name: userserver
   datasource:
     password: shineon@1234
     username: root

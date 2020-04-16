@@ -18,7 +18,6 @@ import java.util.List;
  */
 @FeignClient(name = "USERSERVER",fallback = RoleServiceImpl.class)
 @Service
-@RequestMapping("/role")
 public interface RoleService {
 
     /**
@@ -27,8 +26,8 @@ public interface RoleService {
      * @param id 主键
      * @return 实例对象
      */
-    @RequestMapping("/role/selectOne")
-    Role queryById(String id);
+    @GetMapping("/role/selectOne")
+    Role queryById(@RequestParam("id")String id);
 
     /**
      * 查询多条数据

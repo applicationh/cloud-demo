@@ -11,8 +11,8 @@
 
     <modules>
         <module>eureka</module>
-        <module>userapi</module>
         <module>user-com</module>
+        <module>userapi</module>
         <module>userserver</module>
     </modules>
 
@@ -27,6 +27,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
