@@ -1,6 +1,7 @@
 package com.shineon.userapi.controller;
 
 import com.shineon.userapi.utils.Result;
+import com.shineon.userapi.utils.SysLog;
 import com.shineon.usercom.CopyUtil;
 import com.shineon.usercom.entity.Role;
 import com.shineon.userapi.service.RoleService;
@@ -30,6 +31,7 @@ public class RoleController {
      * @param id 主键
      * @return 单条数据
      */
+    @SysLog(type = "4",info = "获取单条数据")
     @GetMapping("selectOne")
     public Result selectOne(String id) {
         Role role = this.roleService.queryById(id);
