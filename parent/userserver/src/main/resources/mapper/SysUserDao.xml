@@ -61,8 +61,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_user(username, password, display_name, flag_deleted, create_time, update_time, last_login_time, level)
-        values (#{username}, #{password}, #{displayName}, #{flagDeleted}, #{createTime}, #{updateTime}, #{lastLoginTime}, #{level})
+        insert into sys_user(username, password, display_name, flag_deleted, create_time, last_login_time, level)
+        values (#{username}, #{password}, #{displayName}, #{flagDeleted}, now(), #{lastLoginTime}, #{level})
     </insert>
 
     <!--通过主键修改数据-->

@@ -14,7 +14,7 @@ import java.util.List;
  * 系统用户(SysUser)表服务实现类
  *
  * @author wsh
- * @since 2020-04-17 17:26:40
+ * @since 2020-04-17 19:23:41
  */
 @Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
@@ -54,9 +54,8 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 实例对象
      */
     @Override
-    public SysUser insert(SysUser sysUser) {
-        this.sysUserDao.insert(sysUser);
-        return sysUser;
+    public Boolean insert(SysUser sysUser) {
+       return sysUserDao.insert(sysUser) > 0;
     }
 
     /**
@@ -66,9 +65,8 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 实例对象
      */
     @Override
-    public SysUser update(SysUser sysUser) {
-        this.sysUserDao.update(sysUser);
-        return this.queryById(sysUser.getId());
+    public Boolean update(SysUser sysUser) {
+       return sysUserDao.update(sysUser) > 0;
     }
 
     /**
@@ -78,7 +76,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer id) {
-        return this.sysUserDao.deleteById(id) > 0;
+    public Boolean deleteById(Integer id) {
+        return sysUserDao.deleteById(id) > 0;
     }
 }

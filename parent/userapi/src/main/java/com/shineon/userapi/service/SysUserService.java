@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
  * 系统用户(SysUser)表服务接口
  *
  * @author wsh
- * @since 2020-04-17 17:30:31
+ * @since 2020-04-17 19:34:25
  */
-@FeignClient(name = "")// todo 需要填
+@FeignClient(name = "userserver")
 @Service
 public interface SysUserService {
 
@@ -45,7 +45,7 @@ public interface SysUserService {
      * @return 实例对象
      */
     @PostMapping("/sysUser/insert")
-    SysUser insert(@RequestBody SysUser sysUser);
+    Boolean insert(@RequestBody SysUser sysUser);
 
     /**
      * 修改数据
@@ -54,7 +54,7 @@ public interface SysUserService {
      * @return 实例对象
      */
     @PutMapping("/sysUser/update")
-    SysUser update(@RequestBody SysUser sysUser);
+    Boolean update(@RequestBody SysUser sysUser);
 
     /**
      * 通过主键删除数据
@@ -63,6 +63,6 @@ public interface SysUserService {
      * @return 是否成功
      */
     @DeleteMapping("/sysUser/deleteById")
-    boolean deleteById(@RequestParam("id")Integer id);
+    Boolean deleteById(@RequestParam("id")Integer id);
 
 }

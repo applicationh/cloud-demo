@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * 系统用户(SysUser)表控制层
  *
  * @author wsh
- * @since 2020-04-17 18:03:18
+ * @since 2020-04-17 19:37:25
  */
 @RestController
 @RequestMapping("sysUser")
@@ -50,12 +50,22 @@ public class SysUserController {
     
      /**
      * 新增数据
-     *
+     * @param sysUser 实例对象
      */
-    @GetMapping("queryAll")
+    @PostMapping("insert")
     public Result<Boolean> insert(@RequestBody SysUser sysUser) {
-        sysUserService.insert(sysUser);
-        return Result.success();
+        Boolean insert = sysUserService.insert(sysUser);
+        return Result.success(insert);
+    }
+    
+     /**
+     * 修改数据
+     * @param sysUser 实例对象
+     */
+    @PutMapping("/update")
+    public Result<Boolean>  update(@RequestBody SysUser sysUser){
+        Boolean update = sysUserService.update(sysUser);
+        return Result.success(update);
     }
 
 }

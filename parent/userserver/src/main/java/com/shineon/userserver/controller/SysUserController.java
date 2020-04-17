@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * 系统用户(SysUser)表控制层
  *
  * @author wsh
- * @since 2020-04-17 17:23:59
+ * @since 2020-04-17 19:23:40
  */
 @RestController
 @RequestMapping("sysUser")
@@ -43,6 +43,16 @@ public class SysUserController {
                                                         @RequestParam(name = "pageSize",required = false,defaultValue = "10")int pageSize,
                                                         @RequestBody SysUser sysUser) {
         return sysUserService.queryAll(pageNum,pageSize,sysUser);
+    }
+    
+     /**
+     * 新增数据
+     *
+     */
+    @PostMapping("insert")
+    public Boolean insert(@RequestBody SysUser sysUser) {
+        Boolean insert = sysUserService.insert(sysUser);
+        return insert;
     }
 
 }
