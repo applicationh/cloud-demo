@@ -15,11 +15,11 @@ public  class CopyUtil {
     public static void  copyPojo(Object source, Object target){
         BeanUtils.copyProperties(source,target);
     }
-    public static <T> List copyList(List<T> list) {
+    public static <T> List<T> copyList(List list, Class<T> clazz) {
         if (CollectionUtils.isEmpty(list)) {
             return new ArrayList();
         }
-        return JSON.parseArray(JSON.toJSONString(list), list.get(0).getClass());
+        return JSON.parseArray(JSON.toJSONString(list), clazz);
     }
     public static Map<String, Object> copyMap(Map map) {
         return JSON.parseObject(JSON.toJSONString(map));

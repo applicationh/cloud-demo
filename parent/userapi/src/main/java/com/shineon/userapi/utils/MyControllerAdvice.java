@@ -46,7 +46,7 @@ public class MyControllerAdvice {
             }
         }
         //可入库
-        logger.error(String.format("报错信息，访问ip：%s，端口：%s，路径：%S，全路径：%s，方式：%s，参数：%s",
+        logger.error(String.format("报错:访问ip：%s，端口：%s，路径：%S，全路径：%s，方式：%s，参数：%s",
                 remoteAddr,serverPort,requestURI,requestURL,method,paramJson.toJSONString()));
         return Result.error(ex.getMessage());
     }

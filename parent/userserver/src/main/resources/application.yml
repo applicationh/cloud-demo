@@ -21,9 +21,16 @@ spring:
   datasource:
     password: shineon@1234
     username: root
-    url: jdbc:mysql://localhost:3306/shineon_vms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/shineon_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.shineon.userserver.entity
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  #合理化
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
