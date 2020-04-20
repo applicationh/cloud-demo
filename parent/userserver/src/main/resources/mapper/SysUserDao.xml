@@ -73,9 +73,5 @@
         where id = #{id}
     </update>
 
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from sys_user where id = #{id}
-    </delete>
-
+  
 </mapper>

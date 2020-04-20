@@ -56,4 +56,13 @@ public class SysUserController {
         return insert;
     }
 
+    /**
+     * 删除数据
+     */
+    @DeleteMapping("/deleteById")
+    public Boolean deleteById(Integer id) {
+        Boolean deleteById = sysUserService.deleteById(id);
+        return deleteById;
+    }
+
 }

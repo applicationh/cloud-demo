@@ -78,6 +78,9 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public Boolean deleteById(Integer id) {
-        return sysUserDao.deleteById(id) > 0;
+        SysUser sysUser= new SysUser();
+        sysUser.setId(id);
+        sysUser.setDeleteStatus(2);
+        return sysUserDao.update(sysUser) > 0;
     }
 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 
  */
 public class SysUser implements Serializable {
-    private static final long serialVersionUID = 282869020964780700L;
+    private static final long serialVersionUID = -88367504095222996L;
     /**
     * ID
     */
@@ -28,9 +28,9 @@ public class SysUser implements Serializable {
     */
     private String displayName;
     /**
-    * 有效
+    * 是否有效  1有效  2无效
     */
-    private Integer flagDeleted;
+    private Integer deleteStatus;
     /**
     * 创建时间
     */
@@ -81,12 +81,12 @@ public class SysUser implements Serializable {
         this.displayName = displayName;
     }
     
-    public Integer getFlagDeleted() {
-        return flagDeleted;
+    public Integer getDeleteStatus() {
+        return deleteStatus;
     }
 
-    public void setFlagDeleted(Integer flagDeleted) {
-        this.flagDeleted = flagDeleted;
+    public void setDeleteStatus(Integer deleteStatus) {
+        this.deleteStatus = deleteStatus;
     }
     
     public Date getCreateTime() {

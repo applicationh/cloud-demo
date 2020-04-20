@@ -71,5 +71,15 @@ public class SysUserController {
         Boolean update = sysUserService.update(sysUser);
         return Result.success(update);
     }
+    
+    
+    /**
+     * 删除数据
+     */
+    @DeleteMapping("/deleteById")
+    public Result<Boolean> deleteById(Integer id) {
+        Boolean deleteById = sysUserService.deleteById(id);
+        return Result.success(deleteById);
+    }
 
 }
