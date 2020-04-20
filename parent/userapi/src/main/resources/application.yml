@@ -9,13 +9,6 @@ spring:
     name: userapi
   main:
     allow-bean-definition-overriding: true
-
-logging:
-  level:
-    com:
-      shineon:
-        userapi:
-          dao : debug
 eureka:
   instance:
     hostname: userapi

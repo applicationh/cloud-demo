@@ -1,20 +1,18 @@
-package com.shineon.usercom.param;
+package param;
 
 import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 系统用户(SysUser)参数类
+ * 角色-权限关联表(SysRolePermission)参数类
  *
  * @author wsh
  * 
  */
-public class SysUserParam implements Serializable {
-    private static final long serialVersionUID = 660375683371797289L;
+public class SysRolePermissionParam implements Serializable {
+    private static final long serialVersionUID = -21470957284722937L;
 
-    /**
-    * ID
-    */    
+        
     private Integer id;
         
     public Integer getId() {

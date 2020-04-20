@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 
  */
 public class SysUserVo implements Serializable {
-    private static final long serialVersionUID = -68866028933583566L;
+    private static final long serialVersionUID = 430464234781489883L;
     /**
     * ID
     */
@@ -28,10 +28,6 @@ public class SysUserVo implements Serializable {
     */
     private String displayName;
     /**
-    * 是否有效  1有效  2无效
-    */
-    private Integer deleteStatus;
-    /**
     * 创建时间
     */
     private Date createTime;
@@ -47,6 +43,10 @@ public class SysUserVo implements Serializable {
     * 0  隐藏用户   1 普通用户  2 超级管理员
     */
     private Integer level;
+    /**
+    * 是否有效  1有效  2无效
+    */
+    private Integer deleteStatus;
 
     
     public Integer getId() {
@@ -81,14 +81,6 @@ public class SysUserVo implements Serializable {
         this.displayName = displayName;
     }
     
-    public Integer getDeleteStatus() {
-        return deleteStatus;
-    }
-
-    public void setDeleteStatus(Integer deleteStatus) {
-        this.deleteStatus = deleteStatus;
-    }
-    
     public Date getCreateTime() {
         return createTime;
     }
@@ -119,6 +111,14 @@ public class SysUserVo implements Serializable {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+    
+    public Integer getDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(Integer deleteStatus) {
+        this.deleteStatus = deleteStatus;
     }
 
 }

@@ -1,9 +1,11 @@
 package com.shineon.userapi.utils;
 
+import java.io.Serializable;
+
 /**
  * @Author: wsh
  */
-public class CodeMsg {
+public class CodeMsg  implements Serializable {
     private Integer code;
     private String message;
 

@@ -7,38 +7,38 @@
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
         <result property="displayName" column="display_name" jdbcType="VARCHAR"/>
-        <result property="flagDeleted" column="flag_deleted" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
         <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="deleteStatus" column="delete_status" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="SysUserMap">
         select
-          id, username, password, display_name, flag_deleted, create_time, update_time, last_login_time, level
+          id, username, password, display_name, create_time, update_time, last_login_time, level, delete_status
         from sys_user
-        where id = #{id}
+        where id = #{id} and delete_status=1
     </select>
 
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SysUserMap">
         select
-          id, username, password, display_name, flag_deleted, create_time, update_time, last_login_time, level
+          id, username, password, display_name, create_time, update_time, last_login_time, level, delete_status
         from sys_user
         <where>
             <if test="id != null">
                 and id = #{id}
-           </if>        
+           </if>            and delete_status=1
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_user(username, password, display_name, flag_deleted, create_time, update_time, last_login_time, level)
-        values (#{username}, #{password}, #{displayName}, #{flagDeleted}, #{createTime}, #{updateTime}, #{lastLoginTime}, #{level})
+        insert into sys_user(username, password, display_name, create_time, update_time, last_login_time, level, delete_status)
+        values (#{username}, #{password}, #{displayName}, #{createTime}, #{updateTime}, #{lastLoginTime}, #{level}, #{deleteStatus})
     </insert>
 
     <!--通过主键修改数据-->
@@ -54,9 +54,6 @@
             <if test="displayName != null and displayName != ''">
                 display_name = #{displayName},
             </if>
-            <if test="flagDeleted != null">
-                flag_deleted = #{flagDeleted},
-            </if>
             <if test="createTime != null">
                 create_time = #{createTime},
             </if>
@@ -68,6 +65,9 @@
             </if>
             <if test="level != null">
                 level = #{level},
+            </if>
+            <if test="deleteStatus != null">
+                delete_status = #{deleteStatus},
             </if>
         </set>
         where id = #{id}

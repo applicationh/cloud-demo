@@ -1,27 +1,27 @@
 package com.shineon.userserver.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.shineon.usercom.entity.SysUser;
-import com.shineon.usercom.param.SysUserParam;
-import com.shineon.userserver.service.SysUserService;
+import com.shineon.usercom.entity.SysRole;
+import com.shineon.usercom.param.SysRoleParam;
+import com.shineon.userserver.service.SysRoleService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 /**
- * 系统用户(SysUser)表控制层
+ * 后台角色表(SysRole)表控制层
  *
  * @author wsh
  * 
  */
 @RestController
-@RequestMapping("sysUser")
-public class SysUserController {
+@RequestMapping("sysRole")
+public class SysRoleController {
     /**
      * 服务对象
      */
     @Resource
-    private SysUserService sysUserService;
+    private SysRoleService sysRoleService;
 
     /**
      * 通过主键查询单条数据
@@ -30,8 +30,8 @@ public class SysUserController {
      * @return 单条数据
      */
     @GetMapping("queryById")
-    public SysUser queryById(Integer id) {
-        return sysUserService.queryById(id);
+    public SysRole queryById(Integer id) {
+        return sysRoleService.queryById(id);
     }
     /**
      * 根据页码查询
@@ -40,10 +40,10 @@ public class SysUserController {
      * @param pageSize 每页pageSize条数据
      */
      @PostMapping("queryAll")
-    public PageInfo<SysUser> queryAll(@RequestParam(name = "pageNum",required = false,defaultValue = "1")int pageNum, 
+    public PageInfo<SysRole> queryAll(@RequestParam(name = "pageNum",required = false,defaultValue = "1")int pageNum, 
                                                         @RequestParam(name = "pageSize",required = false,defaultValue = "10")int pageSize,
-                                                         @RequestBody SysUserParam sysUserParam) {
-        return sysUserService.queryAll(pageNum,pageSize,sysUserParam);
+                                                         @RequestBody SysRoleParam sysRoleParam) {
+        return sysRoleService.queryAll(pageNum,pageSize,sysRoleParam);
     }
     
      /**
@@ -51,8 +51,8 @@ public class SysUserController {
      *
      */
     @PostMapping("insert")
-    public Boolean insert(@RequestBody SysUser sysUser) {
-        Boolean insert = sysUserService.insert(sysUser);
+    public Boolean insert(@RequestBody SysRole sysRole) {
+        Boolean insert = sysRoleService.insert(sysRole);
         return insert;
     }
     
@@ -62,7 +62,7 @@ public class SysUserController {
      */
     @DeleteMapping("/deleteById")
     public Boolean deleteById(Integer id) {
-        Boolean deleteById =sysUserService.deleteById(id);
+        Boolean deleteById =sysRoleService.deleteById(id);
         return deleteById;
     }
 

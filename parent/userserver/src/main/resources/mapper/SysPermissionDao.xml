@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shineon.userserver.dao.SysPermissionDao">
+
+    <resultMap type="com.shineon.usercom.entity.SysPermission" id="SysPermissionMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="menuCode" column="menu_code" jdbcType="VARCHAR"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="permissionCode" column="permission_code" jdbcType="VARCHAR"/>
+        <result property="permissionName" column="permission_name" jdbcType="VARCHAR"/>
+        <result property="requiredPermission" column="required_permission" jdbcType="INTEGER"/>
+        <result property="deleteStatus" column="delete_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SysPermissionMap">
+        select
+          id, menu_code, menu_name, permission_code, permission_name, required_permission, delete_status
+        from sys_permission
+        where id = #{id} and delete_status=1
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SysPermissionMap">
+        select
+          id, menu_code, menu_name, permission_code, permission_name, required_permission, delete_status
+        from sys_permission
+        <where>
+            <if test="id != null">
+                and id = #{id}
+           </if>            
+         and delete_status=1
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_permission(menu_code, menu_name, permission_code, permission_name, required_permission, delete_status)
+        values (#{menuCode}, #{menuName}, #{permissionCode}, #{permissionName}, #{requiredPermission}, #{deleteStatus})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sys_permission
+        <set>
+            <if test="menuCode != null and menuCode != ''">
+                menu_code = #{menuCode},
+            </if>
+            <if test="menuName != null and menuName != ''">
+                menu_name = #{menuName},
+            </if>
+            <if test="permissionCode != null and permissionCode != ''">
+                permission_code = #{permissionCode},
+            </if>
+            <if test="permissionName != null and permissionName != ''">
+                permission_name = #{permissionName},
+            </if>
+            <if test="requiredPermission != null">
+                required_permission = #{requiredPermission},
+            </if>
+            <if test="deleteStatus != null">
+                delete_status = #{deleteStatus},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+  
+</mapper>

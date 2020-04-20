@@ -4,13 +4,13 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 系统用户(SysUser)参数类
+ * 后台角色表(SysRole)参数类
  *
  * @author wsh
  * 
  */
-public class SysUserParam implements Serializable {
-    private static final long serialVersionUID = 660375683371797289L;
+public class SysRoleParam implements Serializable {
+    private static final long serialVersionUID = 725263405869381151L;
 
     /**
     * ID

@@ -1,10 +1,12 @@
 package com.shineon.userapi.utils;
 
+import java.io.Serializable;
+
 /**
  * @Author: wsh
  */
 
-public class Result<T> {
+public class Result<T>  implements Serializable {
     private  Boolean success;
     private  Integer code;
     private  String message;
@@ -13,7 +15,7 @@ public class Result<T> {
     private  Result(T data) {
         this.success=true;
         this.code=0;
-        this.message ="成功";
+        this.message = "成功";
         this.data = data;
     }
     private Result(CodeMsg cm) {
@@ -25,27 +27,27 @@ public class Result<T> {
         this.message = cm.getMessage();
     }
     /**
-     * 成功
+     * �ɹ�
      */
     public static <T> Result<T> success(T data){
         return new Result<>(data);
     }
 
     /**
-     * 成功不需要参数
+     * �ɹ�����Ҫ����
      */
     public static <T> Result<T> success(){
         return (Result<T>) success("");
     }
 
     /**
-     * 失败时候的调用，自定义错误码
+     * ʧ��ʱ��ĵ��ã��Զ��������
      */
     public static <T> Result<T> error(CodeMsg cm){
         return new Result<T>(cm);
     }
     /**
-     * 失败时候的调用,默认错误码+消息
+     * ʧ��ʱ��ĵ���,Ĭ�ϴ�����+��Ϣ
      */
     public static <T> Result<T> error(String msg){
         CodeMsg cm= new CodeMsg(msg);
