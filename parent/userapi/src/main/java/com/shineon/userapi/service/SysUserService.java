@@ -2,6 +2,7 @@ package com.shineon.userapi.service;
 
 import com.github.pagehelper.PageInfo;
 import com.shineon.usercom.entity.SysUser;
+import com.shineon.usercom.param.SysUserParam;
 import com.shineon.usercom.vo.SysUserVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * 系统用户(SysUser)表服务接口
  *
  * @author wsh
- * @since 2020-04-17 19:34:25
+ * 
  */
 @FeignClient(name = "userserver")
 @Service
@@ -33,10 +34,10 @@ public interface SysUserService {
      * @param pageSize 查询条数
      * @return 对象列表
      */
-    @GetMapping("/sysUser/queryAllByLimit")
+    @PostMapping("/sysUser/queryAll")
     PageInfo<SysUserVo> queryAll(@RequestParam("pageNum")int pageNum, 
                                                  @RequestParam("pageSize")int pageSize,
-                                                 @RequestBody SysUser sysUser);
+                                                 @RequestBody SysUserParam sysUserParam);
 
     /**
      * 新增数据

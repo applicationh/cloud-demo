@@ -1,6 +1,7 @@
 package com.shineon.userserver.dao;
 
 import com.shineon.usercom.entity.SysUser;
+import com.shineon.usercom.param.SysUserParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  * 系统用户(SysUser)表数据库访问层
  *
  * @author wsh
- * @since 2020-04-17 17:27:06
+ * 
  */
 @Mapper
 public interface SysUserDao {
@@ -29,7 +30,7 @@ public interface SysUserDao {
      * @param sysUser 实例对象
      * @return 对象列表
      */
-    List<SysUser> queryAll(SysUser sysUser);
+    List<SysUser> queryAll(SysUserParam sysUserParam);
 
     /**
      * 新增数据

@@ -2,6 +2,7 @@ package com.shineon.userapi.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.shineon.usercom.entity.SysUser;
+import com.shineon.usercom.param.SysUserParam;
 import com.shineon.usercom.vo.SysUserVo;
 import com.shineon.userapi.utils.Result;
 import com.shineon.userapi.service.SysUserService;
@@ -13,7 +14,7 @@ import javax.annotation.Resource;
  * 系统用户(SysUser)表控制层
  *
  * @author wsh
- * @since 2020-04-17 19:37:25
+ * 
  */
 @RestController
 @RequestMapping("sysUser")
@@ -41,11 +42,14 @@ public class SysUserController {
      * @param pageNum 从pageNum页开始
      * @param pageSize 每页pageSize条数据
      */
-     @GetMapping("queryAll")
+     @PostMapping("queryAll")
     public  Result<PageInfo<SysUserVo>> queryAll(@RequestParam(name = "pageNum",required = false,defaultValue = "1")int pageNum, 
                                                         @RequestParam(name = "pageSize",required = false,defaultValue = "10")int pageSize,
-                                                         @RequestBody SysUser sysUser) {
-        return Result.success(sysUserService.queryAll(pageNum,pageSize,sysUser));
+                                                         @RequestBody(required = false) SysUserParam sysUserParam) {
+        if(null==sysUserParam){
+            sysUserParam=new SysUserParam();
+        }
+        return Result.success(sysUserService.queryAll(pageNum,pageSize,sysUserParam));
     }
     
      /**

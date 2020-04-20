@@ -6,11 +6,11 @@ import java.io.Serializable;
 /**
  * 系统用户(SysUser)实体类
  *
- * @author makejava
- * @since 2020-04-17 11:41:59
+ * @author wsh
+ * 
  */
 public class SysUser implements Serializable {
-    private static final long serialVersionUID = 933734264871241526L;
+    private static final long serialVersionUID = 282869020964780700L;
     /**
     * ID
     */
@@ -48,7 +48,7 @@ public class SysUser implements Serializable {
     */
     private Integer level;
 
-
+    
     public Integer getId() {
         return id;
     }
@@ -56,7 +56,7 @@ public class SysUser implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
     public String getUsername() {
         return username;
     }
@@ -64,7 +64,7 @@ public class SysUser implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     public String getPassword() {
         return password;
     }
@@ -72,7 +72,7 @@ public class SysUser implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public String getDisplayName() {
         return displayName;
     }
@@ -80,7 +80,7 @@ public class SysUser implements Serializable {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
-
+    
     public Integer getFlagDeleted() {
         return flagDeleted;
     }
@@ -88,7 +88,7 @@ public class SysUser implements Serializable {
     public void setFlagDeleted(Integer flagDeleted) {
         this.flagDeleted = flagDeleted;
     }
-
+    
     public Date getCreateTime() {
         return createTime;
     }
@@ -96,7 +96,7 @@ public class SysUser implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
+    
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -104,7 +104,7 @@ public class SysUser implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
+    
     public Date getLastLoginTime() {
         return lastLoginTime;
     }
@@ -112,7 +112,7 @@ public class SysUser implements Serializable {
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
-
+    
     public Integer getLevel() {
         return level;
     }

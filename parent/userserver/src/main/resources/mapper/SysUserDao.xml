@@ -31,38 +31,14 @@
         <where>
             <if test="id != null">
                 and id = #{id}
-            </if>
-            <if test="username != null and username != ''">
-                and username = #{username}
-            </if>
-            <if test="password != null and password != ''">
-                and password = #{password}
-            </if>
-            <if test="displayName != null and displayName != ''">
-                and display_name = #{displayName}
-            </if>
-            <if test="flagDeleted != null">
-                and flag_deleted = #{flagDeleted}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
-            <if test="lastLoginTime != null">
-                and last_login_time = #{lastLoginTime}
-            </if>
-            <if test="level != null">
-                and level = #{level}
-            </if>
+           </if>        
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_user(username, password, display_name, flag_deleted, create_time, last_login_time, level)
-        values (#{username}, #{password}, #{displayName}, #{flagDeleted}, now(), #{lastLoginTime}, #{level})
+        insert into sys_user(username, password, display_name, flag_deleted, create_time, update_time, last_login_time, level)
+        values (#{username}, #{password}, #{displayName}, #{flagDeleted}, #{createTime}, #{updateTime}, #{lastLoginTime}, #{level})
     </insert>
 
     <!--通过主键修改数据-->

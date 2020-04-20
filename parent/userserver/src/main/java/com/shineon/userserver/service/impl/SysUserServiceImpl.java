@@ -3,6 +3,7 @@ package com.shineon.userserver.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shineon.usercom.entity.SysUser;
+import com.shineon.usercom.param.SysUserParam;
 import com.shineon.userserver.dao.SysUserDao;
 import com.shineon.userserver.service.SysUserService;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.List;
  * 系统用户(SysUser)表服务实现类
  *
  * @author wsh
- * @since 2020-04-17 19:23:41
+ * 
  */
 @Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
@@ -40,9 +41,9 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 对象列表
      */
     @Override
-    public PageInfo<SysUser> queryAll(int pageNum, int pageSize,SysUser sysUser) {
+    public PageInfo<SysUser> queryAll(int pageNum, int pageSize,SysUserParam sysUserParam) {
         PageHelper.startPage(pageNum,pageSize);
-        List<SysUser> sysUserList=sysUserDao.queryAll(sysUser);
+        List<SysUser> sysUserList=sysUserDao.queryAll(sysUserParam);
         PageInfo pageInfo = new PageInfo(sysUserList);
         return pageInfo;
     }

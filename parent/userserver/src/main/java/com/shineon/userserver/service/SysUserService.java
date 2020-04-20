@@ -2,12 +2,13 @@ package com.shineon.userserver.service;
 
 import com.github.pagehelper.PageInfo;
 import com.shineon.usercom.entity.SysUser;
+import com.shineon.usercom.param.SysUserParam;
 
 /**
  * 系统用户(SysUser)表服务接口
  *
  * @author wsh
- * @since 2020-04-17 19:23:41
+ * 
  */
 public interface SysUserService {
 
@@ -26,7 +27,7 @@ public interface SysUserService {
      * @param pageSize 查询条数
      * @return 对象列表
      */
-    PageInfo<SysUser> queryAll(int pageNum, int pageSize,SysUser sysUser);
+    PageInfo<SysUser> queryAll(int pageNum, int pageSize,SysUserParam sysUserParam);
 
     /**
      * 新增数据

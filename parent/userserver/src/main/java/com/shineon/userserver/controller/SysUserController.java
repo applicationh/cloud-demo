@@ -2,6 +2,7 @@ package com.shineon.userserver.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.shineon.usercom.entity.SysUser;
+import com.shineon.usercom.param.SysUserParam;
 import com.shineon.userserver.service.SysUserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import javax.annotation.Resource;
  * 系统用户(SysUser)表控制层
  *
  * @author wsh
- * @since 2020-04-17 19:23:40
+ * 
  */
 @RestController
 @RequestMapping("sysUser")
@@ -38,11 +39,11 @@ public class SysUserController {
      * @param pageNum 从pageNum页开始
      * @param pageSize 每页pageSize条数据
      */
-     @GetMapping("queryAll")
+     @PostMapping("queryAll")
     public PageInfo<SysUser> queryAll(@RequestParam(name = "pageNum",required = false,defaultValue = "1")int pageNum, 
                                                         @RequestParam(name = "pageSize",required = false,defaultValue = "10")int pageSize,
-                                                        @RequestBody SysUser sysUser) {
-        return sysUserService.queryAll(pageNum,pageSize,sysUser);
+                                                         @RequestBody SysUserParam sysUserParam) {
+        return sysUserService.queryAll(pageNum,pageSize,sysUserParam);
     }
     
      /**
