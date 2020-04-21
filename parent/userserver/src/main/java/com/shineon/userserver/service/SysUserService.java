@@ -22,12 +22,9 @@ public interface SysUserService {
 
     /**
      * 查询多条数据
-     *
-     * @param pageNum 查询页数
-     * @param pageSize 查询条数
      * @return 对象列表
      */
-    PageInfo<SysUser> queryAll(int pageNum, int pageSize,SysUserParam sysUserParam);
+    PageInfo<SysUser> queryAll(SysUserParam sysUserParam);
 
     /**
      * 新增数据

@@ -1,1 +1,57 @@
-balabalk
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <link rel="stylesheet" href="css/layui.css" media="all">
+</head>
+<body>
+
+<table id="demo" lay-filter="test" ></table>
+
+<script src="layui.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,method: 'post'
+            ,contentType: 'application/json'
+            ,url: '/user/sysUser/queryAll' //数据接口
+            ,height: 'full-15'
+            ,parseData: function(res){ //res 即为原始返回的数据
+                console.log(res)
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.list, //解析数据列表
+                    "pageSize":res.data.pageSize
+                };
+            }
+            ,page: true
+            ,jump: function(obj, first){
+                //obj包含了当前分页的所有参数，比如：
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+
+                //首次不执行
+                if(!first){
+                    //do something
+                }
+            }
+            ,limits:[10, 20, 30, 40, 50]
+            ,cols: [
+                [{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'username', title: '用户名', width:80}
+                ,{field: 'displayName', title: '昵称', width:80, sort: true}]
+            ]
+
+        });
+
+    });
+</script>
+</body>
+</html>

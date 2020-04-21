@@ -18,4 +18,12 @@ public class IndexController {
     public String two() {
         return "/two";
     }
+    @RequestMapping(value = {"/three"})
+    public String three() {
+        return "/three";
+    }
+    @RequestMapping(value = {"/four"})
+    public String four() {
+        return "/four";
+    }
 }

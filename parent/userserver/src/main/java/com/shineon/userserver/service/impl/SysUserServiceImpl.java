@@ -35,14 +35,11 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 查询多条数据
-     *
-     * @param pageNum 查询页码
-     * @param pageSize 查询条数
      * @return 对象列表
      */
     @Override
-    public PageInfo<SysUser> queryAll(int pageNum, int pageSize,SysUserParam sysUserParam) {
-        PageHelper.startPage(pageNum,pageSize);
+    public PageInfo<SysUser> queryAll(SysUserParam sysUserParam) {
+        PageHelper.startPage(sysUserParam.getPage(),sysUserParam.getLimit());
         List<SysUser> sysUserList=sysUserDao.queryAll(sysUserParam);
         PageInfo pageInfo = new PageInfo(sysUserList);
         return pageInfo;

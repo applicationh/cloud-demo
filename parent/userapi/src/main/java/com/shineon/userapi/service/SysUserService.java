@@ -29,15 +29,9 @@ public interface SysUserService {
 
     /**
      * 查询多条数据
-     *
-     * @param pageNum 查询页数
-     * @param pageSize 查询条数
-     * @return 对象列表
      */
     @PostMapping("/sysUser/queryAll")
-    PageInfo<SysUserVo> queryAll(@RequestParam("pageNum")int pageNum, 
-                                                 @RequestParam("pageSize")int pageSize,
-                                                 @RequestBody SysUserParam sysUserParam);
+    PageInfo<SysUserVo> queryAll(@RequestBody SysUserParam sysUserParam);
 
     /**
      * 新增数据

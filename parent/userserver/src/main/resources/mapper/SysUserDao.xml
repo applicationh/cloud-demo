@@ -31,7 +31,8 @@
         <where>
             <if test="id != null">
                 and id = #{id}
-           </if>            and delete_status=1
+           </if>            
+         and delete_status=1
         </where>
     </select>
 

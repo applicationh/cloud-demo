@@ -1,5 +1,3 @@
-
-
 server:
   port: 8081  #服务端口号
   servlet:

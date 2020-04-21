@@ -38,18 +38,10 @@ public class SysUserController {
     }
     /**
      * 根据页码查询
-     *
-     * @param pageNum 从pageNum页开始
-     * @param pageSize 每页pageSize条数据
      */
      @PostMapping("queryAll")
-    public  Result<PageInfo<SysUserVo>> queryAll(@RequestParam(name = "pageNum",required = false,defaultValue = "1")int pageNum, 
-                                                        @RequestParam(name = "pageSize",required = false,defaultValue = "10")int pageSize,
-                                                         @RequestBody(required = false) SysUserParam sysUserParam) {
-        if(null==sysUserParam){
-            sysUserParam=new SysUserParam();
-        }
-        return Result.success(sysUserService.queryAll(pageNum,pageSize,sysUserParam));
+    public  Result<PageInfo<SysUserVo>> queryAll(@RequestBody(required = false) SysUserParam sysUserParam) {
+        return Result.success(sysUserService.queryAll(sysUserParam));
     }
     
      /**
