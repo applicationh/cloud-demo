@@ -1,0 +1,84 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../css/layui.css" media="all">
+</head>
+<style>
+    .site-block{
+        padding: 20px;
+        border: 1px solid #eee;
+        margin: 20px;
+    }
+</style>
+<body>
+<div class="site-block">
+<form class="layui-form">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+        </div>
+        <div class="layui-inline">
+            <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="请输入账号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">密码</label>
+        </div>
+        <div class="layui-inline">
+            <input type="text" name="password" lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">昵称</label>
+        </div>
+        <div class="layui-inline">
+            <input type="text" name="displayName" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" style="text-align: center">
+        <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
+        <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
+    </div>
+</form>
+</div>
+<script src="../layui.js"></script>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        var $=layui.$;
+        form.on('submit(sub)', function(data){
+
+            $.ajax({
+                url:"/user/sysUser/insert",
+                method:'post',
+                data: JSON.stringify(data.field),
+                dataType: "json",
+                contentType:"application/json",
+                success:function (res) {
+                    if(res.code==0){
+                        layer.msg('提交成功',{shade:0.3,time:1500});
+                    }
+                }
+
+            })
+            close()
+            return false;//false：阻止表单跳转  true：表单跳转
+        });
+
+
+        $("#close").on('click',function () {
+            close()
+        })
+
+        function close() {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        }
+    })
+
+
+
+</script>
+
+    </body>

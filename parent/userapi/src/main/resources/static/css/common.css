@@ -1,4 +1,10 @@
+/*调整表头*/
+.layui-table-view thead th{text-align: center;font-weight: bold;}
+/*表格居中*/
 .layui-table-cell{
     height:23px;
     line-height: 23px;
+}
+.layui-textarea{
+    height: 30px;
 }

@@ -9,6 +9,7 @@ import com.shineon.userserver.service.SysUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +54,9 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public Boolean insert(SysUser sysUser) {
-       return sysUserDao.insert(sysUser) > 0;
+        sysUser.setCreateTime(new Date());
+        sysUser.setDeleteStatus(1);
+        return sysUserDao.insert(sysUser) > 0;
     }
 
     /**
