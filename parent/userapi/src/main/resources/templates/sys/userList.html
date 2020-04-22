@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <link rel="stylesheet" href="../css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/common.css" media="all">
+</head>
+<body>
+<form class="layui-form" action="" >
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-inline">
+            <input type="text" name="username" lay-verify="title" autocomplete="off" placeholder="请输入内容" class="layui-input">
+        </div>
+        <div class="layui-inline">
+        <button type="button" lay-submit="" class="layui-btn " lay-filter="search"><i class="layui-icon layui-icon-search"></i></button>
+        </div>
+    </div>
+</form>
+<table  id="demo" lay-filter="test" ></table>
+<script src="../layui.js"></script>
+<script>
+    layui.use(['table'], function(){
+        var table = layui.table;
+        // var form = layui.form;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,method: 'post'
+            ,contentType: 'application/json'
+            ,url: '/user/sysUser/queryAll' //数据接口
+            ,height: 'full-70'
+            ,page: {
+                groups:10
+            }//开启分页
+            ,limit: 20
+            ,cellMinWidth: 80
+            ,parseData: function(res){ //res 即为原始返回的数据
+                console.log(res)
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.list, //解析数据列表
+                    "pageSize":res.data.pageSize
+                };
+            }
+            ,cols: [
+                [
+                 {title: '序号',  type:'numbers'}
+                ,{field: 'id', title: 'ID' }
+                ,{field: 'username', title: '用户名'}
+                ,{field: 'displayName', title: '昵称', sort: true}
+                ,{field: 'updateTime', title: '更新时间',  sort: true}
+                ]
+            ]
+        });
+
+
+        // form.on('submit(search)', function(data){
+        //     var formData = data.field;
+        //     var username = formData.username;
+        //     //执行重载
+        //     table.reload('tableReload', {
+        //         page: {
+        //             curr: 1 //重新从第 1 页开始
+        //         }
+        //         , where: {//这里传参  向后台
+        //             username: username
+        //         }
+        //         ,limit: 20
+        //         ,page: true
+        //         , url: '/user/sysUser/queryAll'//后台做模糊搜索接口路径
+        //         , method: 'post'
+        //     });
+        //     return false;//false：阻止表单跳转  true：表单跳转
+        // });
+
+    });
+</script>
+</body>
+</html>

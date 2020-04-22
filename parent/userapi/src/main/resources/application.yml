@@ -7,6 +7,8 @@ spring:
     name: userapi
   main:
     allow-bean-definition-overriding: true
+  resources:
+    static-locations: classpath:/static/, classpath:/templates/
 eureka:
   instance:
     hostname: userapi
@@ -33,3 +35,5 @@ eureka:
 feign:
   hystrix:
     enabled: false
+
+

@@ -20,7 +20,16 @@ public class SysUserParam implements Serializable {
     private Integer page=1;
     
     private Integer limit=10;
-    
+    private String  username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Integer getId() {
         return id;
     }

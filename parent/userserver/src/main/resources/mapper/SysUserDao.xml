@@ -31,7 +31,10 @@
         <where>
             <if test="id != null">
                 and id = #{id}
-           </if>            
+           </if>
+            <if test="username != null and username != ''">
+                username = #{username}
+            </if>
          and delete_status=1
         </where>
     </select>
