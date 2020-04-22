@@ -35,14 +35,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     /**
      * 查询多条数据
-     *
-     * @param pageNum 查询页码
-     * @param pageSize 查询条数
      * @return 对象列表
      */
     @Override
-    public PageInfo<SysRole> queryAll(int pageNum, int pageSize,SysRoleParam sysRoleParam) {
-        PageHelper.startPage(pageNum,pageSize);
+    public PageInfo<SysRole> queryAll(SysRoleParam sysRoleParam) {
+        PageHelper.startPage(sysRoleParam.getPage(),sysRoleParam.getLimit());
         List<SysRole> sysRoleList=sysRoleDao.queryAll(sysRoleParam);
         PageInfo pageInfo = new PageInfo(sysRoleList);
         return pageInfo;
@@ -56,6 +53,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      */
     @Override
     public Boolean insert(SysRole sysRole) {
+       sysRole.setDeleteStatus(1);
        return sysRoleDao.insert(sysRole) > 0;
     }
 

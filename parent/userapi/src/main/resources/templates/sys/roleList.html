@@ -1,1 +1,156 @@
-444444444444
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <link rel="stylesheet" href="../css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/common.css" media="all">
+</head>
+<style>
+    .layui-input, .layui-select, .layui-textarea{
+        height: 30px;
+    }
+
+</style>
+<body>
+
+<form class="layui-form">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">角色名</label>
+        </div>
+        <div class="layui-inline">
+            <input type="text" name="roleName" lay-verify="title" autocomplete="off" placeholder="请输入内容" class="layui-input">
+        </div>
+        <div class="layui-inline">
+            <button type="button" lay-submit="" class="layui-btn layui-btn-sm" lay-filter="search"><i class="layui-icon layui-icon-search"></i></button>
+            <button type="reset" id ="reset" class="layui-btn layui-btn-primary layui-btn-sm" ><i class="layui-icon layui-icon-refresh-3"></i></button>
+            <button type="reset" id="add" class="layui-btn layui-btn-sm"><i class="layui-icon layui-icon-add-1 "></i></button>
+        </div>
+    </div>
+</form>
+
+<div style="text-align: center;">
+    <table  id="demo" lay-filter="test" ></table>
+</div>
+<script src="../layui.js"></script>
+<script>
+    layui.use(['table','form','layer'], function(){
+        var table = layui.table;
+        var form = layui.form;
+        var layer = layui.layer;
+        var $ = layui.$;
+        //第一个实例
+        var userList=table.render({
+            elem: '#demo'
+            ,id:'tableReload'
+            ,method: 'post'
+            ,contentType: 'application/json'
+            ,url: '/user/sysRole/queryAll' //数据接口
+            ,height: 'full-70'
+            ,page: {
+                groups:10
+            }//开启分页
+            ,cellMinWidth:100
+            ,limit: 20
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.list, //解析数据列表
+                    "pageSize":res.data.pageSize
+                };
+            }
+            ,cols: [
+                [
+                    {title: '序号',  type:'numbers',width:100}
+                    ,{field: 'id', title: 'ID' }
+                    ,{field: 'roleName', title: '角色名'}
+                    /*,{field: 'displayName', title: '昵称', sort: true}*/
+                    ,{fixed: 'right',align:'center', toolbar: '#barDemo'}
+                    /*,{field: 'updateTime', title: '更新时间',  sort: true}*/
+                ]
+            ]
+        });
+
+
+        form.on('submit(search)', function(data){
+            var formData = data.field;
+            var roleName = formData.roleName;
+            //执行重载
+            table.reload('tableReload', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {//这里传参  向后台
+                    roleName: roleName
+                }
+                ,limit: 20
+                ,page: true
+                ,url: '/user/sysRole/queryAll'//后台做模糊搜索接口路径
+                ,method: 'post'
+            });
+            return false;//false：阻止表单跳转  true：表单跳转
+        });
+
+        $("#reset").on('click',function () {
+            userList.reload({
+                where:null
+            });
+        });
+
+        $("#add").on('click',function () {
+            parent.layer.open({
+                title: '添加角色'
+                ,type: 2
+                ,content: '/user/sys/addRole.html'
+                ,area: ['500px', '350px']
+                ,end:function(){
+                    userList.reload({
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });//弹出层结束后，刷新主页面
+                }
+            });
+
+        })
+
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', {btn: ['确定','我在想想']},function(index){
+                    obj.del();
+                    deleteById(data.id);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+
+        function  deleteById(id) {
+            $.ajax({
+                url:'/user/sysRole/deleteById',
+                method:'delete',
+                data:JSON.stringify({"id":id}),
+                success:function (res) {
+                    if(res.code==0){
+                        layer.msg("删除成功",{time:1000})
+                    }
+                }
+
+            })
+
+        }
+    });
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</body>
+</html>

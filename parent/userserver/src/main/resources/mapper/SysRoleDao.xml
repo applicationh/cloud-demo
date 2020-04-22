@@ -27,7 +27,11 @@
         <where>
             <if test="id != null">
                 and id = #{id}
-           </if>            and delete_status=1
+           </if>
+            <if test="roleName != null and roleName != ''">
+                role_name  like  concat('%',#{roleName},'%')
+            </if>
+                       and delete_status=1
         </where>
     </select>
 

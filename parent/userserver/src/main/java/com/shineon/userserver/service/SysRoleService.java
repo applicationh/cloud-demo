@@ -22,12 +22,9 @@ public interface SysRoleService {
 
     /**
      * 查询多条数据
-     *
-     * @param pageNum 查询页数
-     * @param pageSize 查询条数
      * @return 对象列表
      */
-    PageInfo<SysRole> queryAll(int pageNum, int pageSize,SysRoleParam sysRoleParam);
+    PageInfo<SysRole> queryAll(SysRoleParam sysRoleParam);
 
     /**
      * 新增数据

@@ -1,7 +1,5 @@
-package com.shineon.userapi.utils;
+package com.shineon.userapi.config;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -9,14 +7,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Stream;
 
 /**
  * @Author: wsh
@@ -27,7 +21,7 @@ public class SysLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     //切点
-    @Pointcut("@annotation(com.shineon.userapi.utils.SysLog)")
+    @Pointcut("@annotation(com.shineon.userapi.config.SysLog)")
     public void logPointcut() {}
 
     @Before("logPointcut()")

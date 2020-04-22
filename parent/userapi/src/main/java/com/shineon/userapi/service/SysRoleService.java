@@ -29,15 +29,9 @@ public interface SysRoleService {
 
     /**
      * 查询多条数据
-     *
-     * @param pageNum 查询页数
-     * @param pageSize 查询条数
-     * @return 对象列表
      */
     @PostMapping("/sysRole/queryAll")
-    PageInfo<SysRoleVo> queryAll(@RequestParam("pageNum")int pageNum, 
-                                                 @RequestParam("pageSize")int pageSize,
-                                                 @RequestBody SysRoleParam sysRoleParam);
+    PageInfo<SysRoleVo> queryAll(@RequestBody SysRoleParam sysRoleParam);
 
     /**
      * 新增数据

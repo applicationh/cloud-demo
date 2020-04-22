@@ -38,18 +38,10 @@ public class SysRoleController {
     }
     /**
      * 根据页码查询
-     *
-     * @param pageNum 从pageNum页开始
-     * @param pageSize 每页pageSize条数据
      */
      @PostMapping("queryAll")
-    public  Result<PageInfo<SysRoleVo>> queryAll(@RequestParam(name = "pageNum",required = false,defaultValue = "1")int pageNum, 
-                                                        @RequestParam(name = "pageSize",required = false,defaultValue = "10")int pageSize,
-                                                         @RequestBody(required = false) SysRoleParam sysRoleParam) {
-        if(null==sysRoleParam){
-            sysRoleParam=new SysRoleParam();
-        }
-        return Result.success(sysRoleService.queryAll(pageNum,pageSize,sysRoleParam));
+    public  Result<PageInfo<SysRoleVo>> queryAll(@RequestBody(required = false) SysRoleParam sysRoleParam) {
+        return Result.success(sysRoleService.queryAll(sysRoleParam));
     }
     
      /**

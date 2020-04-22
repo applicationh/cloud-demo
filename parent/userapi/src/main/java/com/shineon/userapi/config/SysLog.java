@@ -1,4 +1,4 @@
-package com.shineon.userapi.utils;
+package com.shineon.userapi.config;
 
 import java.lang.annotation.*;
 
