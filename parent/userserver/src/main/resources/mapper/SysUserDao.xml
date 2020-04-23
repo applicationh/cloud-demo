@@ -33,7 +33,7 @@
                 and id = #{id}
            </if>
             <if test="username != null and username != ''">
-                username = #{username}
+                username =  concat('%',#{username},'%')
             </if>
          and delete_status=1
         </where>

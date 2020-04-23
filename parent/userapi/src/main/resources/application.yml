@@ -9,6 +9,9 @@ spring:
     allow-bean-definition-overriding: true
   resources:
     static-locations: classpath:/static/, classpath:/templates/
+  thymeleaf:
+    cache: false
+
 eureka:
   instance:
     hostname: userapi
@@ -35,5 +38,6 @@ eureka:
 feign:
   hystrix:
     enabled: false
+
 
 
