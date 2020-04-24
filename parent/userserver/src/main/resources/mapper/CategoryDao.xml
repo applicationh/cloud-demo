@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shineon.userserver.dao.CategoryDao">
+<mapper namespace="com.wsh.userserver.dao.CategoryDao">
 
-    <resultMap type="com.shineon.usercom.entity.Category" id="CategoryMap">
+    <resultMap type="com.wsh.usercom.entity.Category" id="CategoryMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="url" column="url" jdbcType="VARCHAR"/>
@@ -10,7 +10,7 @@
         <result property="sort" column="sort" jdbcType="INTEGER"/>
         <result property="type" column="type" jdbcType="INTEGER"/>
     </resultMap>
-    <resultMap type="com.shineon.usercom.entity.CategoryTree" id="CategoryTreeMap">
+    <resultMap type="com.wsh.usercom.entity.CategoryTree" id="CategoryTreeMap">
         <result property="ancestor" column="ancestor" jdbcType="INTEGER"/>
         <result property="descendant" column="descendant" jdbcType="INTEGER"/>
         <result property="distance" column="distance" jdbcType="INTEGER"/>
@@ -134,10 +134,10 @@
     <select id="contains" resultType="java.lang.Boolean" parameterType="int">
         SELECT 1 FROM category WHERE id=#{id}
     </select>
-    <select id="selectAll" resultType="com.shineon.usercom.entity.TreeNode">
+    <select id="selectAll" resultType="com.wsh.usercom.entity.TreeNode">
       SELECT id,name title,ancestor pid FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
     </select>
-    <select id="selectRoot" resultType="com.shineon.usercom.entity.Category">
+    <select id="selectRoot" resultType="com.wsh.usercom.entity.Category">
         SELECT * FROM `category` GROUP BY id   limit 1
     </select>
 </mapper>

@@ -26,7 +26,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.shineon.userserver.entity
+  type-aliases-package: com.wsh.userserver.entity
 # 分页配置
 pagehelper:
   helper-dialect: mysql
