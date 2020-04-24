@@ -121,14 +121,20 @@ public class CategoryServiceImpl implements CategoryService {
     public TreeNode selectAll() {
         List<TreeNode> treeNodes = categoryDao.selectAll();
 
+        Category category = categoryDao.selectById(1);
         TreeNode root = new TreeNode();
+        //根目录
+        root.setId(category.getId());
+        root.setTitle(category.getName());
         root.setSpread(true);
         root.setChildren(new ArrayList<>());
         List<TreeNode> result = root.getChildren();
+
         for (TreeNode treeNode : treeNodes) {
-            if (treeNode.getPid() == 0) {
+            if (treeNode.getPid() == root.getId()) {
                 result.add(treeNode);
             }
+
             for (TreeNode node : treeNodes) {
                 if (node.getPid() == treeNode.getId()) {
                     if (treeNode.getChildren() == null) {

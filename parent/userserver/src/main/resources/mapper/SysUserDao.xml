@@ -33,7 +33,7 @@
                 and id = #{id}
            </if>
             <if test="username != null and username != ''">
-                username =  concat('%',#{username},'%')
+                username like  concat('%',#{username},'%')
             </if>
          and delete_status=1
         </where>

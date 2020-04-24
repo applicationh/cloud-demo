@@ -9,6 +9,7 @@ import com.shineon.userserver.service.SysRoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,8 +54,8 @@ public class SysRoleServiceImpl implements SysRoleService {
      */
     @Override
     public Boolean insert(SysRole sysRole) {
-       sysRole.setDeleteStatus(1);
-       return sysRoleDao.insert(sysRole) > 0;
+        sysRole.setDeleteStatus(1);
+        return sysRoleDao.insert(sysRole) > 0;
     }
 
     /**

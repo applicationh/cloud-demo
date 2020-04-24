@@ -13,7 +13,15 @@
 
 </style>
 <body>
-
+<div><i class="layui-icon layui-icon-location" style="margin: 0px 5px" ></i>
+    <span class="layui-breadcrumb">
+      <a href="/">首页</a>
+      <a href="/">系统设置</a>
+      <a><cite>权限管理</cite></a>
+</span>
+    <fieldset class="layui-elem-field layui-field-title" >
+    </fieldset>
+</div>
 <form class="layui-form">
     <div class="layui-form-item">
         <div class="layui-inline">
@@ -35,7 +43,7 @@
 </div>
 <script src="../layui.js"></script>
 <script>
-    layui.use(['table','form','layer'], function(){
+    layui.use(['table','form','layer','element'], function(){
         var table = layui.table;
         var form = layui.form;
         var layer = layui.layer;
@@ -47,20 +55,29 @@
             ,method: 'post'
             ,contentType: 'application/json'
             ,url: '/user/sysRole/queryAll' //数据接口
-            ,height: 'full-70'
+            ,height: 'full-120'
             ,page: {
                 groups:10
             }//开启分页
             ,cellMinWidth:100
             ,limit: 20
             ,parseData: function(res){ //res 即为原始返回的数据
-                return {
-                    "code": res.code, //解析接口状态
-                    "msg": res.message, //解析提示文本
-                    "count": res.data.total, //解析数据长度
-                    "data": res.data.list, //解析数据列表
-                    "pageSize":res.data.pageSize
-                };
+                if(res.code==0){
+                    return {
+                        "code": res.code, //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.data.total, //解析数据长度
+                        "data": res.data.list, //解析数据列表
+                        "pageSize":res.data.pageSize
+                    };
+                }else{
+
+                    layer.msg('服务尝试链接中，请稍后再试...',{time:2000})
+                    return{
+                        code:201,
+                        msg:"无数据"
+                    }
+                }
             }
             ,cols: [
                 [

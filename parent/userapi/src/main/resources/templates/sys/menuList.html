@@ -7,22 +7,51 @@
 </head>
 <style>
     .treeClass{
+        margin: 20px 300px
+    }
+    .layui-tree-icon{
+        border: 0px;
+    }
+    .treeLift{
+        float:left;
+        width:49%;
         border: 2px solid #eee;
-        margin: 20px 600px
+    }
+    .treeRight{
+        float:right;
+        width:49%;
+        border: 2px solid #eee;
+
     }
 </style>
 <body>
+<div><i class="layui-icon layui-icon-location" style="margin: 0px 5px" ></i>
+    <span class="layui-breadcrumb">
+      <a href="/">首页</a>
+      <a href="/user/">系统设置</a>
+      <a><cite>菜单管理</cite></a>
+</span>
+    <fieldset class="layui-elem-field layui-field-title" >
+    </fieldset>
+</div>
+
 <div class="treeClass">
+    <div class="treeRight">
+
+
+    </div>
+    <div class="treeLift">
     <div class="layui-btn-container">
         <button type="button" class="layui-btn layui-btn-sm" lay-demo="getChecked">获取选中节点数据</button>
         <button type="button" class="layui-btn layui-btn-sm" lay-demo="setChecked">勾选指定节点</button>
         <button type="button" class="layui-btn layui-btn-sm" lay-demo="reload">重载实例</button>
     </div>
     <div  id="test1"></div>
+    </div>
 </div>
 <script src="../layui.js"></script>
 <script>
-    layui.use(['tree', 'util'], function(){
+    layui.use(['tree', 'util','element'], function(){
         var tree = layui.tree;
         var $ = layui.$;
         var util = layui.util;
@@ -45,8 +74,6 @@
             elem: '#test1'  //绑定元素
             ,id:'demoId1'
             ,data: getData()
-            , showCheckbox: true
-            ,onlyIconControl: true
             ,edit: ['add', 'update', 'del']
             ,click: function(obj){
                 var data = obj.data;  //获取当前点击的节点数据

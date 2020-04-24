@@ -38,7 +38,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into sys_role(role_name, create_time, update_time, delete_status)
-        values (#{roleName}, #{createTime}, #{updateTime}, #{deleteStatus})
+        values (#{roleName}, now(), #{updateTime}, #{deleteStatus})
     </insert>
 
     <!--通过主键修改数据-->
