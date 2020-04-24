@@ -7,6 +7,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * (Category)表服务接口
  *
@@ -37,6 +39,8 @@ public interface CategoryService {
     @GetMapping("category/queryAll")
     TreeNode selectAll();
 
+    @GetMapping("category/selectAllTable")
+    List<Category> selectAllTable();
 
 
     @GetMapping("category/delete")

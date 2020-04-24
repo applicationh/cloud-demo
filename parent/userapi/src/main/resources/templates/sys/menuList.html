@@ -7,7 +7,7 @@
 </head>
 <style>
     .treeClass{
-        margin: 20px 300px
+        margin: 20px 20px
     }
     .layui-tree-icon{
         border: 0px;
@@ -19,7 +19,7 @@
         float:right;
     }
     .treeBorder{
-        width:45%;
+        width:48%;
         border: 2px solid #eee;
         padding: 10px;
     }
@@ -38,19 +38,25 @@
 <div class="treeClass">
 
     <div class="treeLift treeBorder">
-    <div class="layui-btn-container">
-        <button type="button" class="layui-btn layui-btn-sm" lay-demo="getChecked">获取选中节点数据</button>
-        <button type="button" class="layui-btn layui-btn-sm" lay-demo="setChecked">勾选指定节点</button>
-        <button type="button" class="layui-btn layui-btn-sm" lay-demo="reload">重载实例</button>
-    </div>
-    <div  id="test1"></div>
+        <div class="layui-elem-quote">
+            菜单管理
+        </div>
+
+        <div class="demo-side">
+            <table id="demoTb1"></table>
+        </div>
+   <!-- <div  id="test1"></div>-->
     </div>
     <div class="treeRight treeBorder">
         <form class="layui-form" action="" lay-filter="update">
+            <div class="layui-elem-quote">
+                详情
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">分类</label>
                 <div class="layui-input-block">
-                    <select name="type" id="selectId">
+                    <select name="type" id="selectId"  lay-verify="required">
+                        <option value=""></option>
                         <option value="1">菜单</option>
                         <option value="2">按钮</option>
                     </select>
@@ -86,7 +92,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="submit" id="submit" class="layui-btn layui-btn-disabled" lay-submit="" lay-filter="updateMenu">更新内容</button>
+                    <button type="submit" id="submit" class="layui-btn layui-btn-disabled" lay-submit="" lay-filter="updateMenu" disabled>更新内容</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -97,11 +103,68 @@
 </div>
 <script src="../layui.js"></script>
 <script>
-    layui.use(['tree', 'util','element','form'], function(){
+
+    layui.config({
+        base: '../../user/lay/modules/'  // 配置模块所在的目录
+    }).use(['tree', 'util','element','form','treeTable'], function(){
         var tree = layui.tree;
         var $ = layui.$;
         var util = layui.util;
         var form=layui.form;
+        var treeTable = layui.treeTable;
+
+        var data = [{
+            id: '1',
+            name: 'xxx',
+            createTime: '2019/11/18 10:44:00',
+        }, {
+            pid: '1',
+            id: '1_1',
+            name: 'xxx',
+            createTime: '2019/11/18 10:44:00'
+        },{
+            id: '2',
+            name: 'xxx',
+            createTime: '2019/11/18 10:44:00',
+        },{
+            pid: '2',
+            id: '2_1',
+            name: 'xxx',
+            createTime: '2019/11/18 10:44:00'
+        }];
+
+// 渲染表格
+        var insTb = treeTable.render({
+            elem: '#demoTb1',
+            data: data,  // 数据
+            tree: {
+                iconIndex: 1,    // 折叠图标显示在第几列
+                isPidData: true,  // 是否是pid形式数据
+                idName: 'id',  // id字段名称
+                pidName: 'pid'     // pid字段名称
+            },
+            cols: [[
+                {type: 'numbers'},
+                {field: 'name', title: '菜单名称'},
+                {field: 'url', title: '地址'},
+                {field: 'code', title: '标识'},
+                {templet: '<p>{{d.type==1?"菜单":"按钮"}}</p>', title: '类型'}
+            ]],
+            reqData: function(data, callback) {
+                $.get('/user/category/queryAllTable', function (res) {
+                    if(res.code==0) callback(res.data);
+                    else callback(res.msg);
+                });
+
+
+            }
+        });
+
+
+
+
+
+
         //监听提交
         form.on('submit(updateMenu)', function(data){
             var data=data.field;
@@ -113,13 +176,14 @@
                 data:  JSON.stringify(data),
                 success: function () {
                     tree.reload('demoId1', {data: getData()})
-                    layer.msg("保存成功",{time:2000})
-                },
+                    layer.msg("保存成功",{time:2000},function () {
 
+                    })
+                }
             });
 
+            $("#submit").attr("disabled",true);
             $("#submit").addClass('layui-btn-disabled');
-            $("#submit").removeAttr("disabled");
             return false;
         });
 
@@ -145,18 +209,24 @@
             ,onlyIconControl:true
             ,click: function(obj){
                 var id = obj.data.id;  //获取当前点击的节点数据
-                form.val("update", {
-                    "id":data.id,
-                    "name":data.title,
-                    "url":data.url,
-                    "authName":data.authName,
-                    "sort":data.sort
+                var  data =[];
+                $.get('/user/category/queryById?id='+id,function(res){
+                    data=res;
+                    form.val("update", {
+                        "id": data.id,
+                        "name": data.name,
+                        "url": data.url,
+                        "authName": data.authName,
+                        "sort": data.sort
+                    });
+                    $('#selectId').val(data.type);
+                    $("#submit").removeClass('layui-btn-disabled');
+                    $("#submit").removeAttr("disabled");
+                    form.render();
+                    form.render('select');
                 });
-                $('#selectId').val(data.type);
-                $("#submit").removeClass('layui-btn-disabled');
-                $("#submit").attr("disabled");
-                form.render();
-                form.render('select');
+
+
 
             },operate: function(obj){
                 var type = obj.type; //得到操作类型：add、edit、del
@@ -182,25 +252,6 @@
         });
 
 
-        //按钮事件
-        util.event('lay-demo', {
-            getChecked: function(othis){
-                var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
-
-                layer.alert(JSON.stringify(checkedData), {shade:0});
-                console.log(checkedData);
-            }
-            ,setChecked: function(){
-                tree.setChecked('demoId1', [12, 16]); //勾选指定节点
-            }
-            ,reload: function(){
-                //重载实例
-                tree.reload('demoId1', {
-
-                });
-
-            }
-        });
 
 
     });

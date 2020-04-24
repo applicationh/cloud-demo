@@ -157,6 +157,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
+     * 查询所有节点提供layui treeTable数据
+     * @return
+     */
+    @Override
+    public  List<Category> selectAllTable(){
+        return categoryDao.selectAllTable();
+    }
+
+    /**
      * 分类的下的直属子分类。
      * @param id 自身节点的id
      * @return 直属子类列表，如果id所指定的分类不存在、或没有符合条件的分类，则返回空列表
@@ -399,4 +408,5 @@ public class CategoryServiceImpl implements CategoryService {
     public  void checkNotNegative(int value, String valname) {
         if (value < 0) throw new IllegalArgumentException("参数" + valname + "不能为负:" + value);
     }
+
 }

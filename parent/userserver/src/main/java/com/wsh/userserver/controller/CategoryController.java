@@ -7,6 +7,7 @@ import com.wsh.userserver.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Category)表控制层
@@ -43,6 +44,12 @@ public class CategoryController {
     @GetMapping("queryAll")
     public TreeNode queryAll() {
        return categoryService.selectAll();
+    }
+
+
+    @GetMapping("selectAllTable")
+    public List<Category> selectAllTable() {
+       return categoryService.selectAllTable();
     }
 
      /**

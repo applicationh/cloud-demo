@@ -57,6 +57,12 @@ public class CategoryController {
         return treeNode.getChildren();
     }
 
+    @GetMapping("queryAllTable")
+    public  Result<List<Category>> queryAllTable() {
+        List<Category> categories = categoryService.selectAllTable();
+        return Result.success(categories);
+    }
+
      /**
      * 新增数据
      */

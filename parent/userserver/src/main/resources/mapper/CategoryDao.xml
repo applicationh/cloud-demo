@@ -6,7 +6,7 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="url" column="url" jdbcType="VARCHAR"/>
-        <result property="authName" column="auth_name" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
         <result property="sort" column="sort" jdbcType="INTEGER"/>
         <result property="type" column="type" jdbcType="INTEGER"/>
     </resultMap>
@@ -19,7 +19,7 @@
     <!--查询单个所有详情-->
     <select id="selectById" resultMap="CategoryMap">
        select
-          id, name, url, auth_name, sort, type
+          id, name, url, code, sort, type
         from category
         where id = #{id}
     </select>
@@ -28,8 +28,8 @@
     </select>
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into category(name, url, auth_name, sort, type)
-        values (#{name}, #{url}, #{authName}, #{sort}, #{type})
+        insert into category(name, url, code, sort, type)
+        values (#{name}, #{url}, #{code}, #{sort}, #{type})
     </insert>
     <insert id="insertNode" parameterType="int">
         INSERT INTO category_tree(ancestor,descendant,distance) VALUES(#{id},#{id},0)
@@ -50,8 +50,8 @@
             <if test="url != null and url != ''">
                 url = #{url},
             </if>
-            <if test="authName != null and authName != ''">
-                auth_name = #{authName},
+            <if test="code != null and code != ''">
+                code = #{code},
             </if>
             <if test="sort != null">
                 sort = #{sort},
@@ -139,5 +139,8 @@
     </select>
     <select id="selectRoot" resultType="com.wsh.usercom.entity.Category">
         SELECT * FROM `category` GROUP BY id   limit 1
+    </select>
+    <select id="selectAllTable" resultType="com.wsh.usercom.entity.Category">
+        SELECT category.*,ancestor pid FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
     </select>
 </mapper>

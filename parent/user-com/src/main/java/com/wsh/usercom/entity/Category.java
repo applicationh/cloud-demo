@@ -23,9 +23,9 @@ public class Category implements Serializable {
     */
     private String url;
     /**
-    * 权限说明
+    * 权限表示
     */
-    private String authName;
+    private String code;
     /**
     * 顺序
     */
@@ -35,6 +35,15 @@ public class Category implements Serializable {
     */
     private Integer type;
 
+    private Integer pid;
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
 
     public Integer getId() {
         return id;
@@ -60,12 +69,12 @@ public class Category implements Serializable {
         this.url = url;
     }
 
-    public String getAuthName() {
-        return authName;
+    public String getCode() {
+        return code;
     }
 
-    public void setAuthName(String authName) {
-        this.authName = authName;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getSort() {

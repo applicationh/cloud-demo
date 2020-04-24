@@ -150,5 +150,13 @@ public interface CategoryDao {
     Boolean contains(int id);
 
 
+    /**
+     * 给layui tree使用
+     */
     List<TreeNode> selectAll();
+
+    /**
+     * treeTable使用
+     */
+    List<Category> selectAllTable();
 }

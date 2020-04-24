@@ -54,4 +54,6 @@ public interface CategoryService {
     void deleteByIdAllTree(int id);
 
     Category selectRoot();
+
+    List<Category> selectAllTable();
 }
