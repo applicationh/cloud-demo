@@ -25,6 +25,14 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
+     * 查询根目录  用于校验
+     */
+    @GetMapping("selectRoot")
+    public Category selectRoot() {
+        return categoryService.selectRoot();
+    }
+
+    /**
      * 通过主键查询单条数据
      */
     @GetMapping("queryById")

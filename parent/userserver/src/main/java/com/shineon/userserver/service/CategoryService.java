@@ -52,4 +52,6 @@ public interface CategoryService {
     void deleteAndMove(int id);
 
     void deleteByIdAllTree(int id);
+
+    Category selectRoot();
 }

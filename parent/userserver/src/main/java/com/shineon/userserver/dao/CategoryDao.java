@@ -16,6 +16,8 @@ import java.util.List;
 @Mapper
 public interface CategoryDao {
 
+    Category selectRoot();
+
     /**
      * 通过ID查询单条数据
      */

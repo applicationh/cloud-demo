@@ -25,6 +25,9 @@ public interface CategoryService {
     @GetMapping("category/queryById")
     Category selectById(@RequestParam("id")Integer id);
 
+    @GetMapping("category/selectRoot")
+    Category selectRoot();
+
     @PostMapping("category/insert")
     int insert(@RequestParam("name")String name,@RequestParam("parent")Integer parent);
     @PostMapping("category/update")

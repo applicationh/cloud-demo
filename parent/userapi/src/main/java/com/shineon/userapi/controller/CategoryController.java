@@ -2,6 +2,7 @@ package com.shineon.userapi.controller;
 
 
 import com.shineon.userapi.service.CategoryService;
+import com.shineon.userapi.utils.Result;
 import com.shineon.usercom.entity.Category;
 import com.shineon.usercom.entity.TreeNode;
 import org.springframework.web.bind.annotation.*;
@@ -60,20 +61,26 @@ public class CategoryController {
      * 新增数据
      */
     @PostMapping("insert")
-    public int insert(@RequestParam("name")String name,@RequestParam("parent")Integer parent) {
+    public Result insert(@RequestParam("name")String name,@RequestParam("parent")Integer parent) {
         Category category = new Category();
         category.setName(name);
         int add = categoryService.insert(name, parent);
-        return add;
+        return Result.success(add);
     }
 
     @GetMapping("delete")
-    public void delete(Integer id) {
+    public Result delete(Integer id) {
+        Category category = categoryService.selectRoot();
+        if (category.getId() == id) {
+            return Result.error("根目录不可删除");
+        }
         categoryService.deleteAndMove(id);
+        return Result.success();
     }
     @PostMapping("update")
-    public void update(@RequestBody Category category) {
-        categoryService.update(category);
+    public Result update(@RequestBody Category category) {
+        Boolean update = categoryService.update(category);
+        return Result.success(update);
     }
 
 }
