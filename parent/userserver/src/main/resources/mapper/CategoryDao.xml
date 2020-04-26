@@ -141,6 +141,6 @@
         SELECT * FROM `category` GROUP BY id   limit 1
     </select>
     <select id="selectAllTable" resultType="com.wsh.usercom.entity.Category">
-        SELECT category.*,ancestor pid FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
+        SELECT category.*,ancestor pid,true open FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
     </select>
 </mapper>

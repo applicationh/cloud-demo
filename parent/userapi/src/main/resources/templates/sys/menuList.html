@@ -50,7 +50,7 @@
     <div class="treeRight treeBorder">
         <form class="layui-form" action="" lay-filter="update">
             <div class="layui-elem-quote">
-                详情
+                详情编辑
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">分类</label>
@@ -101,6 +101,12 @@
 
     </div>
 </div>
+<!-- 表格操作列 -->
+<script type="text/html" id="tbBar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
 <script src="../layui.js"></script>
 <script>
 
@@ -113,30 +119,8 @@
         var form=layui.form;
         var treeTable = layui.treeTable;
 
-        var data = [{
-            id: '1',
-            name: 'xxx',
-            createTime: '2019/11/18 10:44:00',
-        }, {
-            pid: '1',
-            id: '1_1',
-            name: 'xxx',
-            createTime: '2019/11/18 10:44:00'
-        },{
-            id: '2',
-            name: 'xxx',
-            createTime: '2019/11/18 10:44:00',
-        },{
-            pid: '2',
-            id: '2_1',
-            name: 'xxx',
-            createTime: '2019/11/18 10:44:00'
-        }];
-
-// 渲染表格
         var insTb = treeTable.render({
             elem: '#demoTb1',
-            data: data,  // 数据
             tree: {
                 iconIndex: 1,    // 折叠图标显示在第几列
                 isPidData: true,  // 是否是pid形式数据
@@ -147,8 +131,9 @@
                 {type: 'numbers'},
                 {field: 'name', title: '菜单名称'},
                 {field: 'url', title: '地址'},
-                {field: 'code', title: '标识'},
-                {templet: '<p>{{d.type==1?"菜单":"按钮"}}</p>', title: '类型'}
+                {field: 'code', title: '权限标识'},
+                {templet: '<p>{{d.type==1?"菜单":"按钮"}}</p>', title: '类型'},
+                {align: 'center', toolbar: '#tbBar', title: '操作', width: 120}
             ]],
             reqData: function(data, callback) {
                 $.get('/user/category/queryAllTable', function (res) {
@@ -157,6 +142,17 @@
                 });
 
 
+            }
+        });
+        // 工具列点击事件
+        treeTable.on('tool(demoTb1)', function (obj) {
+            var event = obj.event;
+            if (event === 'del') {
+                layer.msg('删除成功');
+                obj.del();
+            } else if (event === 'edit') {
+                layer.msg('修改成功');
+                obj.update({authorityName: '新的名称'});
             }
         });
 

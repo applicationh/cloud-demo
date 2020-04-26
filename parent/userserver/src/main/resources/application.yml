@@ -38,6 +38,6 @@ pagehelper:
 logging:
   level:
     com:
-      shineon:
+      wsh:
         userserver:
           dao : debug

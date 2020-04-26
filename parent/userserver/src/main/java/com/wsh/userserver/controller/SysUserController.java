@@ -50,8 +50,17 @@ public class SysUserController {
         Boolean insert = sysUserService.insert(sysUser);
         return insert;
     }
-    
-    
+
+    /**
+     * 修改数据
+     * @param sysUser 实例对象
+     */
+    @PutMapping("/update")
+    public Boolean  update(@RequestBody SysUser sysUser){
+        Boolean update = sysUserService.update(sysUser);
+        return update;
+    }
+
     /**
      * 删除数据
      */

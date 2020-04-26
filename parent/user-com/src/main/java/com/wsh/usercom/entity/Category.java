@@ -35,7 +35,18 @@ public class Category implements Serializable {
     */
     private Integer type;
 
+    //treeTable
     private Integer pid;
+    //treeTable
+    private Boolean open;
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
 
     public Integer getPid() {
         return pid;
