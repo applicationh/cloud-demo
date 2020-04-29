@@ -9,7 +9,7 @@
     .treeClass{
         margin: 20px 20px
     }
-    .layui-tree-icon{
+    /*.layui-tree-icon{
         border: 0px;
     }
     .treeLift{
@@ -22,7 +22,7 @@
         width:48%;
         border: 2px solid #eee;
         padding: 10px;
-    }
+    }*/
 </style>
 <body>
 <div><i class="layui-icon layui-icon-location" style="margin: 0px 5px" ></i>
@@ -47,7 +47,7 @@
         </div>
    <!-- <div  id="test1"></div>-->
     </div>
-    <div class="treeRight treeBorder">
+   <!-- <div class="treeRight treeBorder">
         <form class="layui-form" action="" lay-filter="update">
             <div class="layui-elem-quote">
                 详情编辑
@@ -99,7 +99,7 @@
         </form>
 
 
-    </div>
+    </div>-->
 </div>
 <!-- 表格操作列 -->
 <script type="text/html" id="tbBar">
@@ -151,8 +151,15 @@
                 layer.msg('删除成功');
                 obj.del();
             } else if (event === 'edit') {
-                layer.msg('修改成功');
-                obj.update({authorityName: '新的名称'});
+                parent.layer.open({
+                    title: '修改权限'
+                    ,type: 2
+                    ,content: '/user/sys/editMenu.html'
+                    ,area: ['500px', '450px']
+                    ,end:function(){
+                        insTb.reload();//弹出层结束后，刷新主页面
+                    }
+                });
             }
         });
 
