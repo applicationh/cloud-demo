@@ -5,6 +5,7 @@ import com.wsh.userapi.service.CategoryService;
 import com.wsh.userapi.utils.Result;
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.param.CategoryParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -57,9 +58,12 @@ public class CategoryController {
         return treeNode.getChildren();
     }
 
-    @GetMapping("queryAllTable")
-    public  Result<List<Category>> queryAllTable() {
-        List<Category> categories = categoryService.selectAllTable();
+    @PostMapping("queryAllTable")
+    public  Result<List<Category>> queryAllTable(@RequestBody(required = false) CategoryParam categoryParam) {
+        if (categoryParam == null) {
+            categoryParam = new CategoryParam();
+        }
+        List<Category> categories = categoryService.selectAllTable(categoryParam);
         return Result.success(categories);
     }
 

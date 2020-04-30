@@ -154,11 +154,11 @@
                 status=2;
             }
            var data={id:this.value, deleteStatus:status};
-            updateUser(data);
+            updateUser("更新",data);
         });
 
 
-        function updateUser(data) {
+        function updateUser(msg,data) {
             $.ajax({
                 url:'/user/sysUser/update',
                 method:'put',
@@ -166,7 +166,7 @@
                 data:JSON.stringify(data),
                 success:function (res) {
                     if(res.code==0){
-                        layer.msg("更新成功",{time:1000})
+                        layer.msg(msg+"成功",{time:1000})
                     }
                 }
 
@@ -185,7 +185,7 @@
                 layer.alert('编辑行：<br>'+ JSON.stringify(data))
             }else if(obj.event ==='rePass'){
                 data={id:data.id,password:'123456'};
-                updateUser(data);
+                updateUser("重置密码",data);
             }
         });
 

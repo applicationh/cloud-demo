@@ -3,6 +3,7 @@ package com.wsh.userserver.service.impl;
 
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.param.CategoryParam;
 import com.wsh.userserver.dao.CategoryDao;
 import com.wsh.userserver.service.CategoryService;
 import org.springframework.stereotype.Service;
@@ -161,8 +162,8 @@ public class CategoryServiceImpl implements CategoryService {
      * @return
      */
     @Override
-    public  List<Category> selectAllTable(){
-        return categoryDao.selectAllTable();
+    public  List<Category> selectAllTable(CategoryParam categoryParam){
+        return categoryDao.selectAllTable(categoryParam);
     }
 
     /**

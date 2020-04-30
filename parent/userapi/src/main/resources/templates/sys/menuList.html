@@ -23,6 +23,7 @@
         border: 2px solid #eee;
         padding: 10px;
     }*/
+
 </style>
 <body>
 <div><i class="layui-icon layui-icon-location" style="margin: 0px 5px" ></i>
@@ -37,11 +38,35 @@
 
 <div class="treeClass">
 
-    <div class="treeLift treeBorder">
-        <div class="layui-elem-quote">
-            菜单管理
-        </div>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">权限名称</label>
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="name"  autocomplete="off" placeholder="请输入权限名称" class="layui-input">
+            </div>
 
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单地址</label>
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="url"  autocomplete="off" placeholder="请输入地址" class="layui-input">
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">权限标识</label>
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="code"  autocomplete="off" placeholder="请输入权限标识" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="text-align: center">
+            <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
+            <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
+        </div>
+    </form>
+    <div class="treeLift treeBorder">
         <div class="demo-side">
             <table id="demoTb1"></table>
         </div>
@@ -136,12 +161,13 @@
                 {align: 'center', toolbar: '#tbBar', title: '操作', width: 120}
             ]],
             reqData: function(data, callback) {
-                $.get('/user/category/queryAllTable', function (res) {
+                $.post('/user/category/queryAllTable', function (res) {
                     if(res.code==0) callback(res.data);
                     else callback(res.msg);
                 });
-
-
+            },
+            text: {
+                none: '<div style="padding: 18px 0;">哎呀，一条数据都没有~</div>'
             }
         });
         // 工具列点击事件
@@ -151,10 +177,10 @@
                 layer.msg('删除成功');
                 obj.del();
             } else if (event === 'edit') {
-                parent.layer.open({
+                 parent.layer.open({
                     title: '修改权限'
                     ,type: 2
-                    ,content: '/user/sys/editMenu.html'
+                    ,content: '/user/sys/editMenu.html?id='+obj.data.id
                     ,area: ['500px', '450px']
                     ,end:function(){
                         insTb.reload();//弹出层结束后，刷新主页面
@@ -165,6 +191,33 @@
 
 
 
+        //监听提交
+        form.on('submit(sub)', function(data){
+            var data=data.field;
+            $.ajax({
+                type: 'POST',
+                url: '/user/category/queryAllTable',
+                contentType: "application/json;charset=UTF-8",
+                data:  JSON.stringify(data),
+                success: function (res) {
+                    var resultData=res.data;
+                    if (resultData==undefined||resultData.length == 0) {
+                        insTb.reload({
+                            data:{"code":-1,"msg":"暂无"},
+                            text: {
+                                none: '<div style="padding: 18px 0;">哎呀，一条数据都没有~</div>'
+                            }
+                        });
+
+                    }else{
+                        insTb.refresh('demoTb1',resultData);
+                    }
+
+
+                }
+            });
+            return false;
+        });
 
 
 

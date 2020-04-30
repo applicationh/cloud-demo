@@ -140,7 +140,19 @@
     <select id="selectRoot" resultType="com.wsh.usercom.entity.Category">
         SELECT * FROM `category` GROUP BY id   limit 1
     </select>
-    <select id="selectAllTable" resultType="com.wsh.usercom.entity.Category">
-        SELECT category.*,ancestor pid,true open FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
+    <select id="selectAllTable" resultType="com.wsh.usercom.entity.Category" parameterType="com.wsh.usercom.param.CategoryParam">
+        SELECT category.*,ancestor pid,true open FROM `category_tree` left join  category on category_tree.descendant=category.id
+        <where>
+            distance =1
+            <if test="name != null and name != ''">
+              and  name like CONCAT ("%",#{name},"%")
+            </if>
+            <if test="url != null and url != ''">
+                and url like CONCAT ("%",#{url},"%")
+            </if>
+            <if test="code != null and code != ''">
+                and  code like CONCAT ("%",#{code},"%")
+            </if>
+        </where>
     </select>
 </mapper>

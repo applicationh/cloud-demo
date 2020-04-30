@@ -3,6 +3,7 @@ package com.wsh.userapi.service;
 
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.param.CategoryParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +40,8 @@ public interface CategoryService {
     @GetMapping("category/queryAll")
     TreeNode selectAll();
 
-    @GetMapping("category/selectAllTable")
-    List<Category> selectAllTable();
+    @PostMapping("category/selectAllTable")
+    List<Category> selectAllTable(@RequestBody   CategoryParam categoryParam);
 
 
     @GetMapping("category/delete")

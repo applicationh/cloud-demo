@@ -3,6 +3,7 @@ package com.wsh.userserver.controller;
 
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.param.CategoryParam;
 import com.wsh.userserver.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,9 +48,9 @@ public class CategoryController {
     }
 
 
-    @GetMapping("selectAllTable")
-    public List<Category> selectAllTable() {
-       return categoryService.selectAllTable();
+    @PostMapping("selectAllTable")
+    public List<Category> selectAllTable(@RequestBody(required = false)  CategoryParam categoryParam) {
+       return categoryService.selectAllTable(categoryParam);
     }
 
      /**
