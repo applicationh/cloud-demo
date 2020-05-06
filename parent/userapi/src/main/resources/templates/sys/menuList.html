@@ -4,26 +4,12 @@
     <meta charset="utf-8">
     <title>树组件</title>
     <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/common.css" media="all">
 </head>
 <style>
     .treeClass{
         margin: 20px 20px
     }
-    /*.layui-tree-icon{
-        border: 0px;
-    }
-    .treeLift{
-        float:left;
-    }
-    .treeRight{
-        float:right;
-    }
-    .treeBorder{
-        width:48%;
-        border: 2px solid #eee;
-        padding: 10px;
-    }*/
-
 </style>
 <body>
 <div><i class="layui-icon layui-icon-location" style="margin: 0px 5px" ></i>
@@ -60,10 +46,10 @@
             <div class="layui-inline">
                 <input type="text" name="code"  autocomplete="off" placeholder="请输入权限标识" class="layui-input">
             </div>
-        </div>
-        <div class="layui-form-item" style="text-align: center">
-            <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
-            <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
+            <div class="layui-inline">
+                <button type="button" lay-submit="" class="layui-btn layui-btn-sm " lay-filter="sub"><i class="layui-icon layui-icon-search"></i></button>
+            <button type="reset" id ="reset" class="layui-btn layui-btn-primary layui-btn-sm" ><i class="layui-icon layui-icon-refresh-3"></i></button>
+            </div>
         </div>
     </form>
     <div class="treeLift treeBorder">
@@ -165,9 +151,9 @@
                     if(res.code==0) callback(res.data);
                     else callback(res.msg);
                 });
-            },
-            text: {
-                none: '<div style="padding: 18px 0;">哎呀，一条数据都没有~</div>'
+            }
+            ,text: {
+                none: '<div>哎呀，一条数据都没有~</div>'
             }
         });
         // 工具列点击事件
@@ -190,32 +176,23 @@
         });
 
 
-
         //监听提交
         form.on('submit(sub)', function(data){
-            var data=data.field;
-            $.ajax({
-                type: 'POST',
-                url: '/user/category/queryAllTable',
-                contentType: "application/json;charset=UTF-8",
-                data:  JSON.stringify(data),
-                success: function (res) {
-                    var resultData=res.data;
-                    if (resultData==undefined||resultData.length == 0) {
-                        insTb.reload({
-                            data:{"code":-1,"msg":"暂无"},
-                            text: {
-                                none: '<div style="padding: 18px 0;">哎呀，一条数据都没有~</div>'
-                            }
-                        });
-
-                    }else{
-                        insTb.refresh('demoTb1',resultData);
-                    }
-
-
+            var fromData=data.field;
+            insTb.reload({
+                reqData: function(data, callback) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user/category/queryAllTable',
+                        contentType: "application/json;charset=UTF-8",
+                        data:  JSON.stringify(fromData),
+                        success: function (res) {
+                            callback(res.data);
+                        }
+                    });
                 }
             });
+
             return false;
         });
 
@@ -255,6 +232,17 @@
             });
             return data;
         }
+
+        $("#reset").on('click',function () {
+            insTb.reload({
+                reqData: function(data, callback) {
+                    $.post('/user/category/queryAllTable', function (res) {
+                        if(res.code==0) callback(res.data);
+                        else callback(res.msg);
+                    });
+                }
+            });
+        });
 
         //渲染
         var inst1 = tree.render({

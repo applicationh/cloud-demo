@@ -1,3 +1,7 @@
-# Spring cloud demo
-* 基于Spring boot的单服务动态数据源
-* 搭建 Cloud Demo
+# Spring cloud 菜单用户角色实例
+
+String boot + layui 实现
+
+
+*  结合treetable-lay实现编辑菜单展示和操作  
+* 

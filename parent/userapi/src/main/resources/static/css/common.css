@@ -8,3 +8,7 @@
 .layui-textarea{
     height: 30px;
 }
+/*文本框30高*/
+.layui-input, .layui-select, .layui-textarea{
+    height: 30px;
+}
