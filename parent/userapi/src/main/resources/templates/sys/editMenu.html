@@ -46,6 +46,7 @@
         </div>
     </div>
     <div class="layui-form-item" style="text-align: center">
+        <input type="hidden" name="id">
         <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
         <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
     </div>
@@ -61,16 +62,20 @@
         form.val("editMenu",getDetail());
         function getDetail(){
             var id=GetQueryString("id");
-            var result=[];
-            $.ajax({
-                url:'/user/category/queryById?id='+id,
-                async:false,
-                method:'get',
-                success:function (res) {
-                    result =  res;
-                }
-            })
-            return result;
+            if(id!=null){
+                var result=[];
+                $.ajax({
+                    url:'/user/category/queryById?id='+id,
+                    async:false,
+                    method:'get',
+                    success:function (res) {
+                        result =  res;
+                    }
+                })
+                return result;
+            }else{
+                return null;
+            }
         };
 
 
@@ -80,21 +85,21 @@
                 //1菜单 2按钮
                 data.field.type=2;
             }
-            layer.msg(JSON.stringify(data.field));
-           /* $.ajax({
-                url:"/user/sysRole/insert",
+             $.ajax({
+                url:"/user/category/update",
                 method:'post',
                 data: JSON.stringify(data.field),
                 dataType: "json",
                 contentType:"application/json",
                 success:function (res) {
                     if(res.code==0){
-                        layer.msg('提交成功',{shade:0.3,time:1500});
+                        layer.msg('提交成功',{shade:0.3,time:1500},function () {
+                            close();
+                        });
                     }
                 }
 
-            })*/
-            // close()
+            })
             return false;//false：阻止表单跳转  true：表单跳转
         });
 

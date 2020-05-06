@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.wsh.userapi.utils.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +20,8 @@ import java.util.Enumeration;
  */
 @RestControllerAdvice
 public class MyControllerAdvice {
-
+    @Autowired
+    private ResourceUrlProvider resourceUrlProvider;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
@@ -50,4 +54,11 @@ public class MyControllerAdvice {
                 remoteAddr,serverPort,requestURI,requestURL,method,paramJson.toJSONString()));
         return Result.error(ex.getMessage());
     }
+
+
+//    @ModelAttribute("urls")
+//    public ResourceUrlProvider urls() {
+//        return this.resourceUrlProvider;
+//    }
+
 }

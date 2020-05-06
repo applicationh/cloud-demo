@@ -48,7 +48,8 @@
             </div>
             <div class="layui-inline">
                 <button type="button" lay-submit="" class="layui-btn layui-btn-sm " lay-filter="sub"><i class="layui-icon layui-icon-search"></i></button>
-            <button type="reset" id ="reset" class="layui-btn layui-btn-primary layui-btn-sm" ><i class="layui-icon layui-icon-refresh-3"></i></button>
+                <button type="reset" id ="reset" class="layui-btn layui-btn-primary layui-btn-sm" ><i class="layui-icon layui-icon-refresh-3"></i></button>
+                <button type="reset" id="add" class="layui-btn layui-btn-sm"><i class="layui-icon layui-icon-add-1 "></i></button>
             </div>
         </div>
     </form>
@@ -160,8 +161,21 @@
         treeTable.on('tool(demoTb1)', function (obj) {
             var event = obj.event;
             if (event === 'del') {
-                layer.msg('删除成功');
-                obj.del();
+                if (obj.data.children && obj.data.children.length > 0){
+                    return layer.msg('有子级不能删除');
+                } else{
+                    obj.del();
+                    $.ajax({
+                        type: 'get',
+                        url: '/user/category/delete?id='+obj.data.id,
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (res) {
+                            layer.msg('删除成功');
+                        }
+                    });
+
+                }
+
             } else if (event === 'edit') {
                  parent.layer.open({
                     title: '修改权限'
@@ -240,6 +254,17 @@
                         if(res.code==0) callback(res.data);
                         else callback(res.msg);
                     });
+                }
+            });
+        });
+        $("#add").on('click',function () {
+            parent.layer.open({
+                title: '添加权限'
+                ,type: 2
+                ,content: '/user/sys/editMenu.html'
+                ,area: ['500px', '450px']
+                ,end:function(){
+                    insTb.reload();//弹出层结束后，刷新主页面
                 }
             });
         });

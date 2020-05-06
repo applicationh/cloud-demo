@@ -9,9 +9,18 @@ spring:
     allow-bean-definition-overriding: true
   resources:
     static-locations: classpath:/static/, classpath:/templates/
+    cache:
+      period: 604800
+    chain:
+      compressed: true
+      cache: true
+      strategy:
+        content:
+          enabled: true
+          paths: /**
   thymeleaf:
     cache: false
-
+ctx: http://127.0.0.1:8081/user/
 eureka:
   instance:
     hostname: userapi

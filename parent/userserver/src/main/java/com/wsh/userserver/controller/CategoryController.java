@@ -65,7 +65,7 @@ public class CategoryController {
     }
 
     @GetMapping("delete")
-    public void delete(Integer id) {
+    public void delete(@RequestParam("id") Integer id) {
         categoryService.deleteAndMove(id);
     }
     @PostMapping("update")
