@@ -3,6 +3,7 @@ package com.wsh.userserver.service.impl;
 
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.entity.TreeSelect;
 import com.wsh.usercom.param.CategoryParam;
 import com.wsh.userserver.dao.CategoryDao;
 import com.wsh.userserver.service.CategoryService;
@@ -116,7 +117,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * list转树形 封装layui格式
+     * list转树形 封装layui树形图格式
      */
     @Override
     public TreeNode selectAll() {
@@ -159,7 +160,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * 查询所有节点提供layui treeTable数据
-     * @return
      */
     @Override
     public  List<Category> selectAllTable(CategoryParam categoryParam){

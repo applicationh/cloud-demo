@@ -15,6 +15,14 @@
 <form class="layui-form"  lay-filter="editMenu" id="editMenu">
     <div class="layui-form-item">
         <div class="layui-inline">
+            <label class="layui-form-label">上级菜单</label>
+        </div>
+        <div class="layui-inline" style="width: 182px;">
+            <div id="tree" ></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
             <label class="layui-form-label">菜单名称</label>
         </div>
         <div class="layui-inline">
@@ -55,13 +63,52 @@
 </body>
 <script src="../layui.js"></script>
 <script>
-    layui.use('form', function(){
+    layui.config({
+        base: "/user/lay/modules/"
+    }).extend({
+        xmSelect: "xm-select"
+    });
+
+    layui.use(['form','xmSelect'], function(){
         var form = layui.form;
         var $=layui.$;
+        var result=[];
+
+        var  id=GetQueryString("id");
+
+        var demo1 = xmSelect.render({
+            el: '#tree',
+            model: { label: { type: 'text' }},
+            radio: true,
+            filterable: true,
+            clickClose: true,
+            tree: {
+                show: true,
+                strict: false,
+                expandedKeys: [ -1 ],
+            },
+            height: 'auto',
+            prop: {
+                name: 'title',
+                value: 'id',
+                selected: 'checked',
+
+            },
+            data(){
+                $.ajax({
+                    url:'/user/category/queryAll?id='+id,
+                    async:false,
+                    success:function (res) {
+                        result=res;
+                    }
+                });
+                return result;
+            }
+
+        })
 
         form.val("editMenu",getDetail());
         function getDetail(){
-            var id=GetQueryString("id");
             if(id!=null){
                 var result=[];
                 $.ajax({

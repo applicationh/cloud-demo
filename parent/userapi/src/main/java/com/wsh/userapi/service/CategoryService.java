@@ -3,6 +3,7 @@ package com.wsh.userapi.service;
 
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.entity.TreeSelect;
 import com.wsh.usercom.param.CategoryParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;

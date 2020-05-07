@@ -1,10 +1,12 @@
 package com.wsh.userapi.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.wsh.userapi.service.CategoryService;
 import com.wsh.userapi.utils.Result;
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.entity.TreeSelect;
 import com.wsh.usercom.param.CategoryParam;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +40,7 @@ public class CategoryController {
 
 
     @GetMapping("queryAll")
-    public List<TreeNode> queryAll() {
+    public List<TreeNode> queryAll(@RequestParam(required = false,name = "id",defaultValue = "-1")Integer id) {
         TreeNode treeNode = categoryService.selectAll();
         List<TreeNode> children = treeNode.getChildren();
 
@@ -58,6 +60,10 @@ public class CategoryController {
         return treeNode.getChildren();
     }
 
+
+    /**
+     * layui 图标树状图数据格式
+     */
     @PostMapping("queryAllTable")
     public  Result<List<Category>> queryAllTable(@RequestBody(required = false) CategoryParam categoryParam) {
         if (categoryParam == null) {
