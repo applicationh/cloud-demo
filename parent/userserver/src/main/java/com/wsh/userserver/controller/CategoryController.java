@@ -59,7 +59,7 @@ public class CategoryController {
      */
     @PostMapping("insert")
     public int insert(@RequestBody  Category category) {
-        int add = categoryService.add(category,category.getId());
+        int add = categoryService.add(category,category.getPid());
         return add;
     }
 
@@ -69,6 +69,7 @@ public class CategoryController {
     }
     @PostMapping("update")
     public void update(@RequestBody Category category) {
+        categoryService.moveTreeTo(category.getId(), category.getPid());
         categoryService.update(category);
     }
 

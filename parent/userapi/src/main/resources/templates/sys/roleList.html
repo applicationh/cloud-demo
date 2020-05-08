@@ -37,11 +37,11 @@
     <table  id="demo" lay-filter="test" ></table>
 </div>
 <script src="../layui.js"></script>
+<script src="../com.js"></script>
 <script>
-    layui.use(['table','form','layer','element'], function(){
+    layui.use(['table','form'], function(){
         var table = layui.table;
         var form = layui.form;
-        var layer = layui.layer;
         var $ = layui.$;
         //第一个实例
         var userList=table.render({
@@ -79,7 +79,7 @@
                     {title: '序号',  type:'numbers',width:100}
                     ,{field: 'id', title: 'ID' }
                     ,{field: 'roleName', title: '角色名'}
-                    /*,{field: 'displayName', title: '昵称', sort: true}*/
+                    ,{field: 'roleCode', title: '角色编码', sort: true}
                     ,{fixed: 'right',align:'center', toolbar: '#barDemo'}
                     /*,{field: 'updateTime', title: '更新时间',  sort: true}*/
                 ]
@@ -134,9 +134,14 @@
             if(obj.event === 'detail'){
                 layer.msg('ID：'+ data.id + ' 的查看操作');
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', {btn: ['确定','我在想想']},function(index){
-                    obj.del();
-                    deleteById(data.id);
+                layer.msg('真的删除行么', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        layer.close(index);
+                        obj.del();
+                        deleteById(data.id);
+                    }
                 });
             } else if(obj.event === 'edit'){
                 layer.alert('编辑行：<br>'+ JSON.stringify(data))
@@ -149,7 +154,7 @@
                 method:'delete',
                 success:function (res) {
                     if(res.code==0){
-                        layer.msg("删除成功",{time:1000})
+                        layer.msg("删除成功")
                     }
                 }
 

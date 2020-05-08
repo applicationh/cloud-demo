@@ -1,5 +1,7 @@
 package com.wsh.usercom.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -10,27 +12,39 @@ import java.io.Serializable;
  * 
  */
 public class SysRoleVo implements Serializable {
-    private static final long serialVersionUID = -89036679722032299L;
+    private static final long serialVersionUID = 251326152342093979L;
     /**
     * ID
-    */
+    */        
     private Integer id;
+    
     /**
     * 角色名
-    */
+    */        
     private String roleName;
+    
+    /**
+    * 角色代码
+    */        
+    private String roleCode;
+    
     /**
     * 创建时间
-    */
+    */        
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")    
     private Date createTime;
+    
     /**
     * 更新时间
-    */
+    */        
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")    
     private Date updateTime;
+    
     /**
     * 是否有效  1有效  2无效
-    */
+    */        
     private Integer deleteStatus;
+    
 
     
     public Integer getId() {
@@ -47,6 +61,14 @@ public class SysRoleVo implements Serializable {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+    
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
     
     public Date getCreateTime() {

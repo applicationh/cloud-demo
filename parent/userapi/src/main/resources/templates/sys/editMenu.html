@@ -23,7 +23,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">菜单名称</label>
+            <label class="layui-form-label">权限名称</label>
         </div>
         <div class="layui-inline">
             <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入菜单" class="layui-input">
@@ -34,7 +34,7 @@
             <label class="layui-form-label">地址url</label>
         </div>
         <div class="layui-inline">
-            <input type="text" name="url" lay-verify="required" autocomplete="off" placeholder="请输入地址" class="layui-input">
+            <input type="text" name="url"  autocomplete="off" placeholder="请输入地址" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -42,7 +42,7 @@
             <label class="layui-form-label">权限标识</label>
         </div>
         <div class="layui-inline">
-            <input type="text" name="code" lay-verify="required" autocomplete="off" placeholder="请输入标识" class="layui-input">
+            <input type="text" name="code"  autocomplete="off" placeholder="请输入标识" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -62,13 +62,8 @@
 </div>
 </body>
 <script src="../layui.js"></script>
+<script src="../com.js"></script>
 <script>
-    layui.config({
-        base: "/user/lay/modules/"
-    }).extend({
-        xmSelect: "xm-select"
-    });
-
     layui.use(['form','xmSelect'], function(){
         var form = layui.form;
         var $=layui.$;
@@ -79,14 +74,14 @@
         var demo1 = xmSelect.render({
             el: '#tree',
             model: { label: { type: 'text' }},
-            name: 'id',
-            layVerify: 'required',
+            name: 'pid',
             radio: true,
             filterable: true,
             clickClose: true,
             tree: {
                 show: true,
                 strict: false,
+                expandedKeys: [],
             },
             height: 'auto',
             prop: {
@@ -133,11 +128,26 @@
                 //1菜单 2按钮
                 data.field.type=2;
             }
+            //如果是按钮,没有url
+            if(data.field.type==2){
+                if(data.field.code==''){
+                    layer.msg("按钮必须填写标识",{anim: 6,icon: 5});
+                    return;
+                }
+                data.field.url="";
+            }else{
+                if(data.field.url==''){
+                    layer.msg("菜单必须填写url",{anim: 6,icon: 5});
+                    return;
+                }
+                data.field.code="";
+            }
+            var pid=demo1.getValue('value')[0];
+            data.field.pid=pid;
             var url="/user/category/update"
             if(id==-1){
                 url="/user/category/insert"
             }
-            data.field.id=demo1.getValue('value')[0];
              $.ajax({
                 url:url,
                 method:'post',

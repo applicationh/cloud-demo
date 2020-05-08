@@ -120,11 +120,10 @@
 </script>
 
 <script src="../layui.js"></script>
+<script src="../com.js"></script>
 <script>
 
-    layui.config({
-        base: '../../user/lay/modules/'  // 配置模块所在的目录
-    }).use(['tree', 'util','element','form','treeTable'], function(){
+    layui.use(['tree', 'util','element','form','treeTable','notice'], function(){
         var tree = layui.tree;
         var $ = layui.$;
         var util = layui.util;
@@ -140,7 +139,7 @@
                 pidName: 'pid'     // pid字段名称
             },
             cols: [[
-                {type: 'numbers'},
+                {type: 'numbers',title: '序号', width: 80},
                 {field: 'name', title: '菜单名称'},
                 {field: 'url', title: '地址'},
                 {field: 'code', title: '权限标识'},

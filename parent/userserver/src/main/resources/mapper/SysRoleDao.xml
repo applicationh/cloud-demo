@@ -5,6 +5,7 @@
     <resultMap type="com.wsh.usercom.entity.SysRole" id="SysRoleMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="deleteStatus" column="delete_status" jdbcType="INTEGER"/>
@@ -13,19 +14,19 @@
     <!--查询单个-->
     <select id="queryById" resultMap="SysRoleMap">
         select
-          id, role_name, create_time, update_time, delete_status
+          id, role_name, role_code, create_time, update_time, delete_status
         from sys_role
-        where id = #{id} and delete_status=1
+        where id = #{id}
     </select>
 
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SysRoleMap">
         select
-          id, role_name, create_time, update_time, delete_status
+          id, role_name, role_code, create_time, update_time, delete_status
         from sys_role
         <where>
-            <if test="id != null">
+           <if test="id != null">
                 and id = #{id}
            </if>
             <if test="roleName != null and roleName != ''">
@@ -37,8 +38,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_role(role_name, create_time, update_time, delete_status)
-        values (#{roleName}, now(), #{updateTime}, #{deleteStatus})
+        insert into sys_role(role_name, role_code, create_time, update_time, delete_status)
+        values (#{roleName}, #{roleCode}, #{createTime}, #{updateTime}, #{deleteStatus})
     </insert>
 
     <!--通过主键修改数据-->
@@ -47,6 +48,9 @@
         <set>
             <if test="roleName != null and roleName != ''">
                 role_name = #{roleName},
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                role_code = #{roleCode},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime},
@@ -61,5 +65,9 @@
         where id = #{id}
     </update>
 
-  
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sys_role where id = #{id}
+    </delete>
+
 </mapper>
