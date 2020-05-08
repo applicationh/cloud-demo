@@ -23,6 +23,16 @@ public class SysRoleParam implements Serializable {
 
     private String roleName;
 
+    private String roleCode;
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
+
     public String getRoleName() {
         return roleName;
     }

@@ -20,10 +20,16 @@
 <form class="layui-form">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">角色名</label>
+            <label class="layui-form-label">角色名称</label>
         </div>
         <div class="layui-inline">
             <input type="text" name="roleName" lay-verify="title" autocomplete="off" placeholder="请输入内容" class="layui-input">
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">角色编码</label>
+        </div>
+        <div class="layui-inline">
+            <input type="text" name="roleCode" lay-verify="title" autocomplete="off" placeholder="请输入内容" class="layui-input">
         </div>
         <div class="layui-inline">
             <button type="button" lay-submit="" class="layui-btn layui-btn-sm" lay-filter="search"><i class="layui-icon layui-icon-search"></i></button>
@@ -89,14 +95,14 @@
 
         form.on('submit(search)', function(data){
             var formData = data.field;
-            var roleName = formData.roleName;
             //执行重载
             table.reload('tableReload', {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {//这里传参  向后台
-                    roleName: roleName
+                    roleName: formData.roleName,
+                    roleCode: formData.roleCode
                 }
                 ,limit: 20
                 ,page: true
