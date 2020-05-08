@@ -31,7 +31,7 @@ public interface CategoryService {
     Category selectRoot();
 
     @PostMapping("category/insert")
-    int insert(@RequestParam("name")String name,@RequestParam("parent")Integer parent);
+    int insert(@RequestBody Category category);
     @PostMapping("category/update")
     Boolean update(@RequestBody Category category);
 
@@ -39,7 +39,7 @@ public interface CategoryService {
 
 
     @GetMapping("category/queryAll")
-    TreeNode selectAll();
+    TreeNode selectAll(@RequestParam("id")Integer id);
 
     @PostMapping("category/selectAllTable")
     List<Category> selectAllTable(@RequestBody   CategoryParam categoryParam);

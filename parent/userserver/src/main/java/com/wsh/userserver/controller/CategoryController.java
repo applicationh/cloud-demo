@@ -44,8 +44,8 @@ public class CategoryController {
 
 
     @GetMapping("queryAll")
-    public TreeNode queryAll() {
-       return categoryService.selectAll();
+    public TreeNode queryAll(@RequestParam("id")Integer id) {
+       return categoryService.selectAll(id);
     }
 
 
@@ -58,10 +58,8 @@ public class CategoryController {
      * 新增数据
      */
     @PostMapping("insert")
-    public int insert(@RequestParam("name")String name,@RequestParam("parent")Integer parent) {
-        Category category = new Category();
-        category.setName(name);
-        int add = categoryService.add(category, parent);
+    public int insert(@RequestBody  Category category) {
+        int add = categoryService.add(category,category.getId());
         return add;
     }
 

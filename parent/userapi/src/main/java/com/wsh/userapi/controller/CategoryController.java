@@ -41,7 +41,7 @@ public class CategoryController {
 
     @GetMapping("queryAll")
     public List<TreeNode> queryAll(@RequestParam(required = false,name = "id",defaultValue = "-1")Integer id) {
-        TreeNode treeNode = categoryService.selectAll();
+        TreeNode treeNode = categoryService.selectAll(id);
         List<TreeNode> children = treeNode.getChildren();
 
 
@@ -56,7 +56,7 @@ public class CategoryController {
     }
     @GetMapping("queryAllNotRoot")
     public List<TreeNode> queryAllNotRoot() {
-        TreeNode treeNode = categoryService.selectAll();
+        TreeNode treeNode = categoryService.selectAll(-1);
         return treeNode.getChildren();
     }
 
@@ -77,10 +77,8 @@ public class CategoryController {
      * 新增数据
      */
     @PostMapping("insert")
-    public Result insert(@RequestParam("name")String name,@RequestParam("parent")Integer parent) {
-        Category category = new Category();
-        category.setName(name);
-        int add = categoryService.insert(name, parent);
+    public Result insert(@RequestBody  Category category) {
+        int add = categoryService.insert(category);
         return Result.success(add);
     }
 

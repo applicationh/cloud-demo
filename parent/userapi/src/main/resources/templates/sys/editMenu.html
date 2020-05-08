@@ -74,18 +74,19 @@
         var $=layui.$;
         var result=[];
 
-        var  id=GetQueryString("id");
-
+        var  id= GetQueryString("id");
+        id=id==null?-1:id;
         var demo1 = xmSelect.render({
             el: '#tree',
             model: { label: { type: 'text' }},
+            name: 'id',
+            layVerify: 'required',
             radio: true,
             filterable: true,
             clickClose: true,
             tree: {
                 show: true,
                 strict: false,
-                expandedKeys: [ -1 ],
             },
             height: 'auto',
             prop: {
@@ -132,8 +133,13 @@
                 //1菜单 2按钮
                 data.field.type=2;
             }
+            var url="/user/category/update"
+            if(id==-1){
+                url="/user/category/insert"
+            }
+            data.field.id=demo1.getValue('value')[0];
              $.ajax({
-                url:"/user/category/update",
+                url:url,
                 method:'post',
                 data: JSON.stringify(data.field),
                 dataType: "json",

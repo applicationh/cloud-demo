@@ -120,7 +120,7 @@ public class CategoryServiceImpl implements CategoryService {
      * list转树形 封装layui树形图格式
      */
     @Override
-    public TreeNode selectAll() {
+    public TreeNode selectAll(Integer id) {
         List<TreeNode> treeNodes = categoryDao.selectAll();
 
         Category category = categoryDao.selectRoot();
@@ -131,6 +131,8 @@ public class CategoryServiceImpl implements CategoryService {
             categoryDao.insert(category);
             categoryDao.insertNode(category.getId());
         }
+        //查询父ID  默认勾选
+        Integer integer = categoryDao.selectAncestor(id, 1);
 
 
         TreeNode root = new TreeNode();
@@ -139,13 +141,21 @@ public class CategoryServiceImpl implements CategoryService {
         root.setTitle(category.getName());
         root.setSpread(true);
         root.setChildren(new ArrayList<>());
+        boolean  initCheck=true;
+        if (integer==null||integer==category.getId()) {
+            root.setChecked(true);
+            initCheck = false;
+        }
         List<TreeNode> result = root.getChildren();
 
         for (TreeNode treeNode : treeNodes) {
             if (treeNode.getPid() == root.getId()) {
                 result.add(treeNode);
             }
-
+            //默认勾选
+            if (initCheck&&treeNode.getId()== integer ){
+                treeNode.setChecked(true);
+            }
             for (TreeNode node : treeNodes) {
                 if (node.getPid() == treeNode.getId()) {
                     if (treeNode.getChildren() == null) {
