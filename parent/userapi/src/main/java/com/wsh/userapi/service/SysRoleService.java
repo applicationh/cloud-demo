@@ -25,7 +25,7 @@ public interface SysRoleService {
      * @return 实例对象
      */
      @GetMapping("/sysRole/queryById")
-    SysRoleVo queryById(@RequestParam("id")Integer id);
+    SysRoleVo queryById(@RequestParam("id")Integer id,@RequestParam("menu")Boolean menu);
 
     /**
      * 查询多条数据

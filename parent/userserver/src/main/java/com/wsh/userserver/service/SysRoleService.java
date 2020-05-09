@@ -18,7 +18,7 @@ public interface SysRoleService {
      * @param id 主键
      * @return 实例对象
      */
-    SysRole queryById(Integer id);
+    SysRole queryById(Integer id,Boolean menu);
 
     /**
      * 查询多条数据

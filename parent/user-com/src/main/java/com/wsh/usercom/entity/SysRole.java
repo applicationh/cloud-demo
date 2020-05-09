@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 后台角色表(SysRole)实体类
@@ -46,7 +47,16 @@ public class SysRole implements Serializable {
     private Integer deleteStatus;
     
 
-    
+    private List<Integer>  menuId;
+
+    public List<Integer> getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(List<Integer> menuId) {
+        this.menuId = menuId;
+    }
+
     public Integer getId() {
         return id;
     }

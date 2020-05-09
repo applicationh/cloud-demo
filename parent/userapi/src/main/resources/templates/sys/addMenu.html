@@ -72,25 +72,30 @@
         var form = layui.form;
         var $=layui.$;
         var parentData = parent.layer.methodConfig.data
-        var result=[];
-        var id;
+        var id,pid;
+        var result=getDetail();
         if(parentData==null||parentData.id==null){
               id =-1;
+              pid=result[0].id;
+
         }else{
             id=parentData.id;
+            pid=parentData.pid;
             form.val("editMenu",JSON.parse(JSON.stringify(parentData)));
         }
+
         var demo1 = xmSelect.render({
             el: '#tree',
             model: { label: { type: 'text' }},
             name: 'pid',
             radio: true,
             filterable: true,
+            initValue: [pid],
             clickClose: true,
             tree: {
                 show: true,
                 strict: false,
-                expandedKeys: [-1],
+                expandedKeys: true,
             },
             height: 'auto',
             prop: {
@@ -99,35 +104,23 @@
                 selected: 'checked',
 
             },
-            data(){
-                $.ajax({
-                    url:'/user/category/queryAll?id='+id,
-                    async:false,
-                    success:function (res) {
-                        result=res;
-                    }
-                });
-                return result;
-            }
+            data(){ return result}
 
         })
 
 
         function getDetail(){
-            if(id!=null){
-
-                $.ajax({
-                    url:'/user/category/queryById?id='+id,
-                    async:false,
-                    method:'get',
-                    success:function (res) {
-                        result =  res;
+            $.ajax({
+                url:'/user/category/queryAll',
+                async:false,
+                success:function (res) {
+                    if(pid==-1){
+                        pid=res[0].id;
                     }
-                })
-                return result;
-            }else{
-                return null;
-            }
+                    result=res;
+                }
+            });
+            return result;
         };
 
 

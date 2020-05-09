@@ -141,21 +141,21 @@ public class CategoryServiceImpl implements CategoryService {
         root.setTitle(category.getName());
         root.setSpread(true);
         root.setChildren(new ArrayList<>());
-        boolean  initCheck=true;
-        if (integer==null||integer==category.getId()) {
-            root.setChecked(true);
-            initCheck = false;
-        }
+//        boolean  initCheck=true;
+//        if (integer==null||integer==category.getId()) {
+//            root.setChecked(true);
+//            initCheck = false;
+//        }
         List<TreeNode> result = root.getChildren();
 
         for (TreeNode treeNode : treeNodes) {
             if (treeNode.getPid() == root.getId()) {
                 result.add(treeNode);
             }
-            //默认勾选
-            if (initCheck&&treeNode.getId()== integer ){
-                treeNode.setChecked(true);
-            }
+//            //默认勾选
+//            if (initCheck&&treeNode.getId()== integer ){
+//                treeNode.setChecked(true);
+//            }
             for (TreeNode node : treeNodes) {
                 if (node.getPid() == treeNode.getId()) {
                     if (treeNode.getChildren() == null) {

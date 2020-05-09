@@ -30,8 +30,8 @@ public class SysRoleController {
      * @return 单条数据
      */
     @GetMapping("queryById")
-    public SysRole queryById(Integer id) {
-        return sysRoleService.queryById(id);
+    public SysRole queryById(@RequestParam("id") Integer id,@RequestParam("menu")Boolean menu) {
+        return sysRoleService.queryById(id,menu);
     }
     /**
      * 根据页码查询

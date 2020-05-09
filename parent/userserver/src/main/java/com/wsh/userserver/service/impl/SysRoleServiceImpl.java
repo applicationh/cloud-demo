@@ -29,7 +29,11 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 实例对象
      */
     @Override
-    public SysRole queryById(Integer id) {
+    public SysRole queryById(Integer id,Boolean menu) {
+        //查询关联菜单
+        if (menu) {
+            return sysRoleDao.queryByIdDetail(id);
+        }
         return sysRoleDao.queryById(id);
     }
 

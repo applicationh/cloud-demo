@@ -12,7 +12,7 @@
 </style>
 <body>
 <div class="site-block">
-<form class="layui-form">
+<form class="layui-form" lay-filter="editRole">
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">角色名称</label>
@@ -49,6 +49,8 @@
     layui.use('form', function(){
         var form = layui.form;
         var $=layui.$;
+        var parData=parent.layer.methodConfig.data;
+        form.val("editRole",JSON.parse(JSON.stringify(parData)));
         form.on('submit(sub)', function(data){
 
             $.ajax({

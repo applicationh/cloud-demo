@@ -57,24 +57,22 @@
         <div class="demo-side">
             <table id="demoTb1"></table>
         </div>
-   <!-- <div  id="test1"></div>-->
+
     </div>
 </div>
 <!-- 表格操作列 -->
 <script type="text/html" id="tbBar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 <script src="../layui.js"></script>
 <script src="../com.js"></script>
 <script>
-
-    layui.use(['tree', 'util','element','form','treeTable','notice'], function(){
-        var tree = layui.tree;
+    layui.use(['form','treeTable','element'], function(){
         var $ = layui.$;
-        var util = layui.util;
         var form=layui.form;
+        var element = layui.element;
         var treeTable = layui.treeTable;
 
         var insTb = treeTable.render({
@@ -87,12 +85,12 @@
                 pidName: 'pid'     // pid字段名称
             },
             cols: [[
-                {type: 'numbers',title: '序号', width: 80},
+                {type: 'numbers',title: '序号', width: 100},
                 {field: 'name', title: '菜单名称'},
                 {field: 'url', title: '地址'},
                 {field: 'code', title: '权限标识'},
                 {templet: '<p>{{d.type==1?"菜单":"按钮"}}</p>', title: '类型'},
-                {align: 'center', toolbar: '#tbBar', title: '操作', width: 120}
+                {align: 'center', toolbar: '#tbBar', title: '操作', width: 300}
             ]],
             reqData: function(data, callback) {
                 $.post('/user/category/queryAllTable', function (res) {
@@ -128,7 +126,7 @@
                  parent.layer.open({
                     title: '修改权限'
                     ,type: 2
-                    ,content: '/user/sys/editMenu.html'
+                    ,content: '/user/sys/addMenu.html'
                     ,area: ['500px', '450px']
                      ,data:obj.data
                     ,end:function(){
@@ -142,7 +140,7 @@
             parent.layer.open({
                 title: '添加权限'
                 ,type: 2
-                ,content: '/user/sys/editMenu.html'
+                ,content: '/user/sys/addMenu.html'
                 ,area: ['500px', '450px']
                 ,end:function(){
                     insTb.reload();//弹出层结束后，刷新主页面
@@ -169,75 +167,6 @@
 
             return false;
         });
-
-
-        function  getData() {
-            var data=[];
-            $.ajax({
-                url:'/user/category/queryAll',
-                async:false,
-                success:function (res) {
-                        data=res;
-                }
-            });
-            return data;
-        }
-
-
-        //渲染
-        var inst1 = tree.render({
-            elem: '#test1'  //绑定元素
-            ,id:'demoId1'
-            ,data: getData()
-            ,edit: ['add',  'del']
-            ,onlyIconControl:true
-            ,click: function(obj){
-                var id = obj.data.id;  //获取当前点击的节点数据
-                var  data =[];
-                $.get('/user/category/queryById?id='+id,function(res){
-                    data=res;
-                    form.val("update", {
-                        "id": data.id,
-                        "name": data.name,
-                        "url": data.url,
-                        "authName": data.authName,
-                        "sort": data.sort
-                    });
-                    $('#selectId').val(data.type);
-                    $("#submit").removeClass('layui-btn-disabled');
-                    $("#submit").removeAttr("disabled");
-                    form.render();
-                    form.render('select');
-                });
-
-
-
-            },operate: function(obj){
-                var type = obj.type; //得到操作类型：add、edit、del
-                var data = obj.data; //得到当前节点的数据
-
-                var id = data.id;
-                var name = data.title;
-                if(type === 'add'){ //增加节点
-                    $.post("/user/category/insert", {parent: id, name: "未命名"}, function () {
-                        tree.reload('demoId1', {data: getData()});
-                    })
-                    //返回 key 值
-                    return ;
-                }  else if(type === 'del'){ //删除节点
-                    $.get("/user/category/delete", {id: id}, function (res) {
-                        if(res.code!=0){
-                            layer.msg(res.message,{time:2000})
-                        }
-                        tree.reload('demoId1', {data: getData()});
-                    });
-                };
-            }
-        });
-
-
-
-
     });
 </script>
 </body>

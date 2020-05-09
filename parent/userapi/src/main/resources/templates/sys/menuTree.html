@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/common.css" media="all">
+</head>
+<style>
+    .site-block{
+        padding: 20px;
+        border: 1px solid #eee;
+        margin: 20px;
+    }
+</style>
+<body>
+<div class="site-block"  id="menu"></div>
+</body>
+<script src="../layui.js"></script>
+<script src="../com.js"></script>
+<script>
+
+    layui.use(['tree'], function(){
+
+        var tree = layui.tree;
+        var $ = layui.$;
+
+
+        //渲染
+        var inst1 = tree.render({
+            elem: '#menu'  //绑定元素
+            ,id:'menu1'
+            ,data: parent.layer.methodConfig.data.treeData
+            ,showCheckbox: true
+        });
+        tree.setChecked('menu1', parent.layer.methodConfig.data.initData); //单个勾选 id 为 1 的节点
+
+
+    });
+</script>
+</html>

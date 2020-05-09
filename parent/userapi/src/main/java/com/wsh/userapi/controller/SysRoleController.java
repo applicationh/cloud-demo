@@ -29,11 +29,13 @@ public class SysRoleController {
      * 通过主键查询单条数据
      *
      * @param id 主键
+     * @param menu 查询关联菜单
      * @return 单条数据
      */
     @GetMapping("queryById")
-    public Result<SysRoleVo> queryById(Integer id) {
-        SysRoleVo sysRoleVo= sysRoleService.queryById(id);
+    public Result<SysRoleVo> queryById(@RequestParam("id") Integer id,
+                                        @RequestParam(name = "menu",required = false,defaultValue = "false")Boolean menu) {
+        SysRoleVo sysRoleVo= sysRoleService.queryById(id,menu);
          return Result.success(sysRoleVo);
     }
     /**
