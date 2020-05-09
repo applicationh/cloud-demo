@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
         <link rel="stylesheet" href="../css/layui.css" media="all">
+        <link rel="stylesheet" href="../css/common.css" media="all">
 </head>
 <style>
     .site-block{
         padding: 20px;
         border: 1px solid #eee;
         margin: 20px;
+    }
+    .layui-form-switch{
+        margin-top: 4px;
     }
 </style>
 <body>
@@ -26,7 +30,7 @@
             <label class="layui-form-label">权限名称</label>
         </div>
         <div class="layui-inline">
-            <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入菜单" class="layui-input">
+            <input type="text" id="name" name="name" lay-verify="required" autocomplete="off" placeholder="请输入菜单" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -49,14 +53,14 @@
         <div class="layui-inline">
             <label class="layui-form-label">权限类型</label>
         </div>
-        <div class="layui-inline" style="margin-top: 0px; ">
+        <div class="layui-inline" >
             <input type="checkbox" name="type" lay-skin="switch" value="1" lay-text="菜单|按钮">
         </div>
     </div>
     <div class="layui-form-item" style="text-align: center">
         <input type="hidden" name="id">
-        <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
-        <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
+        <button type="button" lay-submit="" class="layui-btn layui-btn-sm " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
+        <button type="button" id="close"   class="layui-btn layui-btn-sm layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
     </div>
 </form>
 </div>
@@ -67,10 +71,15 @@
     layui.use(['form','xmSelect'], function(){
         var form = layui.form;
         var $=layui.$;
+        var parentData = parent.layer.methodConfig.data
         var result=[];
-
-        var  id= GetQueryString("id");
-        id=id==null?-1:id;
+        var id;
+        if(parentData==null||parentData.id==null){
+              id =-1;
+        }else{
+            id=parentData.id;
+            form.val("editMenu",JSON.parse(JSON.stringify(parentData)));
+        }
         var demo1 = xmSelect.render({
             el: '#tree',
             model: { label: { type: 'text' }},
@@ -81,7 +90,7 @@
             tree: {
                 show: true,
                 strict: false,
-                expandedKeys: [],
+                expandedKeys: [-1],
             },
             height: 'auto',
             prop: {
@@ -103,10 +112,10 @@
 
         })
 
-        form.val("editMenu",getDetail());
+
         function getDetail(){
             if(id!=null){
-                var result=[];
+
                 $.ajax({
                     url:'/user/category/queryById?id='+id,
                     async:false,
@@ -177,15 +186,7 @@
             parent.layer.close(index); //再执行关闭
         }
 
-        function GetQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if(r != null){
-                //解决中文乱码
-                return decodeURI(r[2]);
-            }
-            return null;
-        }
+
         form.render();
     })
 </script>

@@ -1911,8 +1911,8 @@ layui.define(['laytpl', 'form', 'util'], function (exports) {
         '}',
 
         '.ew-tree-table-cell > .ew-tree-table-cell-content {',
-        '    padding: 5px 15px;',
-        '    line-height: 28px;',
+        '    padding: 4px 15px;',
+        '    line-height: 27px;',
         '}',
 
         '[lay-size="lg"] .ew-tree-table-cell > .ew-tree-table-cell-content {',

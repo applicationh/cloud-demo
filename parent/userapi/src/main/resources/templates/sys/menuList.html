@@ -59,59 +59,6 @@
         </div>
    <!-- <div  id="test1"></div>-->
     </div>
-   <!-- <div class="treeRight treeBorder">
-        <form class="layui-form" action="" lay-filter="update">
-            <div class="layui-elem-quote">
-                详情编辑
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">分类</label>
-                <div class="layui-input-block">
-                    <select name="type" id="selectId"  lay-verify="required">
-                        <option value=""></option>
-                        <option value="1">菜单</option>
-                        <option value="2">按钮</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">菜单名称</label>
-                <div class="layui-input-block">
-                    <input type="text" id ="name" name="name" lay-verify="title" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">菜单路径</label>
-                <div class="layui-input-block">
-                    <input type="text" id="url" name="url" lay-verify="title" autocomplete="off" placeholder="请输入菜单路径" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限说明</label>
-                <div class="layui-input-block">
-                    <input type="text" id="authName" name="authName" lay-verify="title" autocomplete="off" placeholder="请输入权限说明" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限顺序</label>
-                <div class="layui-input-block">
-                    <input type="text" id="sort" name="sort" lay-verify="title" autocomplete="off" placeholder="请输入权限顺序" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-            <input type="hidden" name="id" id="id">
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button type="submit" id="submit" class="layui-btn layui-btn-disabled" lay-submit="" lay-filter="updateMenu" disabled>更新内容</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                </div>
-            </div>
-        </form>
-
-
-    </div>-->
 </div>
 <!-- 表格操作列 -->
 <script type="text/html" id="tbBar">
@@ -132,6 +79,7 @@
 
         var insTb = treeTable.render({
             elem: '#demoTb1',
+            height: 'full-60',
             tree: {
                 iconIndex: 1,    // 折叠图标显示在第几列
                 isPidData: true,  // 是否是pid形式数据
@@ -176,11 +124,13 @@
                 }
 
             } else if (event === 'edit') {
+                obj.data.children='';
                  parent.layer.open({
                     title: '修改权限'
                     ,type: 2
-                    ,content: '/user/sys/editMenu.html?id='+obj.data.id
+                    ,content: '/user/sys/editMenu.html'
                     ,area: ['500px', '450px']
+                     ,data:obj.data
                     ,end:function(){
                         insTb.reload();//弹出层结束后，刷新主页面
                     }
@@ -188,8 +138,19 @@
             }
         });
 
+        $("#add").on('click',function () {
+            parent.layer.open({
+                title: '添加权限'
+                ,type: 2
+                ,content: '/user/sys/editMenu.html'
+                ,area: ['500px', '450px']
+                ,end:function(){
+                    insTb.reload();//弹出层结束后，刷新主页面
+                }
+            });
+        });
 
-        //监听提交
+        //查询提交
         form.on('submit(sub)', function(data){
             var fromData=data.field;
             insTb.reload({
@@ -210,30 +171,6 @@
         });
 
 
-
-        //监听提交
-        form.on('submit(updateMenu)', function(data){
-            var data=data.field;
-
-            $.ajax({
-                type: 'POST',
-                url: '/user/category/update',
-                contentType: "application/json;charset=UTF-8",
-                data:  JSON.stringify(data),
-                success: function () {
-                    tree.reload('demoId1', {data: getData()})
-                    layer.msg("保存成功",{time:2000},function () {
-
-                    })
-                }
-            });
-
-            $("#submit").attr("disabled",true);
-            $("#submit").addClass('layui-btn-disabled');
-            return false;
-        });
-
-
         function  getData() {
             var data=[];
             $.ajax({
@@ -246,27 +183,6 @@
             return data;
         }
 
-        $("#reset").on('click',function () {
-            insTb.reload({
-                reqData: function(data, callback) {
-                    $.post('/user/category/queryAllTable', function (res) {
-                        if(res.code==0) callback(res.data);
-                        else callback(res.msg);
-                    });
-                }
-            });
-        });
-        $("#add").on('click',function () {
-            parent.layer.open({
-                title: '添加权限'
-                ,type: 2
-                ,content: '/user/sys/editMenu.html'
-                ,area: ['500px', '450px']
-                ,end:function(){
-                    insTb.reload();//弹出层结束后，刷新主页面
-                }
-            });
-        });
 
         //渲染
         var inst1 = tree.render({

@@ -83,7 +83,7 @@
             ,cols: [
                 [
                     {title: '序号',  type:'numbers',width:100}
-                    ,{field: 'id', title: 'ID' }
+                  /*  ,{field: 'id', title: 'ID' }*/
                     ,{field: 'roleName', title: '角色名'}
                     ,{field: 'roleCode', title: '角色编码', sort: true}
                     ,{fixed: 'right',align:'center', toolbar: '#barDemo'}
@@ -137,9 +137,10 @@
 
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            if(obj.event === 'detail'){
+            /*if(obj.event === 'detail'){
                 layer.msg('ID：'+ data.id + ' 的查看操作');
-            } else if(obj.event === 'del'){
+            } else */
+            if(obj.event === 'del'){
                 layer.msg('真的删除行么', {
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
@@ -150,6 +151,7 @@
                     }
                 });
             } else if(obj.event === 'edit'){
+
                 layer.alert('编辑行：<br>'+ JSON.stringify(data))
             }
         });
@@ -170,7 +172,7 @@
     });
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+   <!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
