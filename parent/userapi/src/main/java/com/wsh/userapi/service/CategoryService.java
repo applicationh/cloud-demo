@@ -39,7 +39,7 @@ public interface CategoryService {
 
 
     @GetMapping("category/queryAll")
-    TreeNode selectAll(@RequestParam("id")Integer id);
+    TreeNode selectAll(@RequestParam("openLevel")Integer openLevel);
 
     @PostMapping("category/selectAllTable")
     List<Category> selectAllTable(@RequestBody   CategoryParam categoryParam);

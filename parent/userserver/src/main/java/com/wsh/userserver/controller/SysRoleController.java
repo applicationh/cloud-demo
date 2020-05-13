@@ -60,5 +60,11 @@ public class SysRoleController {
         Boolean deleteById =sysRoleService.deleteById(id);
         return deleteById;
     }
+    @PostMapping("/update")
+    Boolean update(@RequestBody SysRole sysRole){
+        Boolean deleteById =sysRoleService.update(sysRole);
+
+        return deleteById;
+    }
 
 }

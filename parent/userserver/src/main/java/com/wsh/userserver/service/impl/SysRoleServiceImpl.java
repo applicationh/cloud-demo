@@ -3,12 +3,17 @@ package com.wsh.userserver.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wsh.usercom.entity.SysRole;
+import com.wsh.usercom.entity.SysRoleMenu;
+import com.wsh.usercom.entity.SysUserRole;
 import com.wsh.usercom.param.SysRoleParam;
 import com.wsh.userserver.dao.SysRoleDao;
+import com.wsh.userserver.dao.SysRoleMenuDao;
+import com.wsh.userserver.dao.SysUserRoleDao;
 import com.wsh.userserver.service.SysRoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +26,11 @@ import java.util.List;
 public class SysRoleServiceImpl implements SysRoleService {
     @Resource
     private SysRoleDao sysRoleDao;
+    @Resource
+    private SysRoleMenuDao sysRoleMenuDao;
+    @Resource
+    private SysUserRoleDao sysUserRoleDao;
+
 
     /**
      * 通过ID查询单条数据
@@ -69,7 +79,24 @@ public class SysRoleServiceImpl implements SysRoleService {
      */
     @Override
     public Boolean update(SysRole sysRole) {
-       return sysRoleDao.update(sysRole) > 0;
+        List<Integer> menuId = sysRole.getMenuId();
+        if (menuId != null) {
+            Date date = new Date();
+            menuId.forEach(integer ->{
+                        SysRoleMenu sys = new SysRoleMenu();
+                        sys.setCreateTime(date);
+                        sys.setDeleteStatus(1);
+                        sys.setRoleId(sysRole.getId());
+                        sys.setPermissionId(integer);
+                        sysRoleMenuDao.insert(sys);
+                    }
+            );
+        }else{
+            sysRoleDao.update(sysRole);
+        }
+
+        return true;
+
     }
 
     /**

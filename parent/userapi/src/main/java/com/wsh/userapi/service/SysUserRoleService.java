@@ -27,6 +27,9 @@ public interface SysUserRoleService {
      @GetMapping("/sysUserRole/queryById")
     SysUserRoleVo queryById(@RequestParam("id")Integer id);
 
+    @GetMapping("/sysUserRole/queryByRoleId")
+    SysUserRoleVo queryByRoleId(@RequestParam("roleId")Integer roleId);
+
     /**
      * 查询多条数据
      *

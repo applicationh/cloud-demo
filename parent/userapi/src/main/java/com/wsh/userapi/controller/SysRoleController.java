@@ -1,11 +1,13 @@
 package com.wsh.userapi.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.wsh.userapi.service.SysUserRoleService;
 import com.wsh.usercom.entity.SysRole;
 import com.wsh.usercom.param.SysRoleParam;
 import com.wsh.usercom.vo.SysRoleVo;
 import com.wsh.userapi.utils.Result;
 import com.wsh.userapi.service.SysRoleService;
+import com.wsh.usercom.vo.SysUserRoleVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,6 +26,8 @@ public class SysRoleController {
      */
     @Resource
     private SysRoleService sysRoleService;
+    @Resource
+    private SysUserRoleService sysUserRoleService;
 
     /**
      * 通过主键查询单条数据
@@ -73,15 +77,22 @@ public class SysRoleController {
         Boolean update = sysRoleService.update(sysRole);
         return Result.success(update);
     }
-    
+
+
     
     /**
      * 删除数据
      */
     @DeleteMapping("/deleteById")
     public Result<Boolean> deleteById(Integer id) {
-        Boolean deleteById = sysRoleService.deleteById(id);
-        return Result.success(deleteById);
+        SysUserRoleVo sysUserRoleVo = sysUserRoleService.queryByRoleId(id);
+        if (sysUserRoleVo != null) {
+            Boolean deleteById = sysRoleService.deleteById(id);
+            return Result.success(deleteById);
+        }else{
+            return Result.error("已有用户关联，不可删除");
+        }
     }
+
 
 }

@@ -54,7 +54,7 @@ public interface SysRoleService {
      * @param sysRole 实例对象
      * @return 实例对象
      */
-    @PutMapping("/sysRole/update")
+    @PostMapping("/sysRole/update")
     Boolean update(@RequestBody SysRole sysRole);
 
     /**

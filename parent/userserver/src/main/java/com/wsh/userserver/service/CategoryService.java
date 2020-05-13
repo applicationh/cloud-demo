@@ -35,7 +35,7 @@ public interface CategoryService {
 
     Category getAncestor(int id, int n);
 
-    TreeNode selectAll(Integer id);
+    TreeNode selectAll(Integer openLevel);
 
     List<Category> getChildren(int id);
 

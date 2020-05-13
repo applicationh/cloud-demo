@@ -56,7 +56,6 @@
         var tree = layui.tree;
         var element = layui.element;
         var $ = layui.$;
-        //第一个实例
         var userList=table.render({
             elem: '#demo'
             ,id:'tableReload'
@@ -148,7 +147,7 @@
         var TreeData
         $(function(){
                 $.ajax({
-                    url:'/user/category/queryAll',
+                    url:'/user/category/queryAllNotRoot?openLevel=1',
                     async:false,
                     success:function (res) {
                         TreeData= res;
@@ -163,7 +162,9 @@
                 url:'/user/sysRole/queryById?id='+id+'&menu=true',
                 async:false,
                 success:function (res) {
-                    result= res.data.menuId
+                    if(res.data!=null){
+                        result= res.data.menuId
+                    }
 
                 }});
             return result;
@@ -175,7 +176,7 @@
                 var obj = new Object();
                 obj.treeData=TreeData;
                 obj.initData=getRoleMenu(data.id);
-
+                obj.id=data.id;
                 parent.layer.open({
                     title: '分配权限'
                     ,type: 2

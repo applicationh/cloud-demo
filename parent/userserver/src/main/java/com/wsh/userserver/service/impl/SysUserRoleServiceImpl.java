@@ -33,6 +33,11 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
         return sysUserRoleDao.queryById(id);
     }
 
+    @Override
+    public SysUserRole queryByRoleId(Integer roleId) {
+        return sysUserRoleDao.queryByRoleId(roleId);
+    }
+
     /**
      * 查询多条数据
      *

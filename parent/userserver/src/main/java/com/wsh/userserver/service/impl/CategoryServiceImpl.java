@@ -120,9 +120,7 @@ public class CategoryServiceImpl implements CategoryService {
      * list转树形 封装layui树形图格式
      */
     @Override
-    public TreeNode selectAll(Integer id) {
-        List<TreeNode> treeNodes = categoryDao.selectAll();
-
+    public TreeNode selectAll(Integer openLevel) {
         Category category = categoryDao.selectRoot();
         //不存 储初始化一个默认的
         if (null == category) {
@@ -131,9 +129,6 @@ public class CategoryServiceImpl implements CategoryService {
             categoryDao.insert(category);
             categoryDao.insertNode(category.getId());
         }
-        //查询父ID  默认勾选
-        Integer integer = categoryDao.selectAncestor(id, 1);
-
 
         TreeNode root = new TreeNode();
         //根目录
@@ -141,21 +136,14 @@ public class CategoryServiceImpl implements CategoryService {
         root.setTitle(category.getName());
         root.setSpread(true);
         root.setChildren(new ArrayList<>());
-//        boolean  initCheck=true;
-//        if (integer==null||integer==category.getId()) {
-//            root.setChecked(true);
-//            initCheck = false;
-//        }
+
         List<TreeNode> result = root.getChildren();
 
+        List<TreeNode> treeNodes = categoryDao.selectAll(category.getId(),openLevel);
         for (TreeNode treeNode : treeNodes) {
             if (treeNode.getPid() == root.getId()) {
                 result.add(treeNode);
             }
-//            //默认勾选
-//            if (initCheck&&treeNode.getId()== integer ){
-//                treeNode.setChecked(true);
-//            }
             for (TreeNode node : treeNodes) {
                 if (node.getPid() == treeNode.getId()) {
                     if (treeNode.getChildren() == null) {

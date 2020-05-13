@@ -23,6 +23,8 @@ public interface SysUserRoleDao {
      */
     SysUserRole queryById(Integer id);
 
+    SysUserRole queryByRoleId(Integer roleId);
+
   
     /**
      * 通过实体作为筛选条件查询

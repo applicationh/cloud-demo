@@ -20,6 +20,8 @@ public interface SysUserRoleService {
      */
     SysUserRole queryById(Integer id);
 
+    SysUserRole queryByRoleId(Integer roleId);
+
     /**
      * 查询多条数据
      *

@@ -44,8 +44,8 @@ public class CategoryController {
 
 
     @GetMapping("queryAll")
-    public TreeNode queryAll(@RequestParam("id")Integer id) {
-       return categoryService.selectAll(id);
+    public TreeNode queryAll(@RequestParam("openLevel")Integer openLevel) {
+       return categoryService.selectAll(openLevel);
     }
 
 

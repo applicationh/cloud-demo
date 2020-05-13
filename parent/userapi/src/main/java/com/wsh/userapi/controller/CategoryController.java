@@ -38,10 +38,15 @@ public class CategoryController {
     }
 
 
-
+    /**
+     *
+     * @param openLevel 默认展开级别
+     * @return
+     */
     @GetMapping("queryAll")
-    public List<TreeNode> queryAll(@RequestParam(required = false,name = "id",defaultValue = "-1")Integer id) {
-        TreeNode treeNode = categoryService.selectAll(id);
+    public List<TreeNode> queryAll(@RequestParam(required = false,name = "openLevel",defaultValue = "1")Integer openLevel) {
+        //不包含根目录 层次+1
+        TreeNode treeNode = categoryService.selectAll(openLevel+1);
         List<TreeNode> children = treeNode.getChildren();
 
 
@@ -55,8 +60,8 @@ public class CategoryController {
         return treeNodes;
     }
     @GetMapping("queryAllNotRoot")
-    public List<TreeNode> queryAllNotRoot() {
-        TreeNode treeNode = categoryService.selectAll(-1);
+    public List<TreeNode> queryAllNotRoot(@RequestParam(required = false,name = "openLevel",defaultValue = "1")Integer openLevel) {
+        TreeNode treeNode = categoryService.selectAll(openLevel+1);
         return treeNode.getChildren();
     }
 

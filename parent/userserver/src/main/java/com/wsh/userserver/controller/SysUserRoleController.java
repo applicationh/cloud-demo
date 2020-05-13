@@ -33,6 +33,12 @@ public class SysUserRoleController {
     public SysUserRole queryById(Integer id) {
         return sysUserRoleService.queryById(id);
     }
+
+    @GetMapping("queryByRoleId")
+    public SysUserRole queryByRoleId(Integer roleId) {
+        return sysUserRoleService.queryByRoleId(roleId);
+    }
+
     /**
      * 根据页码查询
      *

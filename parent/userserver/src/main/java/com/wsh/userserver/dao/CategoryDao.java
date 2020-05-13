@@ -155,7 +155,7 @@ public interface CategoryDao {
     /**
      * 给layui tree使用
      */
-    List<TreeNode> selectAll();
+    List<TreeNode> selectAll(@Param("pid")Integer pid,@Param("level")Integer level);
 
     /**
      * treeTable使用

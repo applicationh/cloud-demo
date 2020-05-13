@@ -38,6 +38,7 @@
         </div>
     </div>-->
     <div class="layui-form-item" style="text-align: center">
+        <input type="hidden" name="id"/>
         <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
         <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
     </div>
@@ -50,12 +51,19 @@
         var form = layui.form;
         var $=layui.$;
         var parData=parent.layer.methodConfig.data;
-        form.val("editRole",JSON.parse(JSON.stringify(parData)));
-        form.on('submit(sub)', function(data){
+        var url="/user/sysRole/insert";
+        var method="POST"
 
+        if (parData != null) {
+            form.val("editRole",JSON.parse(JSON.stringify(parData)));
+            url = "/user/sysRole/update";
+            method = "PUT";
+        }
+
+        form.on('submit(sub)', function(data){
             $.ajax({
-                url:"/user/sysRole/insert",
-                method:'post',
+                url:url,
+                method:method,
                 data: JSON.stringify(data.field),
                 dataType: "json",
                 contentType:"application/json",
@@ -65,7 +73,7 @@
                     }
                 }
 
-            })
+            });
             close()
             return false;//false：阻止表单跳转  true：表单跳转
         });

@@ -135,7 +135,9 @@
         SELECT 1 FROM category WHERE id=#{id}
     </select>
     <select id="selectAll" resultType="com.wsh.usercom.entity.TreeNode">
-      SELECT id,name title,ancestor pid FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
+      SELECT id,name title,ancestor pid
+        ,(select 1 from category_tree  where ancestor=#{pid} and descendant=id and distance &lt; #{level}) spread
+      FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
     </select>
     <select id="selectRoot" resultType="com.wsh.usercom.entity.Category">
         SELECT * FROM `category` GROUP BY id   limit 1
