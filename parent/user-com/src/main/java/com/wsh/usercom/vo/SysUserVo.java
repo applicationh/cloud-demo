@@ -4,62 +4,69 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 系统用户(SysUser)vo
  *
  * @author wsh
- * 
  */
 public class SysUserVo implements Serializable {
     private static final long serialVersionUID = -33545589489234648L;
     /**
-    * ID
-    */        
+     * ID
+     */
     private Integer id;
-    
+
     /**
-    * 用户名
-    */        
+     * 用户名
+     */
     private String username;
-    
 
-    
+
     /**
-    * 显示名
-    */        
+     * 显示名
+     */
     private String displayName;
-    
-    /**
-    * 创建时间
-    */        
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")    
-    private Date createTime;
-    
-    /**
-    * 更新时间（自动）
-    */        
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")    
-    private Date updateTime;
-    
-    /**
-    * 上一次登录的时间
-    */        
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")    
-    private Date lastLoginTime;
-    
-    /**
-    * 0  隐藏用户   1 普通用户  2 超级管理员
-    */        
-    private Integer level;
-    
-    /**
-    * 是否有效  1有效  2无效
-    */        
-    private Integer deleteStatus;
-    
 
-    
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
+    /**
+     * 更新时间（自动）
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
+
+    /**
+     * 上一次登录的时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastLoginTime;
+
+    /**
+     * 0  隐藏用户   1 普通用户  2 超级管理员
+     */
+    private Integer level;
+
+    /**
+     * 是否有效  1有效  2无效
+     */
+    private Integer deleteStatus;
+
+    private List<SysRoleVo> sysRoleVos;
+
+    public List<SysRoleVo> getSysRoleVos() {
+        return sysRoleVos;
+    }
+
+    public void setSysRoleVos(List<SysRoleVo> sysRoleVos) {
+        this.sysRoleVos = sysRoleVos;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -67,7 +74,7 @@ public class SysUserVo implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public String getUsername() {
         return username;
     }
@@ -75,7 +82,7 @@ public class SysUserVo implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
 
     public String getDisplayName() {
         return displayName;
@@ -84,7 +91,7 @@ public class SysUserVo implements Serializable {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
-    
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -92,7 +99,7 @@ public class SysUserVo implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-    
+
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -100,7 +107,7 @@ public class SysUserVo implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-    
+
     public Date getLastLoginTime() {
         return lastLoginTime;
     }
@@ -108,7 +115,7 @@ public class SysUserVo implements Serializable {
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
-    
+
     public Integer getLevel() {
         return level;
     }
@@ -116,7 +123,7 @@ public class SysUserVo implements Serializable {
     public void setLevel(Integer level) {
         this.level = level;
     }
-    
+
     public Integer getDeleteStatus() {
         return deleteStatus;
     }

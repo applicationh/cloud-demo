@@ -90,7 +90,7 @@
                 [
                  {title: '序号',  type:'numbers',width:100}
                 /*,{field: 'id', title: 'ID' }*/
-                ,{field: 'username', title: '用户名'}
+                ,{field: 'username', title: '账号'}
                 ,{field: 'displayName', title: '昵称'}
                 ,{field: 'createTime', title: '创建时间'}
                 ,{field: 'deleteStatus', title: '状态', templet: '#switchTpl', unresize: true}
@@ -182,7 +182,7 @@
                 layer.alert('编辑行：<br>'+ JSON.stringify(data))
             }else if(obj.event ==='rePass'){
                 data={id:data.id,password:'123456'};
-                updateUser("重置密码",data);
+                updateUser("重置密码[123456]",data);
             }
         });
 

@@ -1,9 +1,11 @@
 package com.wsh.usercom.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.wsh.usercom.vo.SysRoleVo;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 系统用户(SysUser)实体类
@@ -60,8 +62,16 @@ public class SysUser implements Serializable {
     * 是否有效  1有效  2无效
     */        
     private Integer deleteStatus;
-    
 
+    private List<SysRoleVo> sysRoleVos;
+
+    public List<SysRoleVo> getSysRoleVos() {
+        return sysRoleVos;
+    }
+
+    public void setSysRoleVos(List<SysRoleVo> sysRoleVos) {
+        this.sysRoleVos = sysRoleVos;
+    }
     
     public Integer getId() {
         return id;

@@ -86,7 +86,7 @@ public class SysRoleController {
     @DeleteMapping("/deleteById")
     public Result<Boolean> deleteById(Integer id) {
         SysUserRoleVo sysUserRoleVo = sysUserRoleService.queryByRoleId(id);
-        if (sysUserRoleVo != null) {
+        if (sysUserRoleVo == null) {
             Boolean deleteById = sysRoleService.deleteById(id);
             return Result.success(deleteById);
         }else{

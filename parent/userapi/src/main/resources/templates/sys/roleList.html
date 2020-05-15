@@ -226,6 +226,8 @@
                 success:function (res) {
                     if(res.code==0){
                         layer.msg("删除成功")
+                    }else{
+                        layer.msg(res.message)
                     }
                 }
 

@@ -110,6 +110,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         SysRole sysRole= new SysRole();
         sysRole.setId(id);
         sysRole.setDeleteStatus(2);
+        sysRoleMenuDao.delete(id);
         return sysRoleDao.update(sysRole) > 0;
     }
 }
