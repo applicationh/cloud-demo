@@ -37,6 +37,15 @@
             <input type="text" name="displayName" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input">
         </div>
     </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">角色</label>
+        </div>
+        <div class="layui-inline">
+            <div id="demo2" style="width: 182px;"></div>
+        </div>
+    </div>
+
     <div class="layui-form-item" style="text-align: center">
         <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
         <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
@@ -44,12 +53,45 @@
 </form>
 </div>
 <script src="../layui.js"></script>
+<script src="../com.js"></script>
 <script>
-    layui.use('form', function(){
+    layui.use(['form','xmSelect'], function(){
         var form = layui.form;
         var $=layui.$;
-        form.on('submit(sub)', function(data){
+        var demo2 = xmSelect.render({
+            el: '#demo2',
+            name: 'sysRoleVos',
+            max: 2,
+            layVerify: 'required',
+            paging: true,
+            pageSize: 10,
+            pageRemote: true,
+            prop: {
+                name: 'roleName',
+                value: 'id',
+            },
+            maxMethod(seles, item){
+                layer.msg('失败：最大上限为2个',{shade:0.3,time:1500});
+            },
+            remoteMethod: function(val, cb, show, pageIndex){
+                $.ajax({
+                    url:'/user/sysRole/queryAll',
+                    async:false,
+                    method:"post",
+                    dataType: "json",
+                    contentType:"application/json",
+                    data:JSON.stringify({"page":pageIndex}),
+                    success:function (res) {
+                        if (res.code == 0) {
+                            cb(res.data.list,res.data.total);
+                        }
 
+                    }});
+            }
+        })
+        form.on('submit(sub)', function(data){
+            var selectArr = demo2.getValue();
+            data.field.sysRoleVos=selectArr;
             $.ajax({
                 url:"/user/sysUser/insert",
                 method:'post',

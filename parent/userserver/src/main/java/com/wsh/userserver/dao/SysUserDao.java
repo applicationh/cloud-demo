@@ -27,7 +27,7 @@ public interface SysUserDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param sysUser 实例对象
+     * @param sysUserParam 实例对象
      * @return 对象列表
      */
     List<SysUser> queryAll(SysUserParam sysUserParam);
@@ -48,12 +48,5 @@ public interface SysUserDao {
      */
     int update(SysUser sysUser);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
-     */
-    int deleteById(Integer id);
 
 }

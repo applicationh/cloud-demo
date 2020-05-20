@@ -49,6 +49,14 @@
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="rePass">重置密码</a>
 </script>
 <script src="../layui.js"></script>
+<script type="text/html" id="sysRoleVos">
+    {{#  layui.each(d.sysRoleVos, function(index, item){ }}
+    <span class="layui-badge-rim">{{ item.roleName }}</span>
+    {{#  }); }}
+    {{#  if(d.sysRoleVos.length === 0){ }}
+    -
+    {{#  } }}
+</script>
 <script>
     layui.use(['table','form','layer','element'], function(){
         var table = layui.table;
@@ -92,8 +100,9 @@
                 /*,{field: 'id', title: 'ID' }*/
                 ,{field: 'username', title: '账号'}
                 ,{field: 'displayName', title: '昵称'}
+                ,{field: 'sysRoleVos', title: '角色', templet: '#sysRoleVos'}
                 ,{field: 'createTime', title: '创建时间'}
-                ,{field: 'deleteStatus', title: '状态', templet: '#switchTpl', unresize: true}
+                ,{field: 'deleteStatus', title: '状态', templet: '#switchTpl'}
                 ,{fixed: 'right',title: '操作',align:'center', toolbar: '#barDemo',width:300}
                 /*,{field: 'updateTime', title: '更新时间',  sort: true}*/
                 ]
@@ -131,7 +140,7 @@
                 title: '添加用户'
                 ,type: 2
                 ,content: '/user/sys/addUser.html'
-                ,area: ['500px', '350px']
+                ,area: ['500px', '400px']
                 ,end:function(){
                     userList.reload({
                         page: {
