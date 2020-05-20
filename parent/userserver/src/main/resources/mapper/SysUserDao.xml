@@ -13,6 +13,20 @@
         <result property="level" column="level" jdbcType="INTEGER"/>
         <result property="deleteStatus" column="delete_status" jdbcType="INTEGER"/>
     </resultMap>
+    <resultMap type="com.wsh.usercom.entity.SysUser" id="SysUserMapAndRoleName">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="displayName" column="display_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="deleteStatus" column="delete_status" jdbcType="INTEGER"/>
+        <collection property="sysRoleVos"
+                    select="com.wsh.userserver.dao.SysRoleDao.getUserRoleName"
+                    column="id"></collection>
+    </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="SysUserMap">
@@ -24,7 +38,7 @@
 
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysUserMap">
+    <select id="queryAll" resultMap="SysUserMapAndRoleName">
         select
           id, username, password, display_name, create_time, update_time, last_login_time, level, delete_status
         from sys_user

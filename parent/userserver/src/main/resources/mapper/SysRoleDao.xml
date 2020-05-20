@@ -34,6 +34,10 @@
         select s.*,   permission_id from sys_role_menu r left JOIN sys_role s on r.role_id=s.id where s.id =#{id}
     </select>
 
+    <select id="getUserRoleName" resultMap="SysRoleMap">
+SELECT	sys_role.*  FROM	sys_user_role	INNER JOIN	sys_role	ON 		sys_user_role.role_id = sys_role.id WHERE	sys_user_role.user_id = #{id}
+
+    </select>
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SysRoleMap">
         select

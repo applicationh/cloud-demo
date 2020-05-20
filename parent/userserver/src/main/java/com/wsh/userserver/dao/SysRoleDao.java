@@ -57,4 +57,5 @@ public interface SysRoleDao {
     int deleteById(Integer id);
 
     SysRole queryByIdDetail(Integer id);
+    SysRole getUserRoleName(Integer id);
 }
