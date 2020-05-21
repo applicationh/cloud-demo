@@ -25,10 +25,7 @@ public class SysUserRole implements Serializable {
     * 创建时间
     */
     private Date createTime;
-    /**
-    * 是否有效  1有效  2无效
-    */
-    private Integer deleteStatus;
+
 
     
     public Integer getId() {
@@ -62,13 +59,6 @@ public class SysUserRole implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-    
-    public Integer getDeleteStatus() {
-        return deleteStatus;
-    }
 
-    public void setDeleteStatus(Integer deleteStatus) {
-        this.deleteStatus = deleteStatus;
-    }
 
 }

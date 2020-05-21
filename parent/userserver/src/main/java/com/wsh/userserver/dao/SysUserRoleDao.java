@@ -29,7 +29,7 @@ public interface SysUserRoleDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param sysUserRole 实例对象
+     * @param sysUserRoleParam 实例对象
      * @return 对象列表
      */
     List<SysUserRole> queryAll(SysUserRoleParam sysUserRoleParam);
@@ -58,4 +58,5 @@ public interface SysUserRoleDao {
      */
     int deleteById(Integer id);
 
+    int deleteByUserId(Integer id);
 }

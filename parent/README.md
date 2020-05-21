@@ -5,6 +5,7 @@ String boot + layui 实现
 
 *  结合treetable-lay实现编辑菜单展示和操作  
 *  结合xm-select实现下拉勾选树形菜单
+*  支持用户角色一对多功能（上限2个）
 
 备忘
 *  日志收集缺少参数抓取

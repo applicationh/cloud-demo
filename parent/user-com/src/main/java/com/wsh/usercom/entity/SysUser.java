@@ -61,6 +61,7 @@ public class SysUser implements Serializable {
     /**
     * 是否有效  1有效  2无效
     */        
+    private Integer status;
     private Integer deleteStatus;
 
     private List<SysRoleVo> sysRoleVos;
@@ -136,7 +137,16 @@ public class SysUser implements Serializable {
     public void setLevel(Integer level) {
         this.level = level;
     }
-    
+
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Integer getDeleteStatus() {
         return deleteStatus;
     }

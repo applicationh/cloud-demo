@@ -48,7 +48,7 @@ public interface SysUserService {
      * @param sysUser 实例对象
      * @return 实例对象
      */
-    @PutMapping("/sysUser/update")
+    @PostMapping("/sysUser/update")
     Boolean update(@RequestBody SysUser sysUser);
 
     /**

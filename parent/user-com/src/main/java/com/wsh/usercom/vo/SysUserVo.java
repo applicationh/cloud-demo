@@ -57,6 +57,8 @@ public class SysUserVo implements Serializable {
      */
     private Integer deleteStatus;
 
+    private Integer status;
+
     private List<SysRoleVo> sysRoleVos;
 
     public List<SysRoleVo> getSysRoleVos() {
@@ -132,4 +134,11 @@ public class SysUserVo implements Serializable {
         this.deleteStatus = deleteStatus;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

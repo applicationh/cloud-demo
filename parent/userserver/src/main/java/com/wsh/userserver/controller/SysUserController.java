@@ -1,12 +1,18 @@
 package com.wsh.userserver.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.wsh.usercom.CopyUtil;
 import com.wsh.usercom.entity.SysUser;
+import com.wsh.usercom.entity.SysUserRole;
 import com.wsh.usercom.param.SysUserParam;
+import com.wsh.usercom.vo.SysRoleVo;
+import com.wsh.userserver.service.SysUserRoleService;
 import com.wsh.userserver.service.SysUserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 系统用户(SysUser)表控制层
@@ -22,6 +28,8 @@ public class SysUserController {
      */
     @Resource
     private SysUserService sysUserService;
+    @Resource
+    private SysUserRoleService sysUserRoleService;
 
     /**
      * 通过主键查询单条数据
@@ -48,6 +56,7 @@ public class SysUserController {
     @PostMapping("insert")
     public Boolean insert(@RequestBody SysUser sysUser) {
         Boolean insert = sysUserService.insert(sysUser);
+        insertRole(sysUser);
         return insert;
     }
 
@@ -55,10 +64,25 @@ public class SysUserController {
      * 修改数据
      * @param sysUser 实例对象
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public Boolean  update(@RequestBody SysUser sysUser){
         Boolean update = sysUserService.update(sysUser);
+        insertRole(sysUser);
         return update;
+    }
+
+    private void insertRole(SysUser sysUser) {
+        List<SysRoleVo> sysRoleVos = sysUser.getSysRoleVos();
+        if (null!=sysRoleVos&&sysRoleVos.size() > 0) {
+            sysUserRoleService.deleteByUserId(sysUser.getId());
+            for (SysRoleVo sysRoleVo : sysRoleVos) {
+                SysUserRole sysUserRole = new SysUserRole();
+                sysUserRole.setRoleId(sysRoleVo.getId());
+                sysUserRole.setUserId(sysUser.getId());
+                sysUserRole.setCreateTime(new Date());
+                sysUserRoleService.insert(sysUserRole);
+            }
+        }
     }
 
     /**

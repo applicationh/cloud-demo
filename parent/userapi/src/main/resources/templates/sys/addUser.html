@@ -12,7 +12,15 @@
 </style>
 <body>
 <div class="site-block">
-<form class="layui-form">
+<form class="layui-form" lay-filter="editUser">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">角色</label>
+        </div>
+        <div class="layui-inline">
+            <div id="demo2" style="width: 182px;"></div>
+        </div>
+    </div>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">用户名</label>
@@ -21,12 +29,12 @@
             <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="请输入账号" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" >
         <div class="layui-inline">
             <label class="layui-form-label">密码</label>
         </div>
         <div class="layui-inline">
-            <input type="text" name="password" lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input">
+            <input type="text" id="pass" name="password" lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -37,15 +45,7 @@
             <input type="text" name="displayName" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">角色</label>
-        </div>
-        <div class="layui-inline">
-            <div id="demo2" style="width: 182px;"></div>
-        </div>
-    </div>
-
+    <input type="hidden" name="id">
     <div class="layui-form-item" style="text-align: center">
         <button type="button" lay-submit="" class="layui-btn " lay-filter="sub"><i class="layui-icon layui-icon-ok"></i></button>
         <button type="button" id="close"   class="layui-btn layui-btn-primary" lay-filter="close"><i class="layui-icon layui-icon-close"></i></button>
@@ -58,6 +58,8 @@
     layui.use(['form','xmSelect'], function(){
         var form = layui.form;
         var $=layui.$;
+        var parData=parent.layer.methodConfig.data;
+
         var demo2 = xmSelect.render({
             el: '#demo2',
             name: 'sysRoleVos',
@@ -65,6 +67,7 @@
             layVerify: 'required',
             paging: true,
             pageSize: 10,
+            initValue: [999],
             pageRemote: true,
             prop: {
                 name: 'roleName',
@@ -83,18 +86,34 @@
                     data:JSON.stringify({"page":pageIndex}),
                     success:function (res) {
                         if (res.code == 0) {
+                            $.each(parData.sysRoleVos,function(i,item){
+                                $.each(res.data.list,function(i,item2){
+                                    if(item.id==item2.id){
+                                        item2.selected=true;
+                                    }
+                                });
+                            });
                             cb(res.data.list,res.data.total);
                         }
 
                     }});
             }
-        })
+        });
+        var url="/user/sysUser/insert";
+        var method = "POST";
+        if (parData != null) {
+            form.val("editUser",JSON.parse(JSON.stringify(parData)));
+            url = "/user/sysUser/update";
+            method = "PUT";
+            $('#pass').removeAttr('lay-verify');
+        }
         form.on('submit(sub)', function(data){
             var selectArr = demo2.getValue();
             data.field.sysRoleVos=selectArr;
             $.ajax({
-                url:"/user/sysUser/insert",
-                method:'post',
+                url:url,
+                method:method,
+                async: false,
                 data: JSON.stringify(data.field),
                 dataType: "json",
                 contentType:"application/json",

@@ -55,4 +55,6 @@ public interface SysUserRoleService {
      */
     Boolean deleteById(Integer id);
 
+    //根据用户ID清空对应权限
+    Boolean deleteByUserId(Integer id);
 }

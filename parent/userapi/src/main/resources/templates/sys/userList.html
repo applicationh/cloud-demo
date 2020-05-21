@@ -40,10 +40,10 @@
     <table  id="demo" lay-filter="test" ></table>
 </div>
 <script type="text/html" id="switchTpl">
-    <input type="checkbox" name="deleteStatus" value="{{d.id}}" lay-skin="switch" lay-text="可用|禁用" lay-filter="status" {{ d.deleteStatus == 1 ? 'checked' : '' }}>
+    <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="可用|禁用" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+   <!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="rePass">重置密码</a>
@@ -159,7 +159,7 @@
             }else{
                 status=2;
             }
-           var data={id:this.value, deleteStatus:status};
+           var data={id:this.value, status:status};
             updateUser("更新",data);
         });
 
@@ -188,7 +188,20 @@
                     deleteById(data.id);
                 });
             } else if(obj.event === 'edit'){
-                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+                parent.layer.open({
+                    title: '编辑用户'
+                    ,type: 2
+                    ,content: '/user/sys/addUser.html'
+                    ,area: ['500px', '400px']
+                    ,data:data
+                    ,end:function(){
+                        userList.reload({
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });//弹出层结束后，刷新主页面
+                    }
+                });
             }else if(obj.event ==='rePass'){
                 data={id:data.id,password:'123456'};
                 updateUser("重置密码[123456]",data);

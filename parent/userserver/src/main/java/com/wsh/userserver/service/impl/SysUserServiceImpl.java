@@ -56,6 +56,7 @@ public class SysUserServiceImpl implements SysUserService {
     public Boolean insert(SysUser sysUser) {
         sysUser.setCreateTime(new Date());
         sysUser.setDeleteStatus(1);
+        sysUser.setStatus(1);
         return sysUserDao.insert(sysUser) > 0;
     }
 

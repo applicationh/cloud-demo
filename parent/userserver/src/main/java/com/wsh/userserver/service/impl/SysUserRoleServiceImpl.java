@@ -83,9 +83,13 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
      */
     @Override
     public Boolean deleteById(Integer id) {
-        SysUserRole sysUserRole= new SysUserRole();
-        sysUserRole.setId(id);
-        sysUserRole.setDeleteStatus(2);
-        return sysUserRoleDao.update(sysUserRole) > 0;
+
+        return sysUserRoleDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public Boolean deleteByUserId(Integer id) {
+        return sysUserRoleDao.deleteByUserId(id) > 0;
+
     }
 }
