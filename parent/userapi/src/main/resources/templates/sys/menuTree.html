@@ -34,7 +34,6 @@
         var upload = layui.upload;
 
 
-
         form.on('submit(sub)', function(data){
 
             var obj = new Object();
@@ -46,7 +45,7 @@
             obj.menuId = nodeIds;
 
             $.ajax({
-                url:"/user/sysRole/update",
+                url:"../sysRole/update",
                 method:'put',
                 data: JSON.stringify(obj),
                 dataType: "json",
@@ -71,7 +70,6 @@
         });
         tree.setChecked('menu1', parent.layer.methodConfig.data.initData); //单个勾选 id 为 1 的节点
 
-        // 获取选中节点的id
         function getCheckedId(jsonObj) {
             var id = "";
             $.each(jsonObj, function (index, item) {

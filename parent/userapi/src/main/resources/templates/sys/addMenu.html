@@ -111,7 +111,7 @@
 
         function getDetail(){
             $.ajax({
-                url:'/user/category/queryAll',
+                url:'../category/queryAll',
                 async:false,
                 success:function (res) {
                     if(pid==-1){
@@ -146,9 +146,9 @@
             }
             var pid=demo1.getValue('value')[0];
             data.field.pid=pid;
-            var url="/user/category/update"
+            var url="../category/update"
             if(id==-1){
-                url="/user/category/insert"
+                url="../category/insert"
             }
              $.ajax({
                 url:url,

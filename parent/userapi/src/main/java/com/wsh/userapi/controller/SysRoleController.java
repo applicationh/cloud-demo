@@ -11,6 +11,7 @@ import com.wsh.usercom.vo.SysUserRoleVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 后台角色表(SysRole)表控制层
@@ -85,8 +86,8 @@ public class SysRoleController {
      */
     @DeleteMapping("/deleteById")
     public Result<Boolean> deleteById(Integer id) {
-        SysUserRoleVo sysUserRoleVo = sysUserRoleService.queryByRoleId(id);
-        if (sysUserRoleVo == null) {
+        List<SysUserRoleVo> sysUserRoleVos = sysUserRoleService.queryByRoleId(id);
+        if (sysUserRoleVos == null||sysUserRoleVos.size()==0) {
             Boolean deleteById = sysRoleService.deleteById(id);
             return Result.success(deleteById);
         }else{

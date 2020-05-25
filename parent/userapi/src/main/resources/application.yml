@@ -20,7 +20,7 @@ spring:
           paths: /**
   thymeleaf:
     cache: false
-ctx: http://127.0.0.1:8081/user/
+ctx: http://localhost:${server.port}${server.servlet.context-path}/
 eureka:
   instance:
     hostname: userapi

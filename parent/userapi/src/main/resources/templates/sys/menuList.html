@@ -93,7 +93,7 @@
                 {align: 'center', toolbar: '#tbBar', title: '操作', width: 300}
             ]],
             reqData: function(data, callback) {
-                $.post('/user/category/queryAllTable', function (res) {
+                $.post('../category/queryAllTable', function (res) {
                     if(res.code==0) callback(res.data);
                     else callback(res.msg);
                 });
@@ -112,7 +112,7 @@
                     obj.del();
                     $.ajax({
                         type: 'get',
-                        url: '/user/category/delete?id='+obj.data.id,
+                        url: '../category/delete?id='+obj.data.id,
                         contentType: "application/json;charset=UTF-8",
                         success: function (res) {
                             layer.msg('删除成功');
@@ -126,7 +126,7 @@
                  parent.layer.open({
                     title: '修改权限'
                     ,type: 2
-                    ,content: '/user/sys/addMenu.html'
+                    ,content: 'sys/addMenu.html'
                     ,area: ['500px', '450px']
                      ,data:obj.data
                     ,end:function(){
@@ -140,7 +140,7 @@
             parent.layer.open({
                 title: '添加权限'
                 ,type: 2
-                ,content: '/user/sys/addMenu.html'
+                ,content: 'sys/addMenu.html'
                 ,area: ['500px', '450px']
                 ,end:function(){
                     insTb.reload();//弹出层结束后，刷新主页面
@@ -155,7 +155,7 @@
                 reqData: function(data, callback) {
                     $.ajax({
                         type: 'POST',
-                        url: '/user/category/queryAllTable',
+                        url: '../category/queryAllTable',
                         contentType: "application/json;charset=UTF-8",
                         data:  JSON.stringify(fromData),
                         success: function (res) {

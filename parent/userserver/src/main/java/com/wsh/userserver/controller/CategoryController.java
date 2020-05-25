@@ -65,6 +65,7 @@ public class CategoryController {
 
     @GetMapping("delete")
     public void delete(@RequestParam("id") Integer id) {
+        //todo   删除时校验权限是否关联角色
         categoryService.deleteAndMove(id);
     }
     @PostMapping("update")

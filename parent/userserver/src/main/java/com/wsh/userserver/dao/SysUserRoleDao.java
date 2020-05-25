@@ -23,7 +23,7 @@ public interface SysUserRoleDao {
      */
     SysUserRole queryById(Integer id);
 
-    SysUserRole queryByRoleId(Integer roleId);
+    List<SysUserRole> queryByRoleId(Integer roleId);
 
   
     /**

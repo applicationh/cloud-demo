@@ -8,6 +8,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 用户—角色表(SysUserRole)表服务接口
  *
@@ -28,7 +30,7 @@ public interface SysUserRoleService {
     SysUserRoleVo queryById(@RequestParam("id")Integer id);
 
     @GetMapping("/sysUserRole/queryByRoleId")
-    SysUserRoleVo queryByRoleId(@RequestParam("roleId")Integer roleId);
+    List<SysUserRoleVo> queryByRoleId(@RequestParam("roleId")Integer roleId);
 
     /**
      * 查询多条数据

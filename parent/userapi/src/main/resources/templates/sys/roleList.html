@@ -61,7 +61,7 @@
             ,id:'tableReload'
             ,method: 'post'
             ,contentType: 'application/json'
-            ,url: '/user/sysRole/queryAll' //数据接口
+            ,url: '../sysRole/queryAll' //数据接口
             ,height: 'full-120'
             ,page: {
                 groups:10
@@ -113,7 +113,7 @@
                 }
                 ,limit: 20
                 ,page: true
-                ,url: '/user/sysRole/queryAll'
+                ,url: '../sysRole/queryAll'
                 ,method: 'post'
             });
             return false;//false：阻止表单跳转  true：表单跳转
@@ -129,7 +129,7 @@
             parent.layer.open({
                 title: '添加角色'
                 ,type: 2
-                ,content: '/user/sys/addRole.html'
+                ,content: 'sys/addRole.html'
                 ,area: ['500px', '350px']
                 ,end:function(){
                     userList.reload({
@@ -147,7 +147,7 @@
         var TreeData
         $(function(){
                 $.ajax({
-                    url:'/user/category/queryAllNotRoot?openLevel=1',
+                    url:'../category/queryAllNotRoot?openLevel=1',
                     async:false,
                     success:function (res) {
                         TreeData= res;
@@ -159,7 +159,7 @@
         function getRoleMenu(id){
             var result=[];
             $.ajax({
-                url:'/user/sysRole/queryById?id='+id+'&menu=true',
+                url:'../sysRole/queryById?id='+id+'&menu=true',
                 async:false,
                 success:function (res) {
                     if(res.data!=null){
@@ -180,7 +180,7 @@
                 parent.layer.open({
                     title: '分配权限'
                     ,type: 2
-                    ,content: '/user/sys/menuTree.html'
+                    ,content: 'sys/menuTree.html'
                     ,area: ['500px', '450px']
                     ,data:obj
                     ,end:function(){
@@ -205,7 +205,7 @@
                 parent.layer.open({
                     title: '编辑角色'
                     ,type: 2
-                    ,content: '/user/sys/addRole.html'
+                    ,content: 'sys/addRole.html'
                     ,area: ['500px', '350px']
                     ,data:data
                     ,end:function(){
@@ -221,7 +221,7 @@
 
         function  deleteById(id) {
             $.ajax({
-                url:'/user/sysRole/deleteById?id='+id,
+                url:'../sysRole/deleteById?id='+id,
                 method:'delete',
                 success:function (res) {
                     if(res.code==0){

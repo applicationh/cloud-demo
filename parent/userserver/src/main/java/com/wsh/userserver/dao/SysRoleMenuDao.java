@@ -47,7 +47,7 @@ public interface SysRoleMenuDao {
     int update(SysRoleMenu sysRoleMenu);
 
 
-    int delete(@Param("roleId") Integer roleId);
+    int deleteByRoleId(@Param("roleId") Integer roleId);
 
 
 

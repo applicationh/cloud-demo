@@ -31,7 +31,8 @@
         where id = #{id}
     </select>
     <select id="queryByIdDetail"  resultMap="SysRoleDetail"  parameterType="java.lang.Integer">
-        select s.*,   permission_id from sys_role_menu r left JOIN sys_role s on r.role_id=s.id where s.id =#{id}
+        SELECT	s.*,	permission_id FROM	sys_role_menu r	LEFT JOIN sys_role s ON r.role_id = s.id
+        LEFT JOIN category c ON c.id = permission_id WHERE	s.id = #{id} 	AND c.type = 2
     </select>
 
     <select id="getUserRoleName" resultMap="SysRoleMap">

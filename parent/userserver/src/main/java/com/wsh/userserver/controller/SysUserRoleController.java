@@ -7,6 +7,7 @@ import com.wsh.userserver.service.SysUserRoleService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 用户—角色表(SysUserRole)表控制层
@@ -35,7 +36,7 @@ public class SysUserRoleController {
     }
 
     @GetMapping("queryByRoleId")
-    public SysUserRole queryByRoleId(Integer roleId) {
+    public List<SysUserRole> queryByRoleId(Integer roleId) {
         return sysUserRoleService.queryByRoleId(roleId);
     }
 

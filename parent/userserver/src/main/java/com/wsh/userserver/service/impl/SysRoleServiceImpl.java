@@ -4,11 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wsh.usercom.entity.SysRole;
 import com.wsh.usercom.entity.SysRoleMenu;
-import com.wsh.usercom.entity.SysUserRole;
 import com.wsh.usercom.param.SysRoleParam;
 import com.wsh.userserver.dao.SysRoleDao;
 import com.wsh.userserver.dao.SysRoleMenuDao;
-import com.wsh.userserver.dao.SysUserRoleDao;
 import com.wsh.userserver.service.SysRoleService;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +26,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     private SysRoleDao sysRoleDao;
     @Resource
     private SysRoleMenuDao sysRoleMenuDao;
-    @Resource
-    private SysUserRoleDao sysUserRoleDao;
+
 
 
     /**
@@ -82,6 +79,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         List<Integer> menuId = sysRole.getMenuId();
         if (menuId != null) {
             Date date = new Date();
+            sysRoleMenuDao.deleteByRoleId(sysRole.getId());
             menuId.forEach(integer ->{
                         SysRoleMenu sys = new SysRoleMenu();
                         sys.setCreateTime(date);
@@ -110,7 +108,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         SysRole sysRole= new SysRole();
         sysRole.setId(id);
         sysRole.setDeleteStatus(2);
-        sysRoleMenuDao.delete(id);
+        sysRoleMenuDao.deleteByRoleId(id);
         return sysRoleDao.update(sysRole) > 0;
     }
 }

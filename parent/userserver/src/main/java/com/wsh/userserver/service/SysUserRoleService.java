@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.wsh.usercom.entity.SysUserRole;
 import com.wsh.usercom.param.SysUserRoleParam;
 
+import java.util.List;
+
 /**
  * 用户—角色表(SysUserRole)表服务接口
  *
@@ -20,7 +22,7 @@ public interface SysUserRoleService {
      */
     SysUserRole queryById(Integer id);
 
-    SysUserRole queryByRoleId(Integer roleId);
+    List<SysUserRole> queryByRoleId(Integer roleId);
 
     /**
      * 查询多条数据

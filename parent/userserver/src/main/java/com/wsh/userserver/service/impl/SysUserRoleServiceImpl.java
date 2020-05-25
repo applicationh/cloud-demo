@@ -34,7 +34,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
     }
 
     @Override
-    public SysUserRole queryByRoleId(Integer roleId) {
+    public List<SysUserRole> queryByRoleId(Integer roleId) {
         return sysUserRoleDao.queryByRoleId(roleId);
     }
 

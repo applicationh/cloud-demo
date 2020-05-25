@@ -64,7 +64,7 @@
             el: '#demo2',
             name: 'sysRoleVos',
             max: 2,
-            layVerify: 'required',
+
             paging: true,
             pageSize: 10,
             initValue: [999],
@@ -77,15 +77,16 @@
                 layer.msg('失败：最大上限为2个',{shade:0.3,time:1500});
             },
             remoteMethod: function(val, cb, show, pageIndex){
+
                 $.ajax({
-                    url:'/user/sysRole/queryAll',
+                    url:'../sysRole/queryAll',
                     async:false,
                     method:"post",
                     dataType: "json",
                     contentType:"application/json",
                     data:JSON.stringify({"page":pageIndex}),
                     success:function (res) {
-                        if (res.code == 0) {
+                        if (res.code == 0&&parData != null) {
                             $.each(parData.sysRoleVos,function(i,item){
                                 $.each(res.data.list,function(i,item2){
                                     if(item.id==item2.id){
@@ -93,17 +94,16 @@
                                     }
                                 });
                             });
-                            cb(res.data.list,res.data.total);
                         }
-
+                        cb(res.data.list,res.data.total);
                     }});
             }
         });
-        var url="/user/sysUser/insert";
+        var url="../sysUser/insert";
         var method = "POST";
         if (parData != null) {
             form.val("editUser",JSON.parse(JSON.stringify(parData)));
-            url = "/user/sysUser/update";
+            url = "../sysUser/update";
             method = "PUT";
             $('#pass').removeAttr('lay-verify');
         }
