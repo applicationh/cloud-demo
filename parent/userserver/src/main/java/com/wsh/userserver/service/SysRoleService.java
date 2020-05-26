@@ -20,6 +20,8 @@ public interface SysRoleService {
      */
     SysRole queryById(Integer id,Boolean menu);
 
+    Boolean queryByPermissionId(Integer permissionId);
+
     /**
      * 查询多条数据
      * @return 对象列表

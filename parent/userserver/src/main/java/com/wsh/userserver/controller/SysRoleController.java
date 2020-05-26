@@ -31,7 +31,13 @@ public class SysRoleController {
      */
     @GetMapping("queryById")
     public SysRole queryById(@RequestParam("id") Integer id,@RequestParam("menu")Boolean menu) {
-        return sysRoleService.queryById(id,menu);
+        SysRole sysRole = sysRoleService.queryById(id, menu);
+        return sysRole;
+    }
+
+    @GetMapping("queryByPermissionId")
+    public Boolean queryByPermissionId(@RequestParam("permissionId") Integer permissionId) {
+        return sysRoleService.queryByPermissionId(permissionId);
     }
     /**
      * 根据页码查询

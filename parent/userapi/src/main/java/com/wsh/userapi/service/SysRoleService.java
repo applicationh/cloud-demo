@@ -27,6 +27,8 @@ public interface SysRoleService {
      @GetMapping("/sysRole/queryById")
     SysRoleVo queryById(@RequestParam("id")Integer id,@RequestParam("menu")Boolean menu);
 
+    @GetMapping("/sysRole/queryByPermissionId")
+    Boolean queryByPermissionId(@RequestParam("permissionId")Integer permissionId) ;
     /**
      * 查询多条数据
      *

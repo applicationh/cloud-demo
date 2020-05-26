@@ -35,17 +35,17 @@ public class SysRole implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")    
     private Date createTime;
     
-    /**
-    * 更新时间
-    */        
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")    
+  /**
+     * 更新时间
+     */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-    
+
     /**
-    * 是否有效  1有效  2无效
-    */        
+     * 是否有效  1有效  2无效
+     */
     private Integer deleteStatus;
-    
+
 
     private List<Integer>  menuId;
 

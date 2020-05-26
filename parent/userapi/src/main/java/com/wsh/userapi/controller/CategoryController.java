@@ -3,6 +3,7 @@ package com.wsh.userapi.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wsh.userapi.service.CategoryService;
+import com.wsh.userapi.service.SysRoleService;
 import com.wsh.userapi.utils.Result;
 import com.wsh.usercom.entity.Category;
 import com.wsh.usercom.entity.TreeNode;
@@ -28,6 +29,8 @@ public class CategoryController {
      */
     @Resource
     private CategoryService categoryService;
+    @Resource
+    private SysRoleService sysRoleService;
 
     /**
      * 通过主键查询单条数据
@@ -92,6 +95,10 @@ public class CategoryController {
         Category category = categoryService.selectRoot();
         if (category.getId() == id) {
             return Result.error("根目录不可删除");
+        }
+        Boolean b = sysRoleService.queryByPermissionId(id);
+        if (!b) {
+            return Result.error("已有角色关联不可删除");
         }
         categoryService.deleteAndMove(id);
         return Result.success();

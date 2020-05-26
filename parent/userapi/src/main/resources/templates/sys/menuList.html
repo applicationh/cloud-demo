@@ -10,6 +10,11 @@
     .treeClass{
         margin: 20px 20px
     }
+    .layui-badge-div-green{
+        color: #52c41a;
+        background: #f6ffed;
+        border: 1px solid #b7eb8f;
+    }
 </style>
 <body>
 <div><i class="layui-icon layui-icon-location" style="margin: 0px 5px" ></i>
@@ -65,7 +70,13 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
+<script type="text/html" id="type">
+    {{#  if(d.type === 1){ }}
+        <div class="layui-badge layui-badge-div-green">菜单</div>
+    {{#  }else{ }}
+        <div class="layui-badge-rim">按钮</div>
+    {{#  } }}
+</script>
 <script src="../layui.js"></script>
 <script src="../com.js"></script>
 <script>
@@ -89,7 +100,7 @@
                 {field: 'name', title: '菜单名称'},
                 {field: 'url', title: '地址'},
                 {field: 'code', title: '权限标识'},
-                {templet: '<p>{{d.type==1?"菜单":"按钮"}}</p>', title: '类型'},
+                {templet: '#type', title: '类型'},
                 {align: 'center', toolbar: '#tbBar', title: '操作', width: 300}
             ]],
             reqData: function(data, callback) {
@@ -109,13 +120,17 @@
                 if (obj.data.children && obj.data.children.length > 0){
                     return layer.msg('有子级不能删除');
                 } else{
-                    obj.del();
                     $.ajax({
                         type: 'get',
                         url: '../category/delete?id='+obj.data.id,
                         contentType: "application/json;charset=UTF-8",
                         success: function (res) {
-                            layer.msg('删除成功');
+                            if (res.code == 0) {
+                                layer.msg('删除成功');
+                                obj.del();
+                            }else{
+                                layer.msg(res.message);
+                            }
                         }
                     });
 

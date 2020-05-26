@@ -40,8 +40,12 @@
             obj.id=parent.layer.methodConfig.data.id;
             var checkedData = tree.getChecked('menu1'); //获取选中节点的数据
             var nodeIds = new Array();
-            nodeIds = getCheckedId(checkedData);
-            nodeIds=nodeIds.split(","); //字符分割
+           var  list = getCheckedId(checkedData);
+            if (typeof list != 'number') {
+                nodeIds=list.split(","); //字符分割
+            }else{
+                nodeIds[0]=list;
+            }
             obj.menuId = nodeIds;
 
             $.ajax({

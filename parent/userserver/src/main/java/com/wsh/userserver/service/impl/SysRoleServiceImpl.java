@@ -29,6 +29,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 
 
+
+
     /**
      * 通过ID查询单条数据
      *
@@ -42,6 +44,11 @@ public class SysRoleServiceImpl implements SysRoleService {
             return sysRoleDao.queryByIdDetail(id);
         }
         return sysRoleDao.queryById(id);
+    }
+
+    @Override
+    public Boolean queryByPermissionId(Integer permissionId) {
+        return sysRoleMenuDao.queryByPermissionId(permissionId);
     }
 
     /**
@@ -83,7 +90,6 @@ public class SysRoleServiceImpl implements SysRoleService {
             menuId.forEach(integer ->{
                         SysRoleMenu sys = new SysRoleMenu();
                         sys.setCreateTime(date);
-                        sys.setDeleteStatus(1);
                         sys.setRoleId(sysRole.getId());
                         sys.setPermissionId(integer);
                         sysRoleMenuDao.insert(sys);

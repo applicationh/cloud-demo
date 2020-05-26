@@ -21,6 +21,7 @@ public interface SysRoleMenuDao {
      * @return 实例对象
      */
     SysRoleMenu queryById(Integer id);
+    boolean queryByPermissionId(Integer permissionId);
 
   
     /**

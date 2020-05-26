@@ -32,7 +32,7 @@
     </select>
     <select id="queryByIdDetail"  resultMap="SysRoleDetail"  parameterType="java.lang.Integer">
         SELECT	s.*,	permission_id FROM	sys_role_menu r	LEFT JOIN sys_role s ON r.role_id = s.id
-        LEFT JOIN category c ON c.id = permission_id WHERE	s.id = #{id} 	AND c.type = 2
+        LEFT JOIN category c ON c.id = permission_id WHERE	s.id = #{id}
     </select>
 
     <select id="getUserRoleName" resultMap="SysRoleMap">
