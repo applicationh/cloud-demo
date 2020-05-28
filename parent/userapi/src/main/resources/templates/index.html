@@ -84,10 +84,14 @@
     </div>
 </div>
 <script src="layui.js"></script>
+<link rel="stylesheet" href="dtree/dtree.css">
+<link rel="stylesheet" href="dtree/dtreefont.css">
 <script>
-    layui.use('layer', function () {
+
+    layui.use(['layer' ], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
+
     });
     function setUrl(url) {
         document.getElementById("iframeMain").src=url;

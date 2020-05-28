@@ -134,7 +134,7 @@
     <select id="contains" resultType="java.lang.Boolean" parameterType="int">
         SELECT 1 FROM category WHERE id=#{id}
     </select>
-    <select id="selectAll" resultType="com.wsh.usercom.entity.TreeNode">
+    <select id="selectAll" resultType="com.wsh.usercom.orther.TreeNode">
       SELECT id,name title,ancestor pid
         ,(select 1 from category_tree  where ancestor=#{pid} and descendant=id and distance &lt; #{level}) spread
       FROM `category_tree` left join  category on category_tree.descendant=category.id where distance =1
@@ -156,5 +156,10 @@
                 and  code like CONCAT ("%",#{code},"%")
             </if>
         </where>
+    </select>
+    <select id="queryAllNotRootDtree" resultType="com.wsh.usercom.orther.TreeNode">
+
+
+
     </select>
 </mapper>

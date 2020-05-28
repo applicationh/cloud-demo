@@ -2,7 +2,7 @@ package com.wsh.userserver.dao;
 
 
 import com.wsh.usercom.entity.Category;
-import com.wsh.usercom.entity.TreeNode;
+import com.wsh.usercom.orther.TreeNode;
 import com.wsh.usercom.param.CategoryParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

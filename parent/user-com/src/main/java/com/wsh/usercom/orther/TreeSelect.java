@@ -1,4 +1,4 @@
-package com.wsh.usercom.entity;
+package com.wsh.usercom.orther;
 
 import java.util.List;
 

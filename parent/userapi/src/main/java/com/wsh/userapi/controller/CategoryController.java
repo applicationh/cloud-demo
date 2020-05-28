@@ -6,8 +6,7 @@ import com.wsh.userapi.service.CategoryService;
 import com.wsh.userapi.service.SysRoleService;
 import com.wsh.userapi.utils.Result;
 import com.wsh.usercom.entity.Category;
-import com.wsh.usercom.entity.TreeNode;
-import com.wsh.usercom.entity.TreeSelect;
+import com.wsh.usercom.orther.TreeNode;
 import com.wsh.usercom.param.CategoryParam;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,9 +62,16 @@ public class CategoryController {
         return treeNodes;
     }
     @GetMapping("queryAllNotRoot")
-    public List<TreeNode> queryAllNotRoot(@RequestParam(required = false,name = "openLevel",defaultValue = "1")Integer openLevel) {
+    public JSONObject queryAllNotRoot(@RequestParam(required = false,name = "openLevel",defaultValue = "1")Integer openLevel) {
         TreeNode treeNode = categoryService.selectAll(openLevel+1);
-        return treeNode.getChildren();
+        JSONObject jsonObject = new JSONObject();
+        JSONObject status = new JSONObject();
+        status.put("code", 200);
+        status.put("message", "操作成功");
+        jsonObject.put("status", status);
+        jsonObject.put("data", treeNode.getChildren());
+
+        return jsonObject;
     }
 
 

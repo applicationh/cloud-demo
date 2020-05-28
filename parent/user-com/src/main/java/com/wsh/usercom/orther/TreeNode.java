@@ -1,5 +1,6 @@
-package com.wsh.usercom.entity;
+package com.wsh.usercom.orther;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,15 +25,37 @@ public class TreeNode {
 
     private List<TreeNode> children;
 
+    /** 复选框集合*/
+    private String checkArr="0";
+
 
     //数据库
     private Integer pid;
+
+    private Integer parentId;
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getCheckArr() {
+        return checkArr;
+    }
+
+    public void setCheckArr(String checkArr) {
+        this.checkArr = checkArr;
+    }
 
     public Integer getPid() {
         return pid;
     }
 
     public void setPid(Integer pid) {
+        this.parentId = pid;
         this.pid = pid;
     }
 

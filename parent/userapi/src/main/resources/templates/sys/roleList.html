@@ -5,6 +5,8 @@
     <title>table模块快速使用</title>
     <link rel="stylesheet" href="../css/layui.css" media="all">
     <link rel="stylesheet" href="../css/common.css" media="all">
+    <link rel="stylesheet" href="../dtree/dtree.css">
+    <link rel="stylesheet" href="../dtree/dtreefont.css">
 </head>
 <body>
 <div><i class="layui-icon layui-icon-location" style="margin: 0px 5px" ></i>
@@ -50,11 +52,21 @@
 <script src="../layui.js"></script>
 <script src="../com.js"></script>
 <script>
-    layui.use(['table','form','element'], function(){
+    layui.config({
+        base: '../dtree/'      //自定义layui组件的目录
+    }).extend({ //设定组件别名
+        dtree: "dtree"
+
+    });
+
+
+    layui.use(['table','form','element','dtree'], function(){
         var table = layui.table;
         var form = layui.form;
         var tree = layui.tree;
         var element = layui.element;
+        var dtree = layui.dtree;
+
         var $ = layui.$;
         var userList=table.render({
             elem: '#demo'
@@ -165,32 +177,86 @@
                     if(res.data!=null){
                         result= res.data.menuId
                     }
-
                 }});
             return result;
         };
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'setMenu'){
+                    var DTree = null;
+                    parent.layer.open({
+                        type: 1, //type:0 也行
+                        title: "选择权限",
+                        area: ["400px", "80%"],
+                        content: '<ul id="openTree3" class="dtree" data-id="0"></ul>',
+                        btn: ['确认选择'],
+                        success: function(layero, index){
 
-                var obj = new Object();
-                obj.treeData=TreeData;
-                obj.initData=getRoleMenu(data.id);
-                obj.id=data.id;
-                parent.layer.open({
-                    title: '分配权限'
-                    ,type: 2
-                    ,content: 'sys/menuTree.html'
-                    ,area: ['500px', '450px']
-                    ,data:obj
-                    ,end:function(){
-                        userList.reload({
-                            page: {
-                                curr: 1 //重新从第 1 页开始
+                            DTree = dtree.render({
+                                elem: $(layero).find("#openTree3"),
+                                obj: $(layero).find("#openTree3"),
+                                // url: "../category/queryAllNotRoot?openLevel=1",
+                                data:TreeData.data,
+                                type:"all",
+                                checkbar: true, // 开启复选框
+                                dataStyle: "layuiStyle",
+                                // method: "get",
+                                checkbarType:'no-all',
+                                line: true,
+                                skin: "layui"
+                                ,done: function(res, $ul, first){
+                                   var init= getRoleMenu(data.id)
+                                    if(first&&init.length>0) {
+                                        dtree.chooseDataInit("openTree3",init); // 初始化选中
+                                        dtree.initNoAllCheck("openTree3");
+                                    }
+                                }
+                            });
+                            // 绑定节点点击事件
+                            dtree.on("node(openTree3)", function(obj){
+                                if(!obj.param.leaf){
+                                    var $div = obj.dom;
+                                    DTree.clickSpread($div);  //调用内置函数展开节点
+                                } else {
+                                    // layer.msg("叶子节点就不展开了");
+                                }
+                            });
+
+
+                        },
+                        yes: function(index, layero) {
+                            var flag = true;
+                            var params = dtree.getCheckbarNodesParam("openTree3"); // 获取选中值
+                            if(params.length == 0){
+                                parent.layer.msg("请至少选择一个节点",{icon:2});
+                                flag = false;
                             }
-                        });//弹出层结束后，刷新主页面
-                    }
-                });
+                            // 获取复选框数组数据
+                            var paramJsonArr = DTree.getCheckbarJsonArrParam();
+                            var list= paramJsonArr["nodeId"];
+
+                            var send = new Object();
+                            send.id=data.id;
+                            send.menuId=list;
+                            console.log(JSON.stringify(send));
+                            $.ajax({
+                                url:"../sysRole/update",
+                                method:'put',
+                                data: JSON.stringify(send),
+                                dataType: "json",
+                                contentType:"application/json",
+                                success:function (res) {
+                                    if(res.code==0){
+                                        layer.msg('提交成功',{shade:0.3,time:1500});
+                                    }
+                                }
+
+                            });
+                            if(flag){
+                                parent.layer.close(index);
+                            }
+                        }
+                    });
             } else if(obj.event === 'del'){
                 layer.msg('真的删除行么', {
                     time: 0 //不自动关闭
