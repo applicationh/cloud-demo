@@ -20,29 +20,29 @@
 <div  style="background-color: rgba(0, 0, 0, .5); height:auto; min-height: 100%">
 <div class="content"  style="">
     <canvas id="canvas" ></canvas>
-    <div class="form sign-in">
+    <div class="form sign-in layui-form">
         <h2>欢迎回来</h2>
         <label>
-            <span>邮箱</span>
-            <input type="email" />
+            <span>账号</span>
+            <input type="text" name="username"  autocomplete="off"/>
         </label>
         <label>
             <span>密码</span>
-            <input type="password" />
+            <input type="password" name="password" autocomplete="off" />
         </label>
         <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
-        <button type="button" class="submit">登 录</button>
-        <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号登录</button>
+        <button type="button" class="submit" lay-submit lay-filter="*">登 录</button>
+        <!--<button type="button" class="fb-btn">使用 <span>facebook</span> 帐号登录</button>-->
     </div>
     <div class="sub-cont">
-        <div class="img">
+        <div class="img " >
             <div class="img__text m--up">
                 <h2>还未注册？</h2>
-                <p>立即注册，发现大量机会！</p>
+                <p>立即注册，等你探索！</p>
             </div>
             <div class="img__text m--in">
                 <h2>已有帐号？</h2>
-                <p>有帐号就登录吧，好久不见了！</p>
+                <p>有帐号就登录吧，好久不见~</p>
             </div>
             <div class="img__btn">
                 <span class="m--up">注 册</span>
@@ -53,28 +53,57 @@
             <h2>立即注册</h2>
             <label>
                 <span>用户名</span>
-                <input type="text" />
+                <input type="text"  name="username" autocomplete="off" />
             </label>
             <label>
                 <span>邮箱</span>
-                <input type="email" />
+                <input type="email" name="email"  autocomplete="off"/>
             </label>
             <label>
                 <span>密码</span>
-                <input type="password" />
+                <input type="password" name ="password"/>
             </label>
             <button type="button" class="submit">注 册</button>
-            <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号注册</button>
+            <!--<button type="button" class="fb-btn">使用 <span>facebook</span> 帐号注册</button>-->
         </div>
     </div>
 </div>
 </div>
-
+<script src="layui.js"></script>
 <script type="text/javascript">
+    layui.use('form', function(){
+        var form = layui.form;
+        var $=layui.$;
+        form.on('submit(*)', function(data){
+
+            $.ajax({
+                url:"sysUser/login",
+                method:'post',
+                data: data.field,
+                contentType:"application/x-www-form-urlencoded",
+                success:function (res) {
+                    console.log(res)
+                    if(res.code==0){
+                        layer.msg("登录成功...",{shade:0.3,time:1000},function () {
+                            window.location.replace("/user/index");
+                        });
+                    }else{
+                        layer.msg(res.message,{shade:0.3,time:1500});
+                    }
+                }
+
+            });
+
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    });
+
     document.querySelector('.img__btn').addEventListener('click', function() {
         document.querySelector('.content').classList.toggle('s--signup')
     })
 </script>
+
 <script>
     var self = window;
 

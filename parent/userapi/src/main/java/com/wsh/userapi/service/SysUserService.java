@@ -59,5 +59,9 @@ public interface SysUserService {
      */
     @DeleteMapping("/sysUser/deleteById")
     Boolean deleteById(@RequestParam("id")Integer id);
+    @PostMapping("/sysUser/login")
+    SysUser login(@RequestParam("username") String username, @RequestParam("password") String password);
 
+    @PostMapping("/sysUser/getUserByName")
+    SysUser getUserByName(@RequestParam("username") String username);
 }

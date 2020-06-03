@@ -84,4 +84,14 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setDeleteStatus(2);
         return sysUserDao.update(sysUser) > 0;
     }
+
+    @Override
+    public SysUser login(String username, String password) {
+        return sysUserDao.login(username,password)  ;
+    }
+
+    @Override
+    public SysUser getUserByName(String username) {
+        return sysUserDao.getUserByName(username)  ;
+    }
 }

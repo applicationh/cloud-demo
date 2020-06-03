@@ -1,12 +1,10 @@
 package com.wsh.userapi.utils;
 
-import java.io.Serializable;
-
 /**
  * @Author: wsh
  */
 
-public class Result<T>  implements Serializable {
+public class Result<T> {
     private  Boolean success;
     private  Integer code;
     private  String message;
@@ -15,7 +13,7 @@ public class Result<T>  implements Serializable {
     private  Result(T data) {
         this.success=true;
         this.code=0;
-        this.message = "成功";
+        this.message ="成功";
         this.data = data;
     }
     private Result(CodeMsg cm) {
@@ -27,31 +25,31 @@ public class Result<T>  implements Serializable {
         this.message = cm.getMessage();
     }
     /**
-     * �ɹ�
+     * 成功
      */
     public static <T> Result<T> success(T data){
         return new Result<>(data);
     }
 
     /**
-     * �ɹ�����Ҫ����
+     * 成功不需要参数
      */
     public static <T> Result<T> success(){
         return (Result<T>) success("");
     }
 
     /**
-     * ʧ��ʱ��ĵ��ã��Զ��������
+     * 失败时候的调用，自定义错误码
      */
     public static <T> Result<T> error(CodeMsg cm){
         return new Result<T>(cm);
     }
     /**
-     * ʧ��ʱ��ĵ���,Ĭ�ϴ�����+��Ϣ
+     * 失败时候的调用,默认错误码+消息
      */
     public static <T> Result<T> error(String msg){
         CodeMsg cm= new CodeMsg(msg);
-        return new Result<T>(cm);
+        return new Result<>(cm);
     }
 
 

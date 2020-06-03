@@ -3,6 +3,7 @@ package com.wsh.userserver.dao;
 import com.wsh.usercom.entity.SysUser;
 import com.wsh.usercom.param.SysUserParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -49,4 +50,7 @@ public interface SysUserDao {
     int update(SysUser sysUser);
 
 
+    SysUser login(@Param("username") String username, @Param("password") String password);
+
+    SysUser getUserByName(@Param("username")String username);
 }

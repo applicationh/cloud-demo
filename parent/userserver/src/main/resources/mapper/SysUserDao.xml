@@ -56,6 +56,12 @@
 
         order by  id  desc
     </select>
+    <select id="login" resultType="com.wsh.usercom.entity.SysUser">
+      select * from  sys_user where  username=#{username} and password=#{password}
+    </select>
+    <select id="getUserByName" resultType="com.wsh.usercom.entity.SysUser">
+         select * from  sys_user where  username=#{username} limit 1
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
@@ -98,5 +104,5 @@
         where id = #{id}
     </update>
 
-  
+
 </mapper>

@@ -6,6 +6,7 @@ import com.wsh.usercom.entity.SysUser;
 import com.wsh.usercom.entity.SysUserRole;
 import com.wsh.usercom.param.SysUserParam;
 import com.wsh.usercom.vo.SysRoleVo;
+import com.wsh.usercom.vo.SysUserVo;
 import com.wsh.userserver.service.SysUserRoleService;
 import com.wsh.userserver.service.SysUserService;
 import org.springframework.web.bind.annotation.*;
@@ -92,6 +93,18 @@ public class SysUserController {
     public Boolean deleteById(Integer id) {
         Boolean deleteById =sysUserService.deleteById(id);
         return deleteById;
+    }
+
+    @PostMapping("login")
+    public SysUser login(@RequestParam("username") String username, @RequestParam("password") String password){
+        SysUser  sysUser =sysUserService.login(username, password);
+        return sysUser;
+    }
+
+    @PostMapping("getUserByName")
+    SysUser getUserByName(@RequestParam("username") String username){
+        SysUser  sysUser =sysUserService.getUserByName(username);
+        return sysUser;
     }
 
 }

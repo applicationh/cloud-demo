@@ -50,4 +50,7 @@ public interface SysUserService {
      */
     Boolean deleteById(Integer id);
 
+    SysUser login(String username, String password);
+
+    SysUser getUserByName(String username);
 }
