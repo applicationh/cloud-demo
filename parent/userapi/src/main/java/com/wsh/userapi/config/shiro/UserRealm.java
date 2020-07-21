@@ -1,6 +1,7 @@
 package com.wsh.userapi.config.shiro;
 
 import com.alibaba.fastjson.JSONObject;
+import com.netflix.discovery.converters.Auto;
 import com.wsh.userapi.service.SysUserService;
 import com.wsh.userapi.utils.Constants;
 import com.wsh.usercom.entity.SysUser;
@@ -16,8 +17,12 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 
 import java.util.Collection;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -27,6 +32,9 @@ import java.util.stream.Collectors;
 public class UserRealm extends AuthorizingRealm {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     SysUserService sysUserService;
@@ -48,6 +56,9 @@ public class UserRealm extends AuthorizingRealm {
         return authorizationInfo;
     }
 
+    String slc = "shiro_login_count";
+    String sll = "shiro_login_lock";
+
     /**
      * 获取身份验证信息
      */
@@ -56,8 +67,21 @@ public class UserRealm extends AuthorizingRealm {
         logger.info("执行了认证");
 
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        String username = token.getUsername();
 
-        SysUser login = sysUserService.getUserByName(token.getUsername());
+        SysUser login = sysUserService.getUserByName(username);
+        //访问一次，计数一次
+        ValueOperations<String, String> opsForValue = stringRedisTemplate.opsForValue();
+        opsForValue.increment(slc + username, 1);
+        //计数大于5时，设置用户被锁定一小时
+        if(Integer.parseInt(opsForValue.get(slc+username))>5){
+            opsForValue.set(sll+username, "LOCK");
+            stringRedisTemplate.expire(sll+username, 1, TimeUnit.HOURS);
+        }
+
+        if ("LOCK".equals(opsForValue.get(sll+username))){
+            throw new DisabledAccountException();
+        }
         if (login == null) {
             //没找到帐号
             throw new UnknownAccountException();

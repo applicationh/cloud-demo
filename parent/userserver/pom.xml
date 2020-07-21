@@ -8,7 +8,7 @@
         <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.shineon</groupId>
+    <groupId>com.wsh</groupId>
     <artifactId>userserver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>userserver</name>
@@ -52,7 +52,7 @@
             <version>2.2.2.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>com.shineon</groupId>
+            <groupId>com.wsh</groupId>
             <artifactId>user-com</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

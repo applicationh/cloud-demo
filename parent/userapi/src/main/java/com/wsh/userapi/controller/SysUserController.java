@@ -8,6 +8,7 @@ import com.wsh.userapi.utils.Result;
 import com.wsh.userapi.service.SysUserService;
 import org.apache.catalina.security.SecurityUtil;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -93,6 +94,8 @@ public class SysUserController {
             return Result.error("用户不存在");
         } catch (IncorrectCredentialsException e) {
             return Result.error("密码不正确");
+        } catch (DisabledAccountException e) {
+            return Result.error("由于密码输入错误次数大于5次，帐号已经禁止登录！请一小时后重试");
         }
 //        SysUser sysUser = sysUserService.login(username,password);
 //        if (sysUser != null) {
